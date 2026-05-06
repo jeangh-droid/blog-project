@@ -161,13 +161,31 @@ function HomePage() {
 }
 
 function InputsPage() {
+  return (
+    <main className="max-w-5xl mx-auto py-40 px-6 space-y-32">
+      <section className="space-y-12">
+        <SectionHeader title="Entradas del Proyecto" icon={<ClipboardList size={20}/>} />
+        <div className="p-10 bg-white border border-slate-200 rounded-[4px] shadow-sm">
+           <p className="text-sm text-slate-500 leading-relaxed font-light">
+             Esta sección documenta los activos informativos y requerimientos iniciales recopilados para el diagnóstico. 
+             La información detallada del levantamiento y el cuestionario técnico se encuentran en la sección de <strong>Herramientas</strong>.
+           </p>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function ToolsPage() {
+  const structured = PROJECT_DATA.tools.interviewStructured;
   const inputs = PROJECT_DATA.inputs;
 
   return (
     <main className="max-w-5xl mx-auto py-40 px-6 space-y-32">
-      {/* Contexto de la Entrevista */}
       <section className="space-y-12">
-        <SectionHeader title="Entradas del Proyecto" icon={<ClipboardList size={20}/>} />
+        <SectionHeader title="Herramientas y Diagnóstico" icon={<Target size={20}/>} />
+        
+        {/* Contexto del Levantamiento (Movido aquí) */}
         <div className="p-10 bg-white border border-slate-200 rounded-[4px] shadow-sm">
            <h4 className="text-xs font-bold text-[#004A99] uppercase tracking-widest mb-4 flex items-center gap-2 border-b border-slate-100 pb-4">
               <MessageSquare size={16} /> Contexto del Levantamiento
@@ -177,7 +195,7 @@ function InputsPage() {
            </p>
         </div>
 
-        {/* Tabla de Preguntas */}
+        {/* Tabla de Preguntas (Movido aquí) */}
         <div className="space-y-6 pt-12">
           <h4 className="text-xs font-bold text-[#004A99] uppercase tracking-widest flex items-center gap-2">
             <ClipboardList size={16} /> Cuestionario de Diagnóstico
@@ -207,19 +225,6 @@ function InputsPage() {
             </table>
           </div>
         </div>
-      </section>
-    </main>
-  );
-}
-
-function ToolsPage() {
-  const structured = PROJECT_DATA.tools.interviewStructured;
-
-  return (
-    <main className="max-w-5xl mx-auto py-40 px-6 space-y-32">
-      <section className="space-y-12">
-        <SectionHeader title="Herramientas y Diagnóstico" icon={<Target size={20}/>} />
-        
         <div className="grid md:grid-cols-3 gap-8">
           <ToolCard 
             title="Entrevistas" 
