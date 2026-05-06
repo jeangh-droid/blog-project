@@ -45,6 +45,14 @@ export interface StakeholderInvolvement {
   actions: string;
 }
 
+export interface IdentifiedStakeholder {
+  id: string;
+  name: string;
+  type: string;
+  role: string;
+  responsibility: string;
+}
+
 export interface ProjectData {
   title: string;
   subtitle: string;
@@ -59,10 +67,62 @@ export interface ProjectData {
   inputs: {
     interviewContext: string;
     questions: QuestionEntry[];
+    projectCharter: {
+      project: string;
+      sponsor: string;
+      stakeholders: string;
+      term: string;
+    };
+    businessDocuments: {
+      businessCase: string;
+      expectedBenefits: string;
+    };
+    identifiedStakeholders: IdentifiedStakeholder[];
+    projectDocs: {
+      changeLog: string;
+      issueLog: string;
+      requirementsDoc: string;
+    };
+    agreements: string;
+    eefs: {
+      culture: string;
+      environment: string;
+      tiktok: string;
+      team: string;
+    };
+    opas: {
+      ownerKnowledge: string;
+      brotherExperience: string;
+      manualAccounting: string;
+      noTemplates: string;
+    };
   };
   outputs: {
-    stakeholderAnalysis: StakeholderAnalysis[];
-    stakeholderInvolvement: StakeholderInvolvement[];
+    stakeholderRegister: {
+      id: string;
+      name: string;
+      role: string;
+      interest: 'Alto' | 'Medio' | 'Bajo';
+      power: 'Alto' | 'Medio' | 'Bajo';
+      strategy: string;
+    }[];
+    changeRequests: {
+      id: string;
+      description: string;
+      area: string;
+      priority: string;
+      status: string;
+    }[];
+    planUpdates: {
+      document: string;
+      update: string;
+      justification: string;
+    }[];
+    docUpdates: {
+      document: string;
+      update: string;
+      detail: string;
+    }[];
   };
   tools: {
     interviews: string;

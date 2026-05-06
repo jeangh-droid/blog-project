@@ -17,7 +17,6 @@ import {
   Users,
   ArrowRight,
   FileText,
-  UserCheck,
   TrendingUp,
   MessageSquare
 } from 'lucide-react';
@@ -161,18 +160,155 @@ function HomePage() {
 }
 
 function InputsPage() {
+  const inputs = PROJECT_DATA.inputs;
+
   return (
-    <main className="max-w-5xl mx-auto py-40 px-6 space-y-32">
-      <section className="space-y-12">
-        <SectionHeader title="Entradas del Proyecto" icon={<ClipboardList size={20}/>} />
-        <div className="p-10 bg-white border border-slate-200 rounded-[4px] shadow-sm">
-           <p className="text-sm text-slate-500 leading-relaxed font-light">
-             Esta sección documenta los activos informativos y requerimientos iniciales recopilados para el diagnóstico. 
-             La información detallada del levantamiento y el cuestionario técnico se encuentran en la sección de <strong>Herramientas</strong>.
-           </p>
+    <main className="max-w-6xl mx-auto py-40 px-6 space-y-24">
+      {/* 4.1 Acta de constitución */}
+      <section className="space-y-8">
+        <SectionHeader title="4.1 Acta de constitución del proyecto" icon={<ClipboardList size={20}/>} />
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <InfoCard label="Proyecto" value={inputs.projectCharter.project} />
+          <InfoCard label="Patrocinador" value={inputs.projectCharter.sponsor} />
+          <InfoCard label="Interesados Clave" value={inputs.projectCharter.stakeholders} />
+          <InfoCard label="Plazo Estimado" value={inputs.projectCharter.term} />
+        </div>
+      </section>
+
+      {/* 4.2 Documentos de negocio */}
+      <section className="space-y-8">
+        <SectionHeader title="4.2 Documentos de negocio" icon={<FileText size={20}/>} />
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="p-8 bg-white border border-slate-200 rounded-[4px] shadow-sm space-y-4">
+            <h4 className="text-[10px] font-bold text-[#004A99] uppercase tracking-widest">Caso de Negocio</h4>
+            <p className="text-sm text-slate-600 leading-relaxed italic">"{inputs.businessDocuments.businessCase}"</p>
+          </div>
+          <div className="p-8 bg-slate-900 text-white rounded-[4px] shadow-sm space-y-4">
+            <h4 className="text-[10px] font-bold text-[#004A99] uppercase tracking-widest">Beneficios Esperados</h4>
+            <p className="text-sm text-slate-300 leading-relaxed font-light">{inputs.businessDocuments.expectedBenefits}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* 4.3 Stakeholders Identificados */}
+      <section className="space-y-8 text-center md:text-left">
+        <SectionHeader title="4.3 Stakeholders identificados" icon={<Users size={20}/>} />
+        <div className="overflow-x-auto">
+          <table className="w-full bg-white border border-slate-200 rounded-[4px] text-xs">
+            <thead>
+              <tr className="bg-slate-50 text-slate-400 text-left uppercase tracking-widest">
+                <th className="px-6 py-4">#</th>
+                <th className="px-6 py-4">Stakeholder</th>
+                <th className="px-6 py-4">Tipo</th>
+                <th className="px-6 py-4">Rol</th>
+                <th className="px-6 py-4">Responsabilidad Principal</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {inputs.identifiedStakeholders.map((person, i) => (
+                <tr key={i} className="hover:bg-slate-50/50 transition-colors">
+                  <td className="px-6 py-4 font-bold text-[#004A99]">{person.id}</td>
+                  <td className="px-6 py-4 font-bold text-slate-900">{person.name}</td>
+                  <td className="px-6 py-4">
+                    <span className={`px-2 py-0.5 rounded-[2px] text-[9px] font-bold uppercase ${person.type === 'Interno' ? 'bg-blue-50 text-blue-600' : 'bg-slate-100 text-slate-400'}`}>
+                      {person.type}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 text-slate-600 font-medium">{person.role}</td>
+                  <td className="px-6 py-4 text-slate-500 leading-relaxed">{person.responsibility}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* 4.4 Documentos del proyecto */}
+      <section className="space-y-8">
+        <SectionHeader title="4.4 Documentos del proyecto" icon={<FileText size={20}/>} />
+        <div className="grid md:grid-cols-3 gap-8">
+          <DocCard title="Registro de cambios" content={inputs.projectDocs.changeLog} />
+          <DocCard title="Registro de incidentes" content={inputs.projectDocs.issueLog} />
+          <DocCard title="Documentación de requisitos" content={inputs.projectDocs.requirementsDoc} />
+        </div>
+      </section>
+
+      {/* 4.5 Acuerdos */}
+      <section className="space-y-8">
+        <SectionHeader title="4.5 Acuerdos" icon={<ShieldCheck size={20}/>} />
+        <div className="p-10 bg-white border-l-4 border-[#004A99] rounded-[4px] shadow-sm italic text-slate-600 leading-relaxed">
+          "{inputs.agreements}"
+        </div>
+      </section>
+
+      {/* 4.6 Factores ambientales */}
+      <section className="space-y-8">
+        <SectionHeader title="4.6 Factores ambientales de la empresa" icon={<Layers size={20}/>} />
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <EEFCard label="Cultura" value={inputs.eefs.culture} />
+          <EEFCard label="Entorno" value={inputs.eefs.environment} />
+          <EEFCard label="TikTok" value={inputs.eefs.tiktok} />
+          <EEFCard label="Equipo" value={inputs.eefs.team} />
+        </div>
+      </section>
+
+      {/* Activos de los procesos */}
+      <section className="space-y-8">
+        <SectionHeader title="4.7 Activos de los procesos de la organización" icon={<TrendingUp size={20}/>} />
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="space-y-4">
+             <OPALine title="Conocimiento del dueño" content={inputs.opas.ownerKnowledge} />
+             <OPALine title="Experiencia digital previa" content={inputs.opas.brotherExperience} />
+          </div>
+          <div className="space-y-4">
+             <OPALine title="Contabilidad informal" content={inputs.opas.manualAccounting} />
+             <OPALine title="Inexistencia de plantillas" content={inputs.opas.noTemplates} />
+          </div>
         </div>
       </section>
     </main>
+  );
+}
+
+function InfoCard({ label, value }: { label: string, value: string }) {
+  return (
+    <div className="p-6 bg-white border border-slate-200 rounded-[4px] space-y-2">
+      <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">{label}</span>
+      <p className="text-sm font-bold text-slate-900 leading-snug">{value}</p>
+    </div>
+  );
+}
+
+function DocCard({ title, content }: { title: string, content: string }) {
+  return (
+    <div className="p-8 bg-white border border-slate-200 rounded-[4px] space-y-4 hover:shadow-md transition-all group">
+      <div className="w-8 h-8 rounded-full bg-slate-50 group-hover:bg-blue-50 flex items-center justify-center text-slate-400 group-hover:text-[#004A99] transition-colors">
+        <FileText size={16} />
+      </div>
+      <h4 className="text-xs font-bold text-slate-900 uppercase tracking-widest">{title}</h4>
+      <p className="text-xs text-slate-500 leading-relaxed font-light">{content}</p>
+    </div>
+  );
+}
+
+function EEFCard({ label, value }: { label: string, value: string }) {
+  return (
+    <div className="p-6 bg-white border border-slate-100 rounded-[4px] space-y-3">
+      <div className="text-[9px] font-bold text-[#004A99] uppercase tracking-widest border-b border-slate-50 pb-2 inline-block">{label}</div>
+      <p className="text-xs text-slate-600 leading-relaxed italic">{value}</p>
+    </div>
+  );
+}
+
+function OPALine({ title, content }: { title: string, content: string }) {
+  return (
+    <div className="flex gap-4 p-6 bg-white border border-slate-100 rounded-[4px]">
+      <div className="mt-1"><ArrowRight size={14} className="text-[#004A99]" /></div>
+      <div className="space-y-1">
+        <h5 className="text-[10px] font-bold text-slate-900 uppercase tracking-widest">{title}</h5>
+        <p className="text-xs text-slate-500 leading-relaxed font-light">{content}</p>
+      </div>
+    </div>
   );
 }
 
@@ -294,113 +430,169 @@ function StakeholdersPage() {
   const outputs = PROJECT_DATA.outputs;
 
   return (
-    <main className="max-w-5xl mx-auto py-40 px-6 space-y-32">
-      {/* 1. Análisis de los Interesados */}
-      <section className="space-y-12">
-        <SectionHeader title="Salidas: Análisis de Interesados" icon={<UserCheck size={20}/>} />
+    <main className="max-w-6xl mx-auto py-40 px-6 space-y-32">
+      {/* Introducción Salidas */}
+      <section className="space-y-6">
+        <SectionHeader title="Salidas del Análisis de Negocio" icon={<TrendingUp size={20}/>} />
+        <p className="text-sm text-slate-600 leading-relaxed max-w-3xl">
+          Las salidas del proceso de análisis de negocio sintetizan los resultados obtenidos tras aplicar las herramientas de recopilación y análisis descritas en las secciones anteriores. Estas salidas constituyen los entregables formales que orientan la toma de decisiones y la planificación del proyecto de transformación digital de la escuela de manejo.
+        </p>
+      </section>
+
+      {/* 6.1 Registro de Interesados */}
+      <section className="space-y-8">
+        <div className="space-y-4">
+          <h3 className="text-xl font-bold text-slate-900">6.1 Registro de Interesados</h3>
+          <p className="text-sm text-slate-600 leading-relaxed italic">
+            El registro de interesados es el documento que identifica a todas las personas, grupos u organizaciones que pueden afectar o ser afectados por el proyecto. Para la escuela de manejo se identificaron cuatro grupos principales de interesados, clasificados según su nivel de poder e interés en el proyecto:
+          </p>
+        </div>
         <div className="overflow-x-auto">
           <table className="w-full bg-white border border-slate-200 rounded-[4px] text-xs">
             <thead>
               <tr className="bg-slate-50 text-slate-400 text-left uppercase tracking-widest">
+                <th className="px-6 py-4">ID</th>
                 <th className="px-6 py-4">Interesado</th>
                 <th className="px-6 py-4">Rol</th>
-                <th className="px-6 py-4">Intereses</th>
-                <th className="px-6 py-4 text-center">Poder</th>
-                <th className="px-6 py-4 text-center">Interés</th>
+                <th className="px-6 py-4">Nivel Interés</th>
+                <th className="px-6 py-4">Nivel Poder</th>
+                <th className="px-6 py-4">Estrategia de Involucramiento</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {outputs.stakeholderAnalysis.map((person, i) => (
+              {outputs.stakeholderRegister.map((s, i) => (
                 <tr key={i} className="hover:bg-slate-50/50 transition-colors">
-                  <td className="px-6 py-4 font-bold text-slate-900 whitespace-nowrap">{person.name}</td>
-                  <td className="px-6 py-4 text-slate-600 font-medium">{person.role}</td>
-                  <td className="px-6 py-4 text-slate-500">{person.interests}</td>
-                  <td className="px-6 py-4 text-center">
-                    <PriorityBadge value={person.power} />
+                  <td className="px-6 py-4 font-bold text-[#004A99]">{s.id}</td>
+                  <td className="px-6 py-4 font-bold text-slate-900">{s.name}</td>
+                  <td className="px-6 py-4 text-slate-600">{s.role}</td>
+                  <td className="px-6 py-4">
+                    <PriorityBadge value={s.interest} />
                   </td>
-                  <td className="px-6 py-4 text-center">
-                    <PriorityBadge value={person.interest} />
+                  <td className="px-6 py-4">
+                    <PriorityBadge value={s.power} />
                   </td>
+                  <td className="px-6 py-4 text-slate-500 font-medium">{s.strategy}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-
-        {/* Clasificación Power-Interest */}
-        <div className="grid md:grid-cols-2 gap-8 pt-8">
-          <div className="p-8 bg-slate-900 text-white rounded-[4px] space-y-4">
-            <h4 className="text-xs font-bold uppercase tracking-widest text-[#004A99]">Matriz Poder-Interés</h4>
-            <p className="text-sm text-slate-400 leading-relaxed">
-              Esta herramienta clasifica a los interesados según su nivel de influencia y preocupación por el proyecto, definiendo las estrategias de comunicación y gestión del cambio necesarias para el éxito del diagnóstico.
-            </p>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <MatrixItem title="Gestionar de cerca" content="Dueño, Equipo UNTELS" />
-            <MatrixItem title="Mantener Satisfecho" content="Personal Administrativo" />
-            <MatrixItem title="Mantener Informado" content="Instructores" />
-            <MatrixItem title="Monitorear" content="Alumnos" />
-          </div>
-        </div>
+        <p className="text-xs text-slate-500 leading-relaxed border-l-2 border-slate-100 pl-4">
+          La clasificación anterior permite definir estrategias diferenciadas: el dueño del negocio, al ser el principal tomador de decisiones, debe ser gestionado de cerca durante todo el ciclo del proyecto. Los instructores, como usuarios directos del sistema, requieren formación y comunicación constante para garantizar la adopción de las herramientas digitales.
+        </p>
       </section>
 
-      {/* 2. Plan de Involucramiento */}
-      <section className="space-y-12">
-        <SectionHeader title="Plan de Involucramiento" icon={<TrendingUp size={20}/>} />
+      {/* 6.2 Solicitudes de Cambio */}
+      <section className="space-y-8">
+        <div className="space-y-4">
+          <h3 className="text-xl font-bold text-slate-900">6.2 Solicitudes de Cambio</h3>
+          <p className="text-sm text-slate-600 leading-relaxed italic">
+            Las solicitudes de cambio se originan a partir de los problemas y oportunidades detectados durante el análisis. Cada solicitud representa una acción concreta de mejora que deberá ser evaluada, aprobada e implementada en el marco del proyecto:
+          </p>
+        </div>
         <div className="overflow-x-auto">
-          <table className="w-full bg-white border border-slate-200 rounded-[4px] text-[10px]">
+          <table className="w-full bg-white border border-slate-200 rounded-[4px] text-xs">
             <thead>
               <tr className="bg-slate-50 text-slate-400 text-left uppercase tracking-widest">
-                <th className="px-6 py-4">Actor</th>
-                <th className="px-6 py-4">Nivel Actual</th>
-                <th className="px-6 py-4">Estado Objetivo</th>
-                <th className="px-6 py-4">Estrategia</th>
-                <th className="px-6 py-4">Acciones concretas</th>
+                <th className="px-6 py-4">ID</th>
+                <th className="px-6 py-4">Descripción del Cambio</th>
+                <th className="px-6 py-4">Área Impactada</th>
+                <th className="px-6 py-4">Prioridad</th>
+                <th className="px-6 py-4">Estado</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {outputs.stakeholderInvolvement.map((plan, i) => (
+              {outputs.changeRequests.map((cr, i) => (
                 <tr key={i} className="hover:bg-slate-50/50 transition-colors">
-                  <td className="px-6 py-4 font-bold text-slate-900">{plan.name}</td>
-                  <td className="px-6 py-4">
-                    <InvolvementBadge level={plan.currentLevel} />
+                  <td className="px-6 py-4 font-bold text-[#004A99]">{cr.id}</td>
+                  <td className="px-6 py-4 font-bold text-slate-900">{cr.description}</td>
+                  <td className="px-6 py-4 text-slate-600">{cr.area}</td>
+                  <td className="px-6 py-4 text-center">
+                    <span className={`px-2 py-0.5 rounded-[2px] text-[10px] font-bold uppercase ${cr.priority === 'Alta' ? 'bg-red-50 text-red-600' : 'bg-blue-50 text-blue-600'}`}>
+                      {cr.priority}
+                    </span>
                   </td>
                   <td className="px-6 py-4">
-                    <InvolvementBadge level={plan.desiredLevel} isDesired />
+                    <span className={`px-2 py-0.5 rounded-[2px] text-[10px] font-bold uppercase ${cr.status === 'Aprobada' ? 'bg-emerald-50 text-emerald-600' : 'bg-amber-50 text-amber-600'}`}>
+                      {cr.status}
+                    </span>
                   </td>
-                  <td className="px-6 py-4 text-slate-600 font-medium">{plan.strategy}</td>
-                  <td className="px-6 py-4 text-slate-500">{plan.actions}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+        <p className="text-xs text-slate-500 leading-relaxed border-l-2 border-slate-100 pl-4">
+          Las solicitudes de cambio con prioridad alta corresponden directamente a los problemas más críticos identificados: la desorganización en el registro de alumnos y la falta de trazabilidad financiera. Estas deben abordarse en las primeras fases del proyecto.
+        </p>
+      </section>
+
+      {/* 6.3 Actualizaciones al Plan */}
+      <section className="space-y-8">
+        <div className="space-y-4">
+          <h3 className="text-xl font-bold text-slate-900">6.3 Actualizaciones al Plan para la Dirección del Proyecto</h3>
+          <p className="text-sm text-slate-600 leading-relaxed italic">
+            Como resultado del análisis de negocio, se requiere actualizar los planes de gestión del proyecto para reflejar la realidad operativa encontrada. Estos ajustes aseguran que la planificación sea coherente con el contexto empírico e informal del negocio:
+          </p>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full bg-white border border-slate-200 rounded-[4px] text-xs">
+            <thead>
+              <tr className="bg-slate-50 text-slate-400 text-left uppercase tracking-widest">
+                <th className="px-6 py-4">Documento del Plan</th>
+                <th className="px-6 py-4">Actualización Requerida</th>
+                <th className="px-6 py-4">Justificación</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {outputs.planUpdates.map((pu, i) => (
+                <tr key={i} className="hover:bg-slate-50/50 transition-colors">
+                  <td className="px-6 py-4 font-bold text-slate-900">{pu.document}</td>
+                  <td className="px-6 py-4 text-slate-600 leading-relaxed">{pu.update}</td>
+                  <td className="px-6 py-4 text-slate-400 italic leading-relaxed">{pu.justification}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="text-xs text-slate-500 leading-relaxed border-l-2 border-slate-100 pl-4">
+          La actualización de estos planes es fundamental para garantizar que el proyecto de transformación digital se ejecute con una base sólida, considerando los riesgos reales y las necesidades de comunicación propias de un negocio de operación informal.
+        </p>
+      </section>
+
+      {/* 6.4 Actualizaciones a los Documentos */}
+      <section className="space-y-8">
+        <div className="space-y-4">
+          <h3 className="text-xl font-bold text-slate-900">6.4 Actualizaciones a los Documentos del Proyecto</h3>
+          <p className="text-sm text-slate-600 leading-relaxed italic">
+            Adicionalmente a los planes de gestión, el proceso de análisis generó información que actualizó los documentos de seguimiento y control del proyecto. Estos documentos reflejan los hallazgos operativos y los riesgos identificados durante el levantamiento de información:
+          </p>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full bg-white border border-slate-200 rounded-[4px] text-xs">
+            <thead>
+              <tr className="bg-slate-50 text-slate-400 text-left uppercase tracking-widest">
+                <th className="px-6 py-4">Documento</th>
+                <th className="px-6 py-4">Actualización Realizada</th>
+                <th className="px-6 py-4">Detalle</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {outputs.docUpdates.map((du, i) => (
+                <tr key={i} className="hover:bg-slate-50/50 transition-colors">
+                  <td className="px-6 py-4 font-bold text-slate-900">{du.document}</td>
+                  <td className="px-6 py-4 text-[#004A99] font-medium leading-relaxed">{du.update}</td>
+                  <td className="px-6 py-4 text-slate-500 leading-relaxed">{du.detail}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="text-xs text-slate-500 leading-relaxed border-l-2 border-slate-100 pl-4">
+          El registro de incidentes es especialmente relevante, ya que documenta situaciones concretas observadas durante el seguimiento operativo, como los cruces de horarios y los pagos no registrados, que deberán resolverse mediante las soluciones digitales propuestas.
+        </p>
       </section>
     </main>
-  );
-}
-
-function MatrixItem({ title, content }: { title: string, content: string }) {
-  return (
-    <div className="p-4 bg-white border border-slate-100 rounded-[4px]">
-      <h5 className="text-[9px] font-bold uppercase tracking-widest text-[#004A99] mb-1">{title}</h5>
-      <p className="text-[10px] text-slate-600">{content}</p>
-    </div>
-  );
-}
-
-function InvolvementBadge({ level, isDesired = false }: { level: string, isDesired?: boolean }) {
-  const levels = {
-    Desconocedor: 'bg-slate-100 text-slate-400',
-    Resistente: 'bg-red-50 text-red-500',
-    Neutral: 'bg-amber-50 text-amber-500',
-    Apoya: 'bg-blue-50 text-[#004A99]',
-    Lidera: 'bg-emerald-50 text-emerald-500'
-  };
-  return (
-    <span className={`px-2 py-0.5 rounded-[2px] font-bold uppercase text-[8px] tracking-tighter ${levels[level as keyof typeof levels]}`}>
-      {isDesired ? `→ ${level}` : level}
-    </span>
   );
 }
 
