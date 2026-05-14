@@ -1,48 +1,27 @@
-export interface MethodologyStep {
-  id: string;
-  title: string;
-  description: string;
-}
-
-export interface Stakeholder {
-  role: string;
-  description: string;
-  power: 'Alto' | 'Medio' | 'Bajo';
-  interest: 'Alto' | 'Medio' | 'Bajo';
-  strategy: string;
-}
-
-export interface InterviewCategory {
-  title: string;
-  content: string;
-}
-
-export interface InterviewAnalysis {
-  summary: string;
-  categories: InterviewCategory[];
-  keyFindings: string[];
-}
-
 export interface QuestionEntry {
   category: string;
   question: string;
   objective: string;
 }
 
-export interface StakeholderAnalysis {
-  name: string;
-  role: string;
-  interests: string;
-  power: 'Alto' | 'Medio' | 'Bajo';
-  interest: 'Alto' | 'Medio' | 'Bajo';
+export interface RecopilacionEvidencia {
+  fuente: string;
+  descripcion: string;
+  medio: string;
 }
 
-export interface StakeholderInvolvement {
-  name: string;
-  currentLevel: 'Desconocedor' | 'Resistente' | 'Neutral' | 'Apoya' | 'Lidera';
-  desiredLevel: 'Desconocedor' | 'Resistente' | 'Neutral' | 'Apoya' | 'Lidera';
-  strategy: string;
-  actions: string;
+export interface ArbolItem {
+  id: string;
+  texto: string;
+  children?: ArbolItem[];
+}
+
+export interface PlanInvolucramiento {
+  involucrado: string;
+  interes: string;
+  influencia: string;
+  expectativa: string;
+  estrategia: string;
 }
 
 export interface ProjectData {
@@ -56,21 +35,56 @@ export interface ProjectData {
   framework: string;
   scope: string[];
   nature: string;
-  inputs: {
+  recopilacion: {
+    contexto: {
+      descripcion: string;
+      canales: string[];
+      presenciaTikTok: {
+        perfil: string;
+        seguidores: string;
+        likes: string;
+        vistas: string;
+        link: string;
+      };
+      sistemaCobros: string;
+    };
+    informacion: {
+      primaria: RecopilacionEvidencia[];
+      secundaria: string[];
+    };
+    analisisProblema: {
+      central: string;
+      causasDirectas: { causa: string; evidencia: string }[];
+      causasIndirectas: string[];
+      efectosDirectos: { efecto: string; descripcion: string }[];
+      efectosIndirectos: string[];
+      verificacion: { elemento: string; descripcion: string; evidencia: string; estado: string }[];
+    };
+    analisisObjetivos: {
+      transicion: string;
+      central: string;
+      mediosTecnologicos: string[];
+      mediosGestion: string[];
+      finesOperativos: string[];
+      finesComerciales: string[];
+      verificacion: { medio: string; contribucion: string; fin: string }[];
+    };
+  };
+  salida: {
+    planInvolucramiento: {
+      introduccion: string;
+      estrategia: string[];
+      matriz: PlanInvolucramiento[];
+    };
+  };
+  // Legacy fields to be removed or kept as needed
+  inputs?: {
     interviewContext: string;
     questions: QuestionEntry[];
+    [key: string]: any;
   };
-  outputs: {
-    stakeholderAnalysis: StakeholderAnalysis[];
-    stakeholderInvolvement: StakeholderInvolvement[];
-  };
-  tools: {
-    interviews: string;
-    observation: string;
-    registration: string;
-    interviewAnalysis: string;
-    interviewStructured?: InterviewAnalysis;
-  };
-  stakeholders: Stakeholder[];
-  methodology: MethodologyStep[];
+  outputs?: any;
+  tools?: any;
+  stakeholders?: any;
+  methodology?: any;
 }

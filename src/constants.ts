@@ -1,22 +1,200 @@
 import type { ProjectData } from './types';
 
 export const PROJECT_DATA: ProjectData = {
-  title: "Diagnóstico Estructural de Sistemas de Información bajo PMBOK",
-  subtitle: "Análisis Integral de Procesos en una Escuela de Manejo",
-  university: "Universidad Nacional Tecnológica de Lima Sur (UNTELS)",
-  faculty: "Ingeniería de Sistemas",
-  context: "La empresa es una escuela de manejo que opera con alta demanda, captando clientes principalmente a través de TikTok y gestionándolos mediante WhatsApp Business. Atiende entre 30 y 50 clientes semanales, pero todos sus procesos son manuales. La gestión de alumnos, horarios y pagos (realizados con Yape) se lleva sin registros formales, lo que genera desorden, errores y falta de control. Además, no cuentan con indicadores claros ni planificación del mantenimiento de vehículos. En conjunto, el negocio presenta problemas de organización, control y escalabilidad debido a la ausencia de herramientas digitales, a pesar de su crecimiento y potencial en el mercado.",
-  objective: "Evaluar la madurez tecnológica y operativa de la escuela de manejo para identificar cuellos de botella en la gestión de alumnos, programación de recursos y control de pagos, utilizando el marco del PMBOK para garantizar un análisis estructurado.",
-  justification: "La necesidad de estandarizar procesos en negocios en crecimiento es crítica para evitar la pérdida de información y mejorar la calidad del servicio al cliente. Desde una perspectiva académica, este estudio permite aplicar teorías de gestión en entornos reales.",
-  framework: "Project Management Body of Knowledge (PMBOK) - Enfoque en Procesos de Inicio y Planificación.",
+  title: "Diagnóstico Estratégico y Plan de Transformación Digital",
+  subtitle: "Escuela de Manejo Moto Driving",
+  university: "Recopilación de Pruebas, Análisis de Problemas y Plan de Objetivos",
+  faculty: "Diagnóstico Académico",
+  context: "La Escuela de Manejo Moto Driving es un negocio dedicado a la enseñanza de conducción de motocicletas en Lima, Perú. Opera principalmente a través de canales digitales informales para la captación y atención de clientes potenciales.",
+  objective: "Mejorar la eficiencia operativa y la calidad del servicio educativo mediante la digitalización estratégica e integración de procesos clave.",
+  justification: "La transición del diagnóstico a la solución busca transformar la gestión informal y desorganizada en un sistema estructurado, respaldado por datos y herramientas de gestión empresarial.",
+  framework: "Project Management Body of Knowledge (PMBOK) 7th Edition",
   scope: [
-    "Modelado de procesos operativos (Inscripción, Clases, Pagos)",
-    "Auditoría del uso de tecnología (Hojas de cálculo, Mensajería)",
-    "Análisis de la gestión de datos e integridad de información",
-    "Evaluación de la coordinación de recursos (Vehículos e Instructores)"
+    "Digitalización de canales de contacto",
+    "Automatización de sistema de cobros",
+    "Gestión centralizada de alumnos y horarios",
+    "Control de mantenimiento de flota",
+    "Análisis de involucrados y gestión del cambio"
   ],
-  nature: "Este trabajo es de carácter estrictamente académico y analítico. No persigue fines comerciales, no implica una implementación obligatoria ni genera costos para las partes involucradas.",
+  nature: "Este diagnóstico integra la recopilación de evidencias, el análisis de problemas mediante el árbol de causas y efectos, y la formulación de objetivos estratégicos para la transformación digital.",
+  recopilacion: {
+    contexto: {
+      descripcion: "Negocio de enseñanza de motocicletas en Lima, enfocado en captación mediante TikTok y WhatsApp Business.",
+      canales: [
+        "Precio de la práctica: S/40 soles la hora.",
+        "Moto semiautomática incluida.",
+        "Instructor y circuito de práctica.",
+        "Enseñanza desde cero (equilibrio, frenos, acelerador).",
+        "Circuito con 4 ejercicios oficiales del examen.",
+        "Horario: Lunes a domingo, 8:30 am a 5 pm (coordinación previa).",
+        "Ubicación: Touring de Conchan km21."
+      ],
+      presenciaTikTok: {
+        perfil: "@mtdrivingschool",
+        seguidores: "22.8K",
+        likes: "10.3K",
+        vistas: "239K",
+        link: "beacons.ai/motodrivingschool"
+      },
+      sistemaCobros: "Pagos informales vía app Yape a nombre de Giovanni Steven Salvador. Sin sistema de registro formal."
+    },
+    informacion: {
+      primaria: [
+        { fuente: "Observación directa", descripcion: "Procesos de gestión de alumnos, horarios y mantenimiento.", medio: "Registro visual y apuntes" },
+        { fuente: "Reunión con el dueño", descripcion: "Validación de procesos y roles clave.", medio: "Acta de reunión" },
+        { fuente: "Chats de WhatsApp", descripcion: "Solicitudes de servicios y respuestas manuales.", medio: "Capturas de pantalla" },
+        { fuente: "Pagos por Yape", descripcion: "Cobros sin integración contable.", medio: "Capturas de pantalla" },
+        { fuente: "TikTok del negocio", descripcion: "Canal de difusión y presencia digital activa.", medio: "Capturas de pantalla" }
+      ],
+      secundaria: [
+        "Acta de constitución del proyecto.",
+        "Análisis de interesados (stakeholders).",
+        "Registros informales de operación.",
+        "Evidencia digital en redes sociales (WhatsApp, Yape, TikTok)."
+      ]
+    },
+    analisisProblema: {
+      central: "Gestión informal y desorganizada de los procesos operativos, lo que genera pérdida de clientes, errores en el registro y baja eficiencia.",
+      causasDirectas: [
+        { causa: "Ausencia de sistema de gestión digital", evidencia: "Operación manejada por WhatsApp y Yape sin integración." },
+        { causa: "Falta de automatización en atención", evidencia: "Mensaje de bienvenida manual dependiendo de disponibilidad." },
+        { causa: "Registro de pagos informal", evidencia: "Cobros no consolidados en sistema contable." },
+        { causa: "Gestión manual de horarios", evidencia: "Sin plataforma que organice turnos de clases." }
+      ],
+      causasIndirectas: [
+        "Desconocimiento de herramientas de gestión empresarial.",
+        "Bajo presupuesto inicial para tecnología.",
+        "Crecimiento sin planificación estructural.",
+        "Dependencia de apps de uso personal (Yape, WhatsApp)."
+      ],
+      efectosDirectos: [
+        { efecto: "Pérdida de clientes potenciales", descripcion: "Falta de respuesta rápida motiva a optar por otra escuela." },
+        { efecto: "Errores en el control de pagos", descripcion: "Dificultad para identificar alumnos morosos o pagos dobles." },
+        { efecto: "Desorganización en horarios", descripcion: "Riesgo de cruces entre alumnos e instructores." },
+        { efecto: "Falta de seguimiento académico", descripcion: "Sin registro del avance de formación del alumno." }
+      ],
+      efectosIndirectos: [
+        "Deterioro de reputación por demoras o errores.",
+        "Limitación del crecimiento y escalabilidad.",
+        "Dificultad para toma de decisiones estratégicas.",
+        "Sobrecarga operativa para el dueño.",
+        "Riesgo financiero por falta de reportes confiables."
+      ],
+      verificacion: [
+        { elemento: "Problema central", descripcion: "Gestión informal y desorganizada.", evidencia: "WhatsApp, Yape, observación directa.", estado: "Verificado" },
+        { elemento: "Causa 1", descripcion: "Ausencia de sistema digital.", evidencia: "No existe CRM o ERP.", estado: "Verificado" },
+        { elemento: "Causa 2", descripcion: "Atención no automatizada.", evidencia: "Mensaje manual confirmado.", estado: "Verificado" },
+        { elemento: "Causa 3", descripcion: "Pagos informales.", evidencia: "Yape sin integración contable.", estado: "Verificado" },
+        { elemento: "Causa 4", descripcion: "Gestión manual de horarios.", evidencia: "Sin plataforma de agendamiento.", estado: "Verificado" }
+      ]
+    },
+    analisisObjetivos: {
+      transicion: "Transformar el diagnóstico en una solución que proyecte positivamente la eficiencia operativa y el crecimiento estructurado del negocio.",
+      central: "Mejorar la eficiencia operativa y la calidad del servicio mediante la digitalización estratégica e integración de procesos clave.",
+      mediosTecnologicos: [
+        "Implementar sistema integrado de gestión (Clases, Pagos, Inscripciones).",
+        "Habilitar plataforma multicanal automatizada (WhatsApp).",
+        "Desplegar dashboards de seguimiento académico en tiempo real."
+      ],
+      mediosGestion: [
+        "Ejecutar programa de gestión del cambio y capacitación por roles.",
+        "Definir política institucional de inversión y gobernanza tecnológica.",
+        "Actualizar infraestructura TI y certificar proveedores (SLA)."
+      ],
+      finesOperativos: [
+        "Alta satisfacción y lealtad del estudiante (oferta ágil).",
+        "Optimización de procesos (personal enfocado en calidad decente).",
+        "Toma de decisiones basadas en datos e información estratégica."
+      ],
+      finesComerciales: [
+        "Reputación institucional fortalecida y mayor captación.",
+        "Capacidad de escalar operaciones con eficiencia de costos.",
+        "Posicionamiento como líder en calidad digital."
+      ],
+      verificacion: [
+        { medio: "Sistema integrado", contribucion: "Centraliza y ordena procesos clave.", fin: "Escalabilidad con eficiencia." },
+        { medio: "Plataforma multicanal", contribucion: "Mejora radical del servicio preventa.", fin: "Alta satisfacción y lealtad." },
+        { medio: "Dashboards de control", contribucion: "Aporta métricas académicas reales.", fin: "Decisiones estratégicas confiables." },
+        { medio: "Gestión del cambio", contribucion: "Garantiza adopción por parte de interesados.", fin: "Optimización real de procesos." },
+        { medio: "Infraestructura TI", contribucion: "Brinda entorno tecnológico seguro.", fin: "Reputación y posicionamiento." }
+      ]
+    }
+  },
+  salida: {
+    planInvolucramiento: {
+      introduccion: "En concordancia con el enfoque de PMBOK 7, el análisis de involucrados considera a las personas y actores que influyen en la transformación digital.",
+      estrategia: [
+        "Propietario: Involucramiento estrecho en validación de hallazgos y decisiones clave.",
+        "Personal/Instructores: Consulta sobre barreras operativo y flujos para evitar resistencia.",
+        "Alumnos: Consideración de experiencia mediante análisis de evidencia indirecta."
+      ],
+      matriz: [
+        { involucrado: "Dueño de MTDRIVING", interes: "Alto", influencia: "Alto", expectativa: "Ordenar el negocio y reducir carga operativa.", estrategia: "Participación activa y validación continua." },
+        { involucrado: "Personal Administrativo / Familiar", interes: "Alto", influencia: "Medio", expectativa: "Facilitar coordinación de alumnos y pagos.", estrategia: "Consulta temprana y recogida de necesidades." },
+        { involucrado: "Instructores", interes: "Medio-Alto", influencia: "Medio", expectativa: "Mejor organización de clases y horarios.", estrategia: "Coordinación operativa y retroalimentación constante." },
+        { involucrado: "Alumnos / Clientes", interes: "Alto", influencia: "Bajo", expectativa: "Atención rápida, orden y buen servicio.", estrategia: "Monitoreo de experiencia y satisfacción." },
+        { involucrado: "Proveedores Tecnológicos", interes: "Medio", influencia: "Bajo", expectativa: "Implementación técnica futura exitosa.", estrategia: "Evaluación como soporte técnico potencial." },
+        { involucrado: "Entorno físico / Circuito", interes: "Medio", influencia: "Medio", expectativa: "Condiciona la operación diaria.", estrategia: "Gestión como restricción externa y riesgo." }
+      ]
+    }
+  },
+  tools: {
+    interviewStructured: {
+      summary: "Diagnóstico situacional de una escuela de manejo con alta demanda operativa (30-50 clientes/semana) y procesos netamente empíricos, familiares y manuales, con una fuerte dependencia de canales digitales informales para la captación.",
+      categories: [
+        { title: "Operación del negocio", content: "Estructura de mando centralizada en el dueño, apoyada por un núcleo familiar (hermano en redes, prima en contabilidad, abuelo en mantenimiento)." },
+        { title: "Gestión de alumnos", content: "La captación es digital (TikTok Lives) y la gestión de prospectos se realiza a través de WhatsApp Business. No existe una base de datos centralizada." },
+        { title: "Programación de clases", content: "La agenda es controlada directamente por el dueño, organizando flujos de 2 a 3 alumnos por hora de forma manual." },
+        { title: "Gestión de pagos", content: "El medio de pago predominante es Yape, lo cual genera dificultades de conciliación y control de caja." },
+        { title: "Uso de tecnología", content: "El ecosistema tecnológico se limita a WhatsApp Business y social media (TikTok). Ausencia total de software de gestión (ERP/CRM)." },
+        { title: "Recursos (vehículos e instructores)", content: "Flota compuesta por 2 automóviles y 4 motocicletas. Mantenimiento reactivo y artesanal." },
+        { title: "Problemas detectados", content: "Alto desorden administrativo, falta de automatización y dependencia crítica de la presencia del dueño." },
+        { title: "Aspiraciones del negocio", content: "Deseo de profesionalización mediante una página web y herramientas de oficina para ventas de accesorios." }
+      ],
+      keyFindings: [
+        "Vulnerabilidad operativa: Alta dependencia del dueño para la toma de decisiones.",
+        "Informalidad digital: Gestión de clientes 100% dependiente de hilos de chat sin trazabilidad.",
+        "Mantenimiento en riesgo: Falta de planificación de mantenimiento preventivo.",
+        "Falta de escalabilidad: El modelo actual está al límite de su capacidad manual."
+      ]
+    }
+  },
   inputs: {
+    projectCharter: {
+      project: "Digitalización de procesos de la academia de manejo con Google Forms, Sheets, Calendar y Drive, sin costo de software.",
+      sponsor: "Dueño de la academia.",
+      stakeholders: "Dueño, hermano, prima, abuelo y alumnos.",
+      term: "4 meses."
+    },
+    businessDocuments: {
+      businessCase: "Academia informal con 30–50 alumnos semanales, operación 100% manual, cobros por Yape sin registro, cruces de horario frecuentes y mantenimiento de flota sin control.",
+      expectedBenefits: "Cero cruces de horario, 100% de cobros registrados, alertas de mantenimiento automatizadas e inventario de accesorios habilitado."
+    },
+    identifiedStakeholders: [
+      { id: "01", name: "dueño", type: "Interno", role: "Director operativo e instructor principal", responsibility: "Patrocinador. Aprueba fases y usa Calendar y Sheets de caja." },
+      { id: "02", name: "hermano", type: "Interno", role: "Instructor secundario y encargado de redes", responsibility: "Champion del proyecto. Administra Forms, Sheets de alumnos y captación por TikTok." },
+      { id: "03", name: "prima", type: "Interno", role: "Contabilidad y representante legal", responsibility: "Valida el reporte mensual de caja generado en Sheets." },
+      { id: "04", name: "abuelo", type: "Interno", role: "Responsable de mantenimiento de flota", responsibility: "Ejecuta mantenimientos según alertas recibidas por WhatsApp desde Calendar." },
+      { id: "05", name: "alumnos", type: "Interno", role: "Clientes del servicio (30–50/semana)", responsibility: "Completan el Form de registro y reciben confirmación de horario por WhatsApp" }
+    ],
+    projectDocs: {
+      changeLog: "Cambiado a digital en Fase 1",
+      issueLog: "Cruces de horarios frecuentes",
+      requirementsDoc: "Registro automatizado, Control de flota"
+    },
+    agreements: "Acuerdo de confidencialidad y colaboración académica firmado por el dueño.",
+    eefs: {
+      culture: "Cultura de aprendizaje continuo",
+      environment: "Escuela de manejo formal en proceso de digitalización",
+      tiktok: "Activa con alta tracción",
+      team: "Familiar y comprometido"
+    },
+    opas: {
+      ownerKnowledge: "Know-how de 10 años en el rubro",
+      brotherExperience: "Experto en manejo táctico y redes",
+      manualAccounting: "Registro en cuaderno físico",
+      noTemplates: "Sin formatos previos"
+    },
     interviewContext: "Se realizó una entrevista semiestructurada de 33 minutos vía Google Meet con el dueño de la escuela de manejo. El propósito fue recopilar información operativa, financiera, técnica y estratégica del negocio para fundamentar el diagnóstico bajo un enfoque académico sistémico.",
     questions: [
       { category: "Operativo", question: "¿Cuántos alumnos atiende por semana en temporada normal y en temporada pico?", objective: "Analizar la capacidad de carga del sistema y la elasticidad de la demanda." },
@@ -41,112 +219,5 @@ export const PROJECT_DATA: ProjectData = {
       { category: "Externo", question: "¿Cuánto tiempo podría dedicar semanalmente a aprender y usar herramientas digitales?", objective: "Determinar la viabilidad del cambio organizacional y capacitación técnica." },
       { category: "Externo", question: "¿Estaría dispuesto a delegar la administración del sistema digital a su hermano?", objective: "Analizar la estructura de roles y permisos para una futura implementación." }
     ]
-  },
-  outputs: {
-    stakeholderAnalysis: [
-      { name: "Dueño del Negocio", role: "Director General", interests: "Optimización de procesos, rentabilidad y control total del flujo de caja.", power: "Alto", interest: "Alto" },
-      { name: "Instructores", role: "Capacitadores de campo", interests: "Claridad en cronogramas y estado óptimo de las unidades de enseñanza.", power: "Medio", interest: "Alto" },
-      { name: "Personal Administrativo", role: "Gestor de inscripciones", interests: "Reducción de carga manual y eliminación de duplicidad de datos.", power: "Medio", interest: "Alto" },
-      { name: "Alumnos", role: "Clientes finales", interests: "Disponibilidad de horarios y experiencia de usuario fluida en el registro.", power: "Bajo", interest: "Medio" },
-      { name: "Equipo UNTELS", role: "Consultores académicos", interests: "Validación de metodologías PMBOK y entrega de diagnóstico de valor.", power: "Alto", interest: "Alto" }
-    ],
-    stakeholderInvolvement: [
-      { name: "Dueño del Negocio", currentLevel: "Apoya", desiredLevel: "Lidera", strategy: "Involucramiento en la validación de requerimientos críticos.", actions: "Sesiones semanales de reporte y feedback estratégico." },
-      { name: "Instructores", currentLevel: "Neutral", desiredLevel: "Apoya", strategy: "Demostrar los beneficios de un registro de mantenimiento eficiente.", actions: "Comunicación de hallazgos sobre optimización de flota." },
-      { name: "Personal Administrativo", currentLevel: "Neutral", desiredLevel: "Apoya", strategy: "Enfoque en la simplificación de tareas repetitivas.", actions: "Mapeo de procesos de inscripción para reducir tiempos." }
-    ]
-  },
-  tools: {
-    interviews: "Entrevistas estructuradas con el personal clave para identificar puntos de dolor.",
-    observation: "Observación directa de los procesos de atención al cliente y registro de datos.",
-    registration: "Documentación técnica de los artefactos de información actuales (formularios, excels).",
-    interviewAnalysis: "Se realizaron sesiones de preguntas abiertas con el encargado del negocio para entender la lógica detrás de la asignación de horarios y la gestión de la flota. El análisis se centró en la metodología de trabajo más que en la transcripción literal, identificando que la mayoría de decisiones se basan en la experiencia empírica más que en datos históricos.",
-    interviewStructured: {
-      summary: "Diagnóstico situacional de una escuela de manejo con alta demanda operativa (30-50 clientes/semana) y procesos netamente empíricos, familiares y manuales, con una fuerte dependencia de canales digitales informales para la captación.",
-      categories: [
-        {
-          title: "Operación del negocio",
-          content: "Estructura de mando centralizada en el dueño, apoyada por un núcleo familiar (hermano en redes, prima en contabilidad, abuelo en mantenimiento). Opera entre 60 y 120 horas semanales atendiendo a un volumen considerable de alumnos en un entorno de alta competencia y conflictos externos (circuito de manejo)."
-        },
-        {
-          title: "Gestión de alumnos",
-          content: "La captación es digital (TikTok Lives) y la gestión de prospectos se realiza a través de WhatsApp Business, donde se solicitan datos básicos (Nombre, DNI, teléfono). No existe una base de datos centralizada, los alumnos se 'ordenan' conforme llegan por mensajería."
-        },
-        {
-          title: "Programación de clases",
-          content: "La agenda es controlada directamente por el dueño, organizando flujos de 2 a 3 alumnos por hora. Aunque los cruces de horarios son poco frecuentes, la asignación es manual y carece de un sistema de reservas que brinde visibilidad al cliente o al equipo."
-        },
-        {
-          title: "Gestión de pagos",
-          content: "El modelo de ingresos se basa en el cobro por hora de instrucción, no por paquetes cerrados. El medio de pago predominante es Yape, lo cual genera dificultades de conciliación y control de caja al no contar con un registro formalizado de ingresos."
-        },
-        {
-          title: "Uso de tecnología",
-          content: "El ecosistema tecnológico se limita a WhatsApp Business para la gestión comercial y social media (TikTok). Existe una ausencia total de software de gestión (ERP/CRM), realizándose todo de forma física o mediante procesos manuales susceptibles a errores."
-        },
-        {
-          title: "Recursos (vehículos e instructores)",
-          content: "Flota compuesta por 2 automóviles (uno nuevo, el resto antiguos) y 4 motocicletas. La instrucción es realizada por el dueño y su hermano. El mantenimiento es reactivo y artesanal, con riesgos de omisión en servicios preventivos básicos (filtros, aceite, llantas)."
-        },
-        {
-          title: "Problemas detectados",
-          content: "Alto desorden administrativo, procesos manuales sin respaldo, falta de automatización y dependencia crítica de la presencia del dueño. Conflictos en el entorno operativo (inquilinos del circuito) e incidencias de seguridad previas que afectan la continuidad."
-        },
-        {
-          title: "Objetivos o aspiraciones del negocio",
-          content: "Deseo de profesionalización mediante una página web y uso de herramientas de oficina (Excel) para ventas de accesorios. Se busca expandir el modelo de negocio a la comercialización de cascos y repuestos, además de obtener reportes claros de rendimiento mensual."
-        }
-      ],
-      keyFindings: [
-        "Vulnerabilidad operativa: Alta dependencia del dueño para la toma de decisiones y control de procesos críticos.",
-        "Informalidad digital: Gestión de clientes 100% dependiente de hilos de chat sin trazabilidad ni reportabilidad estadística.",
-        "Mantenimiento en riesgo: La falta de una planificación de mantenimiento preventivo compromete la seguridad y la vida útil de los activos (vehículos).",
-        "Falta de escalabilidad: El modelo actual está al límite de su capacidad manual, lo que impide un crecimiento sostenido hacia la venta de productos complementarios."
-      ]
-    }
-  },
-  stakeholders: [
-    {
-      role: "Dueño del Negocio",
-      description: "Responsable de la dirección general y validación de hallazgos.",
-      power: "Alto",
-      interest: "Alto",
-      strategy: "Gestión directa y validación constante de cada hito del diagnóstico."
-    },
-    {
-      role: "Instructores",
-      description: "Operadores directos que generan y consumen datos de clases.",
-      power: "Medio",
-      interest: "Alto",
-      strategy: "Comunicación operativa para entender la viabilidad del registro de clases."
-    },
-    {
-      role: "Personal Administrativo",
-      description: "Encargados del registro de inscripciones y gestión de pagos.",
-      power: "Medio",
-      interest: "Alto",
-      strategy: "Coordinación frecuente para mapear el flujo de caja e información."
-    },
-    {
-      role: "Alumnos",
-      description: "Usuarios finales del servicio cuya información es el núcleo del sistema.",
-      power: "Bajo",
-      interest: "Medio",
-      strategy: "Interacción indirecta mediante el análisis de su experiencia de usuario."
-    },
-    {
-      role: "Equipo del Proyecto",
-      description: "Estudiantes de UNTELS encargados del diagnóstico sistemático.",
-      power: "Alto",
-      interest: "Alto",
-      strategy: "Gestión interna del proyecto y producción del entregable académico."
-    }
-  ],
-  methodology: [
-    { id: "1", title: "Levantamiento", description: "Entrevistas y observación directa del flujo de trabajo." },
-    { id: "2", title: "Modelado", description: "Representación de procesos actuales (As-Is)." },
-    { id: "3", title: "Evaluación", description: "Auditoría de herramientas y silos de información." },
-    { id: "4", title: "Diagnóstico", description: "Identificación de puntos críticos y brechas." },
-    { id: "5", title: "Propuesta", description: "Formulación de recomendaciones de mejora." }
-  ]
+  }
 };
