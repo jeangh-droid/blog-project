@@ -219,5 +219,112 @@ export const PROJECT_DATA: ProjectData = {
       { category: "Externo", question: "¿Cuánto tiempo podría dedicar semanalmente a aprender y usar herramientas digitales?", objective: "Determinar la viabilidad del cambio organizacional y capacitación técnica." },
       { category: "Externo", question: "¿Estaría dispuesto a delegar la administración del sistema digital a su hermano?", objective: "Analizar la estructura de roles y permisos para una futura implementación." }
     ]
-  }
+  },
+  outputs: {
+    stakeholderAnalysis: [
+      { name: "Dueño del Negocio", role: "Director General", interests: "Optimización de procesos, rentabilidad y control total del flujo de caja.", power: "Alto", interest: "Alto" },
+      { name: "Instructores", role: "Capacitadores de campo", interests: "Claridad en cronogramas y estado óptimo de las unidades de enseñanza.", power: "Medio", interest: "Alto" },
+      { name: "Personal Administrativo", role: "Gestor de inscripciones", interests: "Reducción de carga manual y eliminación de duplicidad de datos.", power: "Medio", interest: "Alto" },
+      { name: "Alumnos", role: "Clientes finales", interests: "Disponibilidad de horarios y experiencia de usuario fluida en el registro.", power: "Bajo", interest: "Medio" },
+      { name: "Equipo UNTELS", role: "Consultores académicos", interests: "Validación de metodologías PMBOK y entrega de diagnóstico de valor.", power: "Alto", interest: "Alto" }
+    ],
+    stakeholderInvolvement: [
+      { name: "Dueño del Negocio", currentLevel: "Apoya", desiredLevel: "Lidera", strategy: "Involucramiento en la validación de requerimientos críticos.", actions: "Sesiones semanales de reporte y feedback estratégico." },
+      { name: "Instructores", currentLevel: "Neutral", desiredLevel: "Apoya", strategy: "Demostrar los beneficios de un registro de mantenimiento eficiente.", actions: "Comunicación de hallazgos sobre optimización de flota." },
+      { name: "Personal Administrativo", currentLevel: "Neutral", desiredLevel: "Apoya", strategy: "Enfoque en la simplificación de tareas repetitivas.", actions: "Mapeo de procesos de inscripción para reducir tiempos." }
+    ]
+  },
+  tools: {
+    interviews: "Entrevistas estructuradas con el personal clave para identificar puntos de dolor.",
+    observation: "Observación directa de los procesos de atención al cliente y registro de datos.",
+    registration: "Documentación técnica de los artefactos de información actuales (formularios, excels).",
+    interviewAnalysis: "Se realizaron sesiones de preguntas abiertas con el encargado del negocio para entender la lógica detrás de la asignación de horarios y la gestión de la flota. El análisis se centró en la metodología de trabajo más que en la transcripción literal, identificando que la mayoría de decisiones se basan en la experiencia empírica más que en datos históricos.",
+    interviewStructured: {
+      summary: "Diagnóstico situacional de una escuela de manejo con alta demanda operativa (30-50 clientes/semana) y procesos netamente empíricos, familiares y manuales, con una fuerte dependencia de canales digitales informales para la captación.",
+      categories: [
+        {
+          title: "Operación del negocio",
+          content: "Estructura de mando centralizada en el dueño, apoyada por un núcleo familiar (hermano en redes, prima en contabilidad, abuelo en mantenimiento). Opera entre 60 y 120 horas semanales atendiendo a un volumen considerable de alumnos en un entorno de alta competencia y conflictos externos (circuito de manejo)."
+        },
+        {
+          title: "Gestión de alumnos",
+          content: "La captación es digital (TikTok Lives) y la gestión de prospectos se realiza a través de WhatsApp Business, donde se solicitan datos básicos (Nombre, DNI, teléfono). No existe una base de datos centralizada, los alumnos se 'ordenan' conforme llegan por mensajería."
+        },
+        {
+          title: "Programación de clases",
+          content: "La agenda es controlada directamente por el dueño, organizando flujos de 2 a 3 alumnos por hora. Aunque los cruces de horarios son poco frecuentes, la asignación es manual y carece de un sistema de reservas que brinde visibilidad al cliente o al equipo."
+        },
+        {
+          title: "Gestión de pagos",
+          content: "El modelo de ingresos se basa en el cobro por hora de instrucción, no por paquetes cerrados. El medio de pago predominante es Yape, lo cual genera dificultades de conciliación y control de caja al no contar con un registro formalizado de ingresos."
+        },
+        {
+          title: "Uso de tecnología",
+          content: "El ecosistema tecnológico se limita a WhatsApp Business para la gestión comercial y social media (TikTok). Existe una ausencia total de software de gestión (ERP/CRM), realizándose todo de forma física o mediante procesos manuales susceptibles a errores."
+        },
+        {
+          title: "Recursos (vehículos e instructores)",
+          content: "Flota compuesta por 2 automóviles (uno nuevo, el resto antiguos) y 4 motocicletas. La instrucción es realizada por el dueño y su hermano. El mantenimiento es reactivo y artesanal, con riesgos de omisión en servicios preventivos básicos (filtros, aceite, llantas)."
+        },
+        {
+          title: "Problemas detectados",
+          content: "Alto desorden administrativo, procesos manuales sin respaldo, falta de automatización y dependencia crítica de la presencia del dueño. Conflictos en el entorno operativo (inquilinos del circuito) e incidencias de seguridad previas que afectan la continuidad."
+        },
+        {
+          title: "Objetivos o aspiraciones del negocio",
+          content: "Deseo de profesionalización mediante una página web y uso de herramientas de oficina (Excel) para ventas de accesorios. Se busca expandir el modelo de negocio a la comercialización de cascos y repuestos, además de obtener reportes claros de rendimiento mensual."
+        }
+      ],
+      keyFindings: [
+        "Vulnerabilidad operativa: Alta dependencia del dueño para la toma de decisiones y control de procesos críticos.",
+        "Informalidad digital: Gestión de clientes 100% dependiente de hilos de chat sin trazabilidad ni reportabilidad estadística.",
+        "Mantenimiento en riesgo: La falta de una planificación de mantenimiento preventivo compromete la seguridad y la vida útil de los activos (vehículos).",
+        "Falta de escalabilidad: El modelo actual está al límite de su capacidad manual, lo que impide un crecimiento sostenido hacia la venta de productos complementarios."
+      ]
+    }
+  },
+  stakeholders: [
+    {
+      role: "Dueño del Negocio",
+      description: "Responsable de la dirección general y validación de hallazgos.",
+      power: "Alto",
+      interest: "Alto",
+      strategy: "Gestión directa y validación constante de cada hito del diagnóstico."
+    },
+    {
+      role: "Instructores",
+      description: "Operadores directos que generan y consumen datos de clases.",
+      power: "Medio",
+      interest: "Alto",
+      strategy: "Comunicación operativa para entender la viabilidad del registro de clases."
+    },
+    {
+      role: "Personal Administrativo",
+      description: "Encargados del registro de inscripciones y gestión de pagos.",
+      power: "Medio",
+      interest: "Alto",
+      strategy: "Coordinación frecuente para mapear el flujo de caja e información."
+    },
+    {
+      role: "Alumnos",
+      description: "Usuarios finales del servicio cuya información es el núcleo del sistema.",
+      power: "Bajo",
+      interest: "Medio",
+      strategy: "Interacción indirecta mediante el análisis de su experiencia de usuario."
+    },
+    {
+      role: "Equipo del Proyecto",
+      description: "Estudiantes de UNTELS encargados del diagnóstico sistemático.",
+      power: "Alto",
+      interest: "Alto",
+      strategy: "Gestión interna del proyecto y producción del entregable académico."
+    }
+  ],
+  methodology: [
+    { id: "1", title: "Levantamiento", description: "Entrevistas y observación directa del flujo de trabajo." },
+    { id: "2", title: "Modelado", description: "Representación de procesos actuales (As-Is)." },
+    { id: "3", title: "Evaluación", description: "Auditoría de herramientas y silos de información." },
+    { id: "4", title: "Diagnóstico", description: "Identificación de puntos críticos y brechas." },
+    { id: "5", title: "Propuesta", description: "Formulación de recomendaciones de mejora." }
+  ]
 };

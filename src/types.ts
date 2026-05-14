@@ -24,6 +24,14 @@ export interface PlanInvolucramiento {
   estrategia: string;
 }
 
+export interface IdentifiedStakeholder {
+  id: string;
+  name: string;
+  type: string;
+  role: string;
+  responsibility: string;
+}
+
 export interface ProjectData {
   title: string;
   subtitle: string;
@@ -81,10 +89,18 @@ export interface ProjectData {
   inputs?: {
     interviewContext: string;
     questions: QuestionEntry[];
-    [key: string]: any;
   };
-  outputs?: any;
-  tools?: any;
-  stakeholders?: any;
-  methodology?: any;
+  outputs: {
+    stakeholderAnalysis: StakeholderAnalysis[];
+    stakeholderInvolvement: StakeholderInvolvement[];
+  };
+  tools: {
+    interviews: string;
+    observation: string;
+    registration: string;
+    interviewAnalysis: string;
+    interviewStructured?: InterviewAnalysis;
+  };
+  stakeholders: Stakeholder[];
+  methodology: MethodologyStep[];
 }
