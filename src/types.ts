@@ -32,6 +32,13 @@ export interface IdentifiedStakeholder {
   responsibility: string;
 }
 
+export interface SmartCriterion {
+  letter: string;
+  name: string;
+  complies: boolean;
+  justification: string;
+}
+
 export interface ProjectData {
   title: string;
   subtitle: string;
@@ -84,23 +91,16 @@ export interface ProjectData {
       estrategia: string[];
       matriz: PlanInvolucramiento[];
     };
+    verificacionSMART?: SmartCriterion[];
   };
   // Legacy fields to be removed or kept as needed
   inputs?: {
     interviewContext: string;
     questions: QuestionEntry[];
+    [key: string]: any;
   };
-  outputs: {
-    stakeholderAnalysis: StakeholderAnalysis[];
-    stakeholderInvolvement: StakeholderInvolvement[];
-  };
-  tools: {
-    interviews: string;
-    observation: string;
-    registration: string;
-    interviewAnalysis: string;
-    interviewStructured?: InterviewAnalysis;
-  };
-  stakeholders: Stakeholder[];
-  methodology: MethodologyStep[];
+  outputs?: any;
+  tools?: any;
+  stakeholders?: any;
+  methodology?: any;
 }

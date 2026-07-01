@@ -54,71 +54,217 @@ export const PROJECT_DATA: ProjectData = {
       ]
     },
     analisisProblema: {
-      central: "Gestión informal y desorganizada de los procesos operativos, lo que genera pérdida de clientes, errores en el registro y baja eficiencia.",
-      causasDirectas: [
-        { causa: "Ausencia de sistema de gestión digital", evidencia: "Operación manejada por WhatsApp y Yape sin integración." },
-        { causa: "Falta de automatización en atención", evidencia: "Mensaje de bienvenida manual dependiendo de disponibilidad." },
-        { causa: "Registro de pagos informal", evidencia: "Cobros no consolidados en sistema contable." },
-        { causa: "Gestión manual de horarios", evidencia: "Sin plataforma que organice turnos de clases." }
-      ],
-      causasIndirectas: [
-        "Desconocimiento de herramientas de gestión empresarial.",
-        "Bajo presupuesto inicial para tecnología.",
-        "Crecimiento sin planificación estructural.",
-        "Dependencia de apps de uso personal (Yape, WhatsApp)."
-      ],
-      efectosDirectos: [
-        { efecto: "Pérdida de clientes potenciales", descripcion: "Falta de respuesta rápida motiva a optar por otra escuela." },
-        { efecto: "Errores en el control de pagos", descripcion: "Dificultad para identificar alumnos morosos o pagos dobles." },
-        { efecto: "Desorganización en horarios", descripcion: "Riesgo de cruces entre alumnos e instructores." },
-        { efecto: "Falta de seguimiento académico", descripcion: "Sin registro del avance de formación del alumno." }
-      ],
-      efectosIndirectos: [
-        "Deterioro de reputación por demoras o errores.",
-        "Limitación del crecimiento y escalabilidad.",
-        "Dificultad para toma de decisiones estratégicas.",
-        "Sobrecarga operativa para el dueño.",
-        "Riesgo financiero por falta de reportes confiables."
-      ],
-      verificacion: [
-        { elemento: "Problema central", descripcion: "Gestión informal y desorganizada.", evidencia: "WhatsApp, Yape, observación directa.", estado: "Verificado" },
-        { elemento: "Causa 1", descripcion: "Ausencia de sistema digital.", evidencia: "No existe CRM o ERP.", estado: "Verificado" },
-        { elemento: "Causa 2", descripcion: "Atención no automatizada.", evidencia: "Mensaje manual confirmado.", estado: "Verificado" },
-        { elemento: "Causa 3", descripcion: "Pagos informales.", evidencia: "Yape sin integración contable.", estado: "Verificado" },
-        { elemento: "Causa 4", descripcion: "Gestión manual de horarios.", evidencia: "Sin plataforma de agendamiento.", estado: "Verificado" }
-      ]
+  central:
+    "Deficiente digitalización e integración de los procesos operativos en la Escuela de Manejo Ámbar.",
+
+  causasDirectas: [
+    {
+      causa: "Gestión manual de alumnos",
+      evidencia:
+        "La información de alumnos se maneja manualmente mediante registros aislados."
     },
-    analisisObjetivos: {
-      transicion: "Transformar el diagnóstico en una solución que proyecte positivamente la eficiencia operativa y el crecimiento estructurado del negocio.",
-      central: "Mejorar la eficiencia operativa y la calidad del servicio mediante la digitalización estratégica e integración de procesos clave.",
-      mediosTecnologicos: [
-        "Implementar sistema integrado de gestión (Clases, Pagos, Inscripciones).",
-        "Habilitar plataforma multicanal automatizada (WhatsApp).",
-        "Desplegar dashboards de seguimiento académico en tiempo real."
-      ],
-      mediosGestion: [
-        "Ejecutar programa de gestión del cambio y capacitación por roles.",
-        "Definir política institucional de inversión y gobernanza tecnológica.",
-        "Actualizar infraestructura TI y certificar proveedores (SLA)."
-      ],
-      finesOperativos: [
-        "Alta satisfacción y lealtad del estudiante (oferta ágil).",
-        "Optimización de procesos (personal enfocado en calidad decente).",
-        "Toma de decisiones basadas en datos e información estratégica."
-      ],
-      finesComerciales: [
-        "Reputación institucional fortalecida y mayor captación.",
-        "Capacidad de escalar operaciones con eficiencia de costos.",
-        "Posicionamiento como líder en calidad digital."
-      ],
-      verificacion: [
-        { medio: "Sistema integrado", contribucion: "Centraliza y ordena procesos clave.", fin: "Escalabilidad con eficiencia." },
-        { medio: "Plataforma multicanal", contribucion: "Mejora radical del servicio preventa.", fin: "Alta satisfacción y lealtad." },
-        { medio: "Dashboards de control", contribucion: "Aporta métricas académicas reales.", fin: "Decisiones estratégicas confiables." },
-        { medio: "Gestión del cambio", contribucion: "Garantiza adopción por parte de interesados.", fin: "Optimización real de procesos." },
-        { medio: "Infraestructura TI", contribucion: "Brinda entorno tecnológico seguro.", fin: "Reputación y posicionamiento." }
-      ]
+    {
+      causa: "Falta de integración operativa",
+      evidencia:
+        "No existe un sistema centralizado que integre pagos, horarios y seguimiento."
+    },
+    {
+      causa: "Comunicación dispersa",
+      evidencia:
+        "La atención y coordinación se realiza principalmente por WhatsApp."
+    },
+    {
+      causa: "Deficiente control financiero",
+      evidencia:
+        "Existe alta dependencia de procesos manuales para registrar pagos."
+    },
+    {
+      causa: "Ausencia de indicadores",
+      evidencia:
+        "No se cuenta con trazabilidad ni reportes en tiempo real."
+    },
+    {
+      causa: "Mantenimiento reactivo",
+      evidencia:
+        "No existe planificación preventiva ni control estructurado."
     }
+  ],
+
+  causasIndirectas: [
+    "Registros aislados.",
+    "Procesos sin estandarización.",
+    "Ausencia de sistema centralizado.",
+    "Dependencia de WhatsApp.",
+    "Alta dependencia de procesos manuales.",
+    "Yape sin trazabilidad.",
+    "Sin reportes en tiempo real.",
+    "Sin planificación preventiva."
+  ],
+
+  efectosDirectos: [
+    {
+      efecto: "Sobrecarga administrativa",
+      descripcion:
+        "La gestión manual incrementa el trabajo operativo y administrativo."
+    },
+    {
+      efecto: "Insatisfacción del cliente",
+      descripcion:
+        "Las demoras y desorganización afectan la experiencia del usuario."
+    },
+    {
+      efecto: "Decisiones sin enfoque",
+      descripcion:
+        "La falta de datos dificulta la toma de decisiones estratégicas."
+    },
+    {
+      efecto: "Difícil escalar servicio",
+      descripcion:
+        "La operación actual limita el crecimiento de la escuela."
+    },
+    {
+      efecto: "Baja calidad de atención",
+      descripcion:
+        "La comunicación dispersa genera respuestas tardías e inconsistentes."
+    }
+  ],
+
+  efectosIndirectos: [
+    "Deterioro de imagen.",
+    "Pérdida de estudiantes.",
+    "Menor competitividad."
+  ],
+
+  verificacion: [
+    {
+      elemento: "Problema Central",
+      descripcion:
+        "Deficiente digitalización e integración de procesos operativos.",
+      evidencia:
+        "Procesos manuales observados en atención, pagos y seguimiento.",
+      estado: "Verificado"
+    },
+    {
+      elemento: "Causa Directa",
+      descripcion: "Gestión manual de alumnos.",
+      evidencia:
+        "Uso de registros aislados y control manual de información.",
+      estado: "Verificado"
+    },
+    {
+      elemento: "Causa Directa",
+      descripcion: "Comunicación dispersa.",
+      evidencia:
+        "Dependencia de WhatsApp para coordinación y atención.",
+      estado: "Verificado"
+    },
+    {
+      elemento: "Causa Directa",
+      descripcion: "Deficiente control financiero.",
+      evidencia:
+        "Pagos realizados mediante Yape sin trazabilidad centralizada.",
+      estado: "Verificado"
+    },
+    {
+      elemento: "Causa Directa",
+      descripcion: "Ausencia de indicadores.",
+      evidencia:
+        "No existen reportes ni métricas en tiempo real.",
+      estado: "Verificado"
+    },
+    {
+      elemento: "Efecto Directo",
+      descripcion: "Insatisfacción del cliente.",
+      evidencia:
+        "Retrasos y desorganización en la atención observada.",
+      estado: "Verificado"
+    },
+    {
+      elemento: "Efecto Indirecto",
+      descripcion: "Pérdida de estudiantes.",
+      evidencia:
+        "La baja calidad de atención afecta la retención y captación.",
+      estado: "Verificado"
+    }
+  ]
+},
+    analisisObjetivos: {
+  transicion:
+    "Transformar el diagnóstico actual en una estrategia de modernización digital orientada a la eficiencia operativa, escalabilidad y sostenibilidad de la Escuela de Manejo Moto Driving.",
+
+  central:
+    "Mejorar la eficiencia operativa y la calidad del servicio educativo de la Escuela de Manejo Moto Driving mediante la digitalización estratégica e integración de sus procesos clave.",
+
+  mediosTecnologicos: [
+    "Adquisición e integración de software SaaS de gestión operativa.",
+    "Implementación de flujos automatizados mediante WhatsApp Business API.",
+    "Despliegue de herramientas de seguimiento académico y operativo.",
+    "Actualización de infraestructura TI institucional.",
+    "Implementación de indicadores clave de gestión (KPIs)."
+  ],
+
+  mediosGestion: [
+    "Estandarización de procesos operativos internos.",
+    "Definición de política institucional de inversión y gobernanza tecnológica.",
+    "Programa de adopción digital y capacitación del personal.",
+    "Planificación preventiva de recursos operativos.",
+    "Habilitación de plataforma integral de gestión."
+  ],
+
+  finesOperativos: [
+    "Optimización de procesos operativos.",
+    "Capacidad de escalar operaciones eficientemente.",
+    "Disponibilidad de indicadores clave de gestión (KPIs).",
+    "Toma de decisiones estratégicas basadas en datos confiables.",
+    "Planificación preventiva y eficiente de recursos operativos."
+  ],
+
+  finesComerciales: [
+    "Posicionamiento competitivo de Moto Driving como líder en calidad digital.",
+    "Incremento en la tasa de conversión de consultas a ventas reales.",
+    "Liberación de la carga operativa y gerencial de la dirección.",
+    "Trazabilidad financiera completa y seguridad en los ingresos.",
+    "Crecimiento escalable y sostenibilidad financiera."
+  ],
+
+  verificacion: [
+    {
+      medio: "Software SaaS de gestión operativa",
+      contribucion:
+        "Centraliza la gestión de alumnos, pagos, horarios y seguimiento.",
+      fin:
+        "Optimización de procesos operativos y escalabilidad."
+    },
+    {
+      medio: "WhatsApp Business API",
+      contribucion:
+        "Automatiza respuestas, seguimiento y atención al cliente.",
+      fin:
+        "Incremento de conversión y mejora en la experiencia del usuario."
+    },
+    {
+      medio: "Herramientas de seguimiento académico",
+      contribucion:
+        "Permiten monitoreo en tiempo real del progreso estudiantil.",
+      fin:
+        "Disponibilidad de indicadores y decisiones basadas en datos."
+    },
+    {
+      medio: "Programa de adopción digital",
+      contribucion:
+        "Facilita la transición tecnológica y estandarización operativa.",
+      fin:
+        "Optimización de procesos y sostenibilidad organizacional."
+    },
+    {
+      medio: "Infraestructura TI actualizada",
+      contribucion:
+        "Garantiza estabilidad, seguridad y soporte tecnológico.",
+      fin:
+        "Posicionamiento competitivo y crecimiento sostenible."
+    }
+  ]
+},
   },
   salida: {
     planInvolucramiento: {
@@ -136,7 +282,39 @@ export const PROJECT_DATA: ProjectData = {
         { involucrado: "Proveedores Tecnológicos", interes: "Medio", influencia: "Bajo", expectativa: "Implementación técnica futura exitosa.", estrategia: "Evaluación como soporte técnico potencial." },
         { involucrado: "Entorno físico / Circuito", interes: "Medio", influencia: "Medio", expectativa: "Condiciona la operación diaria.", estrategia: "Gestión como restricción externa y riesgo." }
       ]
-    }
+    },
+    verificacionSMART: [
+      {
+        letter: "S",
+        name: "Específico (Specific)",
+        complies: true,
+        justification: "El árbol no habla de \"mejorar la empresa\" de forma ambigua. Define exactamente qué se va a hacer (digitalización estratégica e integración de procesos clave) y cómo se logrará (Adquisición de software SaaS, automatización de WhatsApp Business API, capacitación del personal). Cada bloque detalla un área específica del negocio (finanzas, operaciones, atención al cliente, infraestructura)."
+      },
+      {
+        letter: "M",
+        name: "Medible (Measurable)",
+        complies: true,
+        justification: "El árbol incluye fines explícitamente orientados a la medición. El recuadro \"Disponibilidad de indicadores clave de gestión (KPIs)\" y \"Toma de decisiones estratégicas basadas en datos confiables\" aseguran que el éxito del proyecto no será subjetivo. Además, impactos como el \"Incremento en la tasa de conversión de consultas a ventas reales\" son métricas directas que se pueden calcular comparando el \"antes y el después\" de la automatización de WhatsApp."
+      },
+      {
+        letter: "A",
+        name: "Alcanzable (Achievable)",
+        complies: true,
+        justification: "El proyecto no propone desarrollar un sistema desde cero (lo cual sería costoso y riesgoso para una PYME), sino que inteligentemente opta por un medio secundario muy realista: \"Adquisición e integración de software SaaS de gestión operativa\". Implementar herramientas ya existentes (SaaS y WhatsApp API) junto con un \"Programa de adopción digital\" para mitigar la resistencia del personal, hace que las metas operativas y tecnológicas sean perfectamente viables para la Escuela de Manejo Moto Driving."
+      },
+      {
+        letter: "R",
+        name: "Relevante (Relevant)",
+        complies: true,
+        justification: "El objetivo central y sus fines están directamente alineados con la supervivencia y el crecimiento del negocio. La \"Liberación de la carga operativa y gerencial de la dirección\" y la \"Trazabilidad financiera completa\" atacan los puntos de dolor más críticos diagnosticados (pérdida de clientes, uso de Yape sin registro, dueño sobrecargado). El \"Fin Final\" demuestra la importancia suprema del proyecto: sin esto, la empresa no logrará sostenibilidad financiera ni posicionamiento competitivo."
+      },
+      {
+        letter: "T",
+        name: "Temporal (Time-bound)",
+        complies: true,
+        justification: "Dado que el alcance del presente proyecto es de carácter propositivo (informe de diagnóstico y propuesta de diseño), no abarca la ejecución material en este momento. Sin embargo, el criterio temporal se cumple porque los medios y el objetivo central están diseñados para ser enmarcados dentro de un cronograma estimado de implementación que se incluirá en la propuesta."
+      }
+    ]
   },
   tools: {
     interviewStructured: {
@@ -219,112 +397,5 @@ export const PROJECT_DATA: ProjectData = {
       { category: "Externo", question: "¿Cuánto tiempo podría dedicar semanalmente a aprender y usar herramientas digitales?", objective: "Determinar la viabilidad del cambio organizacional y capacitación técnica." },
       { category: "Externo", question: "¿Estaría dispuesto a delegar la administración del sistema digital a su hermano?", objective: "Analizar la estructura de roles y permisos para una futura implementación." }
     ]
-  },
-  outputs: {
-    stakeholderAnalysis: [
-      { name: "Dueño del Negocio", role: "Director General", interests: "Optimización de procesos, rentabilidad y control total del flujo de caja.", power: "Alto", interest: "Alto" },
-      { name: "Instructores", role: "Capacitadores de campo", interests: "Claridad en cronogramas y estado óptimo de las unidades de enseñanza.", power: "Medio", interest: "Alto" },
-      { name: "Personal Administrativo", role: "Gestor de inscripciones", interests: "Reducción de carga manual y eliminación de duplicidad de datos.", power: "Medio", interest: "Alto" },
-      { name: "Alumnos", role: "Clientes finales", interests: "Disponibilidad de horarios y experiencia de usuario fluida en el registro.", power: "Bajo", interest: "Medio" },
-      { name: "Equipo UNTELS", role: "Consultores académicos", interests: "Validación de metodologías PMBOK y entrega de diagnóstico de valor.", power: "Alto", interest: "Alto" }
-    ],
-    stakeholderInvolvement: [
-      { name: "Dueño del Negocio", currentLevel: "Apoya", desiredLevel: "Lidera", strategy: "Involucramiento en la validación de requerimientos críticos.", actions: "Sesiones semanales de reporte y feedback estratégico." },
-      { name: "Instructores", currentLevel: "Neutral", desiredLevel: "Apoya", strategy: "Demostrar los beneficios de un registro de mantenimiento eficiente.", actions: "Comunicación de hallazgos sobre optimización de flota." },
-      { name: "Personal Administrativo", currentLevel: "Neutral", desiredLevel: "Apoya", strategy: "Enfoque en la simplificación de tareas repetitivas.", actions: "Mapeo de procesos de inscripción para reducir tiempos." }
-    ]
-  },
-  tools: {
-    interviews: "Entrevistas estructuradas con el personal clave para identificar puntos de dolor.",
-    observation: "Observación directa de los procesos de atención al cliente y registro de datos.",
-    registration: "Documentación técnica de los artefactos de información actuales (formularios, excels).",
-    interviewAnalysis: "Se realizaron sesiones de preguntas abiertas con el encargado del negocio para entender la lógica detrás de la asignación de horarios y la gestión de la flota. El análisis se centró en la metodología de trabajo más que en la transcripción literal, identificando que la mayoría de decisiones se basan en la experiencia empírica más que en datos históricos.",
-    interviewStructured: {
-      summary: "Diagnóstico situacional de una escuela de manejo con alta demanda operativa (30-50 clientes/semana) y procesos netamente empíricos, familiares y manuales, con una fuerte dependencia de canales digitales informales para la captación.",
-      categories: [
-        {
-          title: "Operación del negocio",
-          content: "Estructura de mando centralizada en el dueño, apoyada por un núcleo familiar (hermano en redes, prima en contabilidad, abuelo en mantenimiento). Opera entre 60 y 120 horas semanales atendiendo a un volumen considerable de alumnos en un entorno de alta competencia y conflictos externos (circuito de manejo)."
-        },
-        {
-          title: "Gestión de alumnos",
-          content: "La captación es digital (TikTok Lives) y la gestión de prospectos se realiza a través de WhatsApp Business, donde se solicitan datos básicos (Nombre, DNI, teléfono). No existe una base de datos centralizada, los alumnos se 'ordenan' conforme llegan por mensajería."
-        },
-        {
-          title: "Programación de clases",
-          content: "La agenda es controlada directamente por el dueño, organizando flujos de 2 a 3 alumnos por hora. Aunque los cruces de horarios son poco frecuentes, la asignación es manual y carece de un sistema de reservas que brinde visibilidad al cliente o al equipo."
-        },
-        {
-          title: "Gestión de pagos",
-          content: "El modelo de ingresos se basa en el cobro por hora de instrucción, no por paquetes cerrados. El medio de pago predominante es Yape, lo cual genera dificultades de conciliación y control de caja al no contar con un registro formalizado de ingresos."
-        },
-        {
-          title: "Uso de tecnología",
-          content: "El ecosistema tecnológico se limita a WhatsApp Business para la gestión comercial y social media (TikTok). Existe una ausencia total de software de gestión (ERP/CRM), realizándose todo de forma física o mediante procesos manuales susceptibles a errores."
-        },
-        {
-          title: "Recursos (vehículos e instructores)",
-          content: "Flota compuesta por 2 automóviles (uno nuevo, el resto antiguos) y 4 motocicletas. La instrucción es realizada por el dueño y su hermano. El mantenimiento es reactivo y artesanal, con riesgos de omisión en servicios preventivos básicos (filtros, aceite, llantas)."
-        },
-        {
-          title: "Problemas detectados",
-          content: "Alto desorden administrativo, procesos manuales sin respaldo, falta de automatización y dependencia crítica de la presencia del dueño. Conflictos en el entorno operativo (inquilinos del circuito) e incidencias de seguridad previas que afectan la continuidad."
-        },
-        {
-          title: "Objetivos o aspiraciones del negocio",
-          content: "Deseo de profesionalización mediante una página web y uso de herramientas de oficina (Excel) para ventas de accesorios. Se busca expandir el modelo de negocio a la comercialización de cascos y repuestos, además de obtener reportes claros de rendimiento mensual."
-        }
-      ],
-      keyFindings: [
-        "Vulnerabilidad operativa: Alta dependencia del dueño para la toma de decisiones y control de procesos críticos.",
-        "Informalidad digital: Gestión de clientes 100% dependiente de hilos de chat sin trazabilidad ni reportabilidad estadística.",
-        "Mantenimiento en riesgo: La falta de una planificación de mantenimiento preventivo compromete la seguridad y la vida útil de los activos (vehículos).",
-        "Falta de escalabilidad: El modelo actual está al límite de su capacidad manual, lo que impide un crecimiento sostenido hacia la venta de productos complementarios."
-      ]
-    }
-  },
-  stakeholders: [
-    {
-      role: "Dueño del Negocio",
-      description: "Responsable de la dirección general y validación de hallazgos.",
-      power: "Alto",
-      interest: "Alto",
-      strategy: "Gestión directa y validación constante de cada hito del diagnóstico."
-    },
-    {
-      role: "Instructores",
-      description: "Operadores directos que generan y consumen datos de clases.",
-      power: "Medio",
-      interest: "Alto",
-      strategy: "Comunicación operativa para entender la viabilidad del registro de clases."
-    },
-    {
-      role: "Personal Administrativo",
-      description: "Encargados del registro de inscripciones y gestión de pagos.",
-      power: "Medio",
-      interest: "Alto",
-      strategy: "Coordinación frecuente para mapear el flujo de caja e información."
-    },
-    {
-      role: "Alumnos",
-      description: "Usuarios finales del servicio cuya información es el núcleo del sistema.",
-      power: "Bajo",
-      interest: "Medio",
-      strategy: "Interacción indirecta mediante el análisis de su experiencia de usuario."
-    },
-    {
-      role: "Equipo del Proyecto",
-      description: "Estudiantes de UNTELS encargados del diagnóstico sistemático.",
-      power: "Alto",
-      interest: "Alto",
-      strategy: "Gestión interna del proyecto y producción del entregable académico."
-    }
-  ],
-  methodology: [
-    { id: "1", title: "Levantamiento", description: "Entrevistas y observación directa del flujo de trabajo." },
-    { id: "2", title: "Modelado", description: "Representación de procesos actuales (As-Is)." },
-    { id: "3", title: "Evaluación", description: "Auditoría de herramientas y silos de información." },
-    { id: "4", title: "Diagnóstico", description: "Identificación de puntos críticos y brechas." },
-    { id: "5", title: "Propuesta", description: "Formulación de recomendaciones de mejora." }
-  ]
+  }
 };
