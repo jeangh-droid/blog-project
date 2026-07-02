@@ -39,6 +39,7 @@ import {
 import { PROJECT_DATA } from './constants';
 import { DESIGN_THINKING_DATA } from './designThinking';
 import AlcancePage from './components/AlcancePage';
+import Sprint1PagosPage from './components/Spring1PagosPage';
 import type { IdentifiedStakeholder } from './types';
 
 export const LightboxContext = createContext<{
@@ -79,6 +80,7 @@ function Layout({ children }: { children: ReactNode }) {
             <NavLink to="/recopilacion" active={location.pathname === "/recopilacion"}>Recopilación</NavLink>
             <NavLink to="/design-thinking" active={location.pathname === "/design-thinking"}>Design Thinking</NavLink>
             <NavLink to="/alcance" active={location.pathname === "/alcance"}>Alcance</NavLink>
+            <NavLink to="/control-pagos" active={location.pathname === "/control-pagos"}>Control de Pagos</NavLink>
           </div>
         </div>
       </nav>
@@ -155,7 +157,7 @@ function HomePage() {
       <main className="max-w-5xl mx-auto py-20 px-6 space-y-32">
         {/* Equipo del Proyecto */}
         <section className="scroll-mt-24 space-y-8">
-          <SectionHeader title="Encargados del Proyecto" icon={<Users size={20}/>} />
+          <SectionHeader title="Estudiantes del Proyecto" icon={<Users size={20}/>} />
           
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
@@ -163,24 +165,28 @@ function HomePage() {
                 name: "Jesús López Rodríguez",
                 code: "2223050507",
                 email: "2223050507@untels.edu.pe",
+                role: "Líder de Proyecto / Analista de Sistemas",
                 initials: "JL"
               },
               {
                 name: "Leonardo Ávila Tribeño",
                 code: "2223110288",
                 email: "2223110288@untels.edu.pe",
+                role: "Diseñador UX/UI / Arquitecto de Software",
                 initials: "LA"
               },
               {
                 name: "Carlos Agustín Curo Ramos",
                 code: "2113010682",
                 email: "2113010682@untels.edu.pe",
+                role: "Desarrollador Backend / Base de Datos",
                 initials: "CC"
               },
               {
                 name: "Jean Piers Quispe Chambi",
                 code: "2223010312",
                 email: "2223010312@untels.edu.pe",
+                role: "Desarrollador Frontend / Integración de Sistemas",
                 initials: "JQ"
               }
             ].map((student, i) => (
@@ -203,6 +209,7 @@ function HomePage() {
                   
                   <div className="space-y-1">
                     <h4 className="text-sm font-bold text-slate-900 group-hover:text-[#004A99] transition-colors">{student.name}</h4>
+                    <p className="text-[10px] text-slate-400 font-medium uppercase tracking-wider">{student.role}</p>
                   </div>
                 </div>
 
@@ -1097,19 +1104,6 @@ const evidences = [
               </div>
             </div>
           </div>
-
-          <div className="space-y-6">
-               <h4 className="text-[11px] font-bold text-slate-900 uppercase tracking-widest text-center">Visualización Gráfica del Análisis</h4>
-               <div className="w-full aspect-[16/9] bg-slate-100 rounded-xl border border-slate-200 flex items-center justify-center relative overflow-hidden group">
-                  <div className="absolute inset-0 flex items-center justify-center text-slate-400 font-mono text-xs uppercase tracking-widest">[ Imagen: Proceso de BPM ]</div>
-                  <img 
-                    src="analisis_alternativas_bpm.png" 
-                    alt="Análisis de alternativas"
-                    className="w-full h-full object-contain opacity-90 group-hover:scale-105 transition-transform cursor-zoom-in" 
-                    onClick={() => openLightbox("analisis_alternativas_bpm.png", "Análisis de alternativas")}
-                  />
-               </div>
-            </div>
         </Accordion>
       </div>
 
@@ -1804,6 +1798,7 @@ export default function App() {
             <Route path="/salidas" element={<StakeholdersPage />} />
             <Route path="/design-thinking" element={<DesignThinkingPage />} />
             <Route path="/alcance" element={<AlcancePage />} />
+            <Route path="/control-pagos" element={<Sprint1PagosPage />} />
           </Routes>
         </Layout>
       </BrowserRouter>

@@ -56,10 +56,10 @@ export const DESIGN_THINKING_DATA: DesignThinkingPhase[] = [
         description: "Fichas arquetípicas basadas en datos de campo que personifican al cliente ideal de la escuela de manejo, detallando su perfil demográfico, metas, dolores cotidianos e intereses."
       }
     ],
-    image: "/dtk/fase1.png",
+    image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=1000&q=80",
     images: [
-      "/dtk/fase1.2.png",
-      "/dtk/fase1.png"
+      "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=1000&q=80",
+      "https://images.unsplash.com/photo-1531535934027-687f29114441?w=1000&q=80"
     ],
     colorTheme: {
       primary: "#004A99",
@@ -100,7 +100,7 @@ export const DESIGN_THINKING_DATA: DesignThinkingPhase[] = [
         description: "Manejo interactivo de post-its digitales para agrupar problemas de comunicación, operacionales y financieros por temas de impacto prioritario."
       }
     ],
-    image: "/dtk/fase2.png",
+    image: "https://images.unsplash.com/photo-1541462608141-2f5281346a41?w=1000&q=80",
     colorTheme: {
       primary: "#D97706",
       bg: "bg-amber-50/55",
@@ -136,7 +136,7 @@ export const DESIGN_THINKING_DATA: DesignThinkingPhase[] = [
         description: "Desarrollo del recorrido ideal simplificado que el estudiante experimentará con la nueva automatización del canal de atención."
       }
     ],
-    image: "/dtk/fase3.png",
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1000&q=80",
     colorTheme: {
       primary: "#7C3AED",
       bg: "bg-purple-50/55",
@@ -172,7 +172,7 @@ export const DESIGN_THINKING_DATA: DesignThinkingPhase[] = [
         description: "Modelos lógicos secuenciales que mapean los árboles de decisión y respuestas automáticas del bot de WhatsApp ante consultas frecuentes de prospectos."
       }
     ],
-    image: "/dtk/fase4.png",
+    image: "https://images.unsplash.com/photo-1581291518633-8324ebe1ff8a?w=1000&q=80",
     colorTheme: {
       primary: "#10B981",
       bg: "bg-emerald-50/55",
@@ -212,7 +212,7 @@ export const DESIGN_THINKING_DATA: DesignThinkingPhase[] = [
         description: "Cuestionarios rápidos sobre facilidad de navegación, claridad estética y efectividad de respuestas del flujo automatizado simulado."
       }
     ],
-    image: "/dtk/fase5.png",
+    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1000&q=80",
     colorTheme: {
       primary: "#06B6D4",
       bg: "bg-cyan-50/55",
