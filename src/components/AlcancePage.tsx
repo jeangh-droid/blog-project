@@ -2,15 +2,51 @@ import { useState } from 'react';
 import { motion } from 'motion/react';
 import { 
   Layers, Search, CheckCircle2, ChevronRight,
-  Info, Folder, UserCheck, 
-  Settings, ExternalLink, Lock, ListTodo, 
-  Award, CheckCircle, ShieldCheck, Eye, AlertCircle, ArrowUpRight
+  Info, Folder, Calendar, Activity, UserCheck, 
+  Users, Settings, TrendingUp, Maximize2, 
+  ExternalLink, Lock, ListTodo, Award, CheckCircle,
+   ShieldCheck, Eye, AlertCircle, ArrowUpRight
 } from 'lucide-react';
 import { useLightbox } from '../App';
 
+const scheduleTasks = [
+  { id: '1.4', title: 'IMPLEMENTACIÓN DEL SISTEMA', duration: '24 sem', start: '01/09/25', end: '13/02/26', type: 'parent', weekStart: 0, durationWeeks: 24, responsible: 'Jesús López / Todo el Equipo', progress: 100, deliverables: ['Código fuente de los módulos integrados', 'Base de datos productiva', 'Manuales técnicos y de usuario'] },
+  { id: '1.4.1', title: 'Preparación para la Implementación', duration: '3 sem', start: '01/09/25', end: '19/09/25', type: 'phase', weekStart: 0, durationWeeks: 3, responsible: 'Carlos Curo / Jesús López', progress: 100, deliverables: ['Servidores configurados', 'Base de datos vacía', 'Repositorio Git inicializado'] },
+  { id: '1.4.1.1', title: 'Reunión de inicio de implementación', duration: '2 días', start: '01/09/25', end: '02/09/25', type: 'task', parentId: '1.4.1', weekStart: 0, durationWeeks: 0.4, responsible: 'Todo el Equipo', progress: 100, deliverables: ['Acta de reunión de inicio de fase de desarrollo'] },
+  { id: '1.4.1.2', title: 'Definición del plan de trabajo detallado', duration: '3 días', start: '03/09/25', end: '05/09/25', type: 'task', parentId: '1.4.1', weekStart: 0.4, durationWeeks: 0.6, responsible: 'Jesús López', progress: 100, deliverables: ['Cronograma de desarrollo detallado por horas'] },
+  { id: '1.4.1.3', title: 'Configuración de servidores y entorno', duration: '5 días', start: '08/09/25', end: '12/09/25', type: 'task', parentId: '1.4.1', weekStart: 1, durationWeeks: 1, responsible: 'Carlos Curo', progress: 100, deliverables: ['Servidores de desarrollo y pre-producción levantados'] },
+  { id: '1.4.1.4', title: 'Configuración de base de datos', duration: '3 días', start: '15/09/25', end: '17/09/25', type: 'task', parentId: '1.4.1', weekStart: 2, durationWeeks: 0.6, responsible: 'Carlos Curo', progress: 100, deliverables: ['Esquemas de base de datos creados en motor PostgreSQL'] },
+  { id: '1.4.1.5', title: 'Configuración de repositorios y control de versiones', duration: '2 días', start: '18/09/25', end: '19/09/25', type: 'task', parentId: '1.4.1', weekStart: 2.6, durationWeeks: 0.4, responsible: 'Jean Piers Quispe', progress: 100, deliverables: ['Repositorio GitHub configurado con ramas protegidas'] },
+  { id: '1.4.1.6', title: 'Validación del entorno con el cliente', duration: '2 días', start: '18/09/25', end: '19/09/25', type: 'task', parentId: '1.4.1', weekStart: 2.6, durationWeeks: 0.4, responsible: 'Jesús López', progress: 100, deliverables: ['Acta de conformidad de entorno de desarrollo'] },
+  
+  { id: '1.4.2', title: 'Implementación del Módulo de Alumnos', duration: '4 sem', start: '22/09/25', end: '17/10/25', type: 'phase', weekStart: 3, durationWeeks: 4, responsible: 'Jean Piers Quispe', progress: 100, deliverables: ['Módulo de Alumnos (Registro, Búsqueda, Expedientes)'] },
+  { id: '1.4.2.1', title: 'Reunión de levantamiento funcional del módulo', duration: '2 días', start: '22/09/25', end: '23/09/25', type: 'task', parentId: '1.4.2', weekStart: 3, durationWeeks: 0.4, responsible: 'Jesús López', progress: 100, deliverables: ['Especificaciones funcionales de pantallas de Alumnos'] },
+  { id: '1.4.2.2', title: 'Ajustes a requerimientos específicos', duration: '3 días', start: '24/09/25', end: '26/09/25', type: 'task', parentId: '1.4.2', weekStart: 3.4, durationWeeks: 0.6, responsible: 'Leonardo Ávila', progress: 100, deliverables: ['Wireframes finales actualizados'] },
+  { id: '1.4.2.3', title: 'Desarrollo del módulo', duration: '10 días', start: '29/09/25', end: '10/10/25', type: 'task', parentId: '1.4.2', weekStart: 4, durationWeeks: 2, responsible: 'Jean Piers Quispe', progress: 100, deliverables: ['Vistas y controladores del expediente de alumno listos'] },
+  { id: '1.4.2.4', title: 'Integración con la base de datos', duration: '4 días', start: '13/10/25', end: '16/10/25', type: 'task', parentId: '1.4.2', weekStart: 6, durationWeeks: 0.8, responsible: 'Carlos Curo', progress: 100, deliverables: ['Conexiones API para consulta de estudiantes'] },
+  { id: '1.4.2.5', title: 'Pruebas internas', duration: '4 días', start: '13/10/25', end: '16/10/25', type: 'task', parentId: '1.4.2', weekStart: 6, durationWeeks: 0.8, responsible: 'Jesús López', progress: 100, deliverables: ['Plan de pruebas de Alumnos completado sin errores críticos'] },
+  { id: '1.4.2.6', title: 'Capacitación al personal administrativo', duration: '3 días', start: '15/10/25', end: '17/10/25', type: 'task', parentId: '1.4.2', weekStart: 6.6, durationWeeks: 0.6, responsible: 'Jesús López / Leonardo Ávila', progress: 100, deliverables: ['Manual de usuario de Alumnos entregado'] },
+  { id: '1.4.2.7', title: 'Recepcion de observaciones del cliente', duration: '2 días', start: '15/10/25', end: '16/10/25', type: 'task', parentId: '1.4.2', weekStart: 6.6, durationWeeks: 0.4, responsible: 'Jesús López', progress: 100, deliverables: ['Ficha de observaciones firmada por el dueño de la escuela'] },
+  
+  { id: '1.4.3', title: 'Implementación del Módulo de Clases', duration: '4 sem', start: '20/10/25', end: '14/11/25', type: 'phase', weekStart: 7, durationWeeks: 4, responsible: 'Jean Piers Quispe', progress: 100, deliverables: ['Módulo de Clases (Programador, Horarios, Asistencia)'] },
+  { id: '1.4.3.2', title: 'Desarrollo de programación de clases', duration: '8 días', start: '22/10/25', end: '31/10/25', type: 'task', parentId: '1.4.3', weekStart: 7.4, durationWeeks: 1.6, responsible: 'Jean Piers Quispe', progress: 100, deliverables: ['Algoritmo de asignación de horas sin traslapes desarrollado'] },
+  { id: '1.4.3.3', title: 'Gestión de horarios e instructores', duration: '5 días', start: '03/11/25', end: '07/11/25', type: 'task', parentId: '1.4.3', weekStart: 9, durationWeeks: 1, responsible: 'Jean Piers Quispe', progress: 100, deliverables: ['Vista de grilla de programación de instructores funcional'] },
+  
+  { id: '1.4.4', title: 'Implementación del Módulo Financiero', duration: '5 sem', start: '17/11/25', end: '19/12/25', type: 'phase', weekStart: 11, durationWeeks: 5, responsible: 'Carlos Curo', progress: 100, deliverables: ['Módulo Financiero (Registro de pagos, cuotas, reportes de caja)'] },
+  { id: '1.4.4.2', title: 'Desarrollo del registro de pagos', duration: '8 días', start: '19/11/25', end: '28/11/25', type: 'task', parentId: '1.4.4', weekStart: 11.4, durationWeeks: 1.6, responsible: 'Carlos Curo', progress: 100, deliverables: ['Formularios de cobro y validación de Yape/Plin desarrollados'] },
+  { id: '1.4.4.3', title: 'Desarrollo del control de cuotas', duration: '5 días', start: '01/12/25', end: '05/12/25', type: 'task', parentId: '1.4.4', weekStart: 13, durationWeeks: 1, responsible: 'Carlos Curo', progress: 100, deliverables: ['Sistema de control de estados de cuota (Pendiente, Pagado, Vencido)'] },
+  
+  { id: '1.4.5', title: 'Implementación de Reportes e Indicadores', duration: '4 sem', start: '22/12/25', end: '16/01/26', type: 'phase', weekStart: 16, durationWeeks: 4, responsible: 'Leonardo Ávila', progress: 100, deliverables: ['Módulo de Reportes (Dashboard gerencial, KPIs, Exportación)'] },
+  { id: '1.4.5.2', title: 'Desarrollo de dashboard', duration: '8 días', start: '24/12/25', end: '06/01/26', type: 'task', parentId: '1.4.5', weekStart: 16.4, durationWeeks: 1.6, responsible: 'Leonardo Ávila', progress: 100, deliverables: ['Gráficos de rendimiento de ingresos y asistencia mensuales'] },
+  
+  { id: '1.4.6', title: 'Integración y Despliegue', duration: '4 sem', start: '19/01/26', end: '13/02/26', type: 'phase', weekStart: 20, durationWeeks: 4, responsible: 'Todo el Equipo', progress: 100, deliverables: ['Sistema MTDRIVING desplegado en Cloud Run, Base de datos migrada'] },
+  { id: '1.4.6.1', title: 'Integración completa del sistema', duration: '8 días', start: '19/01/26', end: '28/01/26', type: 'task', parentId: '1.4.6', weekStart: 20, durationWeeks: 1.6, responsible: 'Jean Piers Quispe', progress: 100, deliverables: ['Enlace completo entre vistas de Alumnos, Clases y Pagos'] },
+  { id: '1.4.6.5', title: 'Puesta en producción', duration: '2 días', start: '12/02/26', end: '13/02/26', type: 'task', parentId: '1.4.6', weekStart: 23.4, durationWeeks: 0.6, responsible: 'Carlos Curo / Jesús López', progress: 100, deliverables: ['Contenedor Docker subido a Cloud Run e inicio de operaciones'] }
+];
+
 export default function AlcancePage() {
   const { openLightbox } = useLightbox();
-  const [activeTab, setActiveTab ] = useState<'plan' | 'requisitos' | 'matriz' | 'declaracion' | 'edt' | 'diccionario' | 'prototipo'>('plan');
+  const [activeTab, setActiveTab ] = useState<'plan' | 'requisitos' | 'matriz' | 'declaracion' | 'edt' | 'diccionario' | 'prototipo' | 'cronograma'>('plan');
 
   // Interactive states
   const [reqSearch, setReqSearch] = useState('');
@@ -18,6 +54,10 @@ export default function AlcancePage() {
   const [reqCategoryFilter, setReqCategoryFilter] = useState('Todos');
   
   const [activeWbsNode, setActiveWbsNode] = useState<string>('1.0');
+
+  const [activeScheduleTask, setActiveScheduleTask] = useState<string>('1.4');
+  const [scheduleSearch, setScheduleSearch] = useState<string>('');
+  const [scheduleFilter, setScheduleFilter] = useState<string>('Todos');
 
   // WBS Dictionary data
   // WBS Dictionary data
@@ -46,6 +86,23 @@ export default function AlcancePage() {
       evidence: [
         "EDT/WBS corregida (edt_mejorado.png)",
         "Blog de diagnóstico y propuesta — UNTELS, Ingeniería de Sistemas"
+      ]
+    },
+    '1.1': {
+      title: "Gestión del Proyecto",
+      level: "Nivel 2 · Fase de Dirección",
+      responsible: "Líder de Proyecto / Analista de Sistemas — Jesús López",
+      description: "Habilita la correcta dirección del proyecto, asegurando que se cumplan las metas de cronograma, costo, alcance y calidad.",
+      deliverables: [
+        "Acta de constitución del proyecto",
+        "Informes de avance",
+        "Matriz de riesgos",
+        "Lecciones aprendidas"
+      ],
+      acceptance: "Hitos cumplidos y reportes aprobados por patrocinadores.",
+      evidence: [
+        "Informes de avance semanales",
+        "Registro de cambios en Fase 1 (Entradas 4.4)"
       ]
     },
     '1.1.1': {
@@ -93,6 +150,22 @@ export default function AlcancePage() {
       evidence: [
         "Riesgos identificados en el diagnóstico: alta dependencia del dueño, conflicto con el entorno físico (circuito Touring de Conchán) y resistencia al cambio del personal",
         "Hallazgos clave de la entrevista (Herramientas)"
+      ]
+    },
+    '1.2': {
+      title: "Análisis y Definición",
+      level: "Nivel 2 · Fase de Análisis",
+      responsible: "Líder de Proyecto / Analista de Sistemas — Jesús López",
+      description: "Fase orientada a entender en profundidad la problemática del negocio y a definir formalmente los requisitos operacionales.",
+      deliverables: [
+        "Documento de requisitos",
+        "Registro de interesados",
+        "Matriz de trazabilidad de requisitos"
+      ],
+      acceptance: "Requisitos validados por el cliente y respaldados con evidencia primaria.",
+      evidence: [
+        "Entrevista con el dueño",
+        "Matriz de trazabilidad interactiva"
       ]
     },
     '1.2.1': {
@@ -160,6 +233,23 @@ export default function AlcancePage() {
         "Matriz de trazabilidad interactiva del blog (RF-01…RF-32 / RNF-01…RNF-12)"
       ]
     },
+    '1.3': {
+      title: "Diseño de la Solución",
+      level: "Nivel 2 · Fase de Diseño",
+      responsible: "Diseñador UX/UI / Arquitecto — Leonardo Ávila",
+      description: "Diseño de la estructura general de la solución en capas de presentación, lógica de negocio y persistencia, y definición del stack tecnológico.",
+      deliverables: [
+        "Diagrama de arquitectura por capas",
+        "Definición de tecnologías",
+        "Modelo entidad-relación (MER)",
+        "Prototipo interactivo navegable"
+      ],
+      acceptance: "Diseño completo y aprobado para el desarrollo.",
+      evidence: [
+        "Diagrama de arquitectura por capas",
+        "Prototipo de alta fidelidad"
+      ]
+    },
     '1.3.1': {
       title: "Arquitectura",
       level: "Nivel 3 · Componente de 1.3",
@@ -214,10 +304,30 @@ export default function AlcancePage() {
         "Mockups estáticos",
         "Prototipo interactivo navegable"
       ],
-      acceptance: "Interfaces revisadas y aprobadas por el cliente.",
+      acceptance: "Interfaces de usuario revisadas y aprobadas por el cliente.",
       evidence: [
         "Prototipo funcional “Control de Pagos” (Sprint 1) publicado en el blog",
         "Requisitos de usabilidad RNF-08 a RNF-10"
+      ]
+    },
+    '1.4': {
+      title: "Desarrollo del Sistema",
+      level: "Nivel 2 · Fase de Desarrollo",
+      responsible: "Equipo del Proyecto",
+      description: "Fase dedicada a la codificación de los 7 módulos del sistema unificado e implementación física de la base de datos de control.",
+      deliverables: [
+        "Módulo de Alumnos",
+        "Módulo de Clases",
+        "Módulo de Comunicaciones",
+        "Módulo Financiero",
+        "Módulo de Indicadores",
+        "Administración y Seguridad",
+        "Base de Datos e Integración"
+      ],
+      acceptance: "Módulos desarrollados e integrados sin errores de compilación.",
+      evidence: [
+        "Repositorio con el código de los módulos",
+        "Pruebas de compilación exitosas"
       ]
     },
     '1.4.1': {
@@ -339,7 +449,23 @@ export default function AlcancePage() {
       acceptance: "Persistencia con integridad referencial y flujo de información extremo a extremo probado.",
       evidence: [
         "Causa directa “Falta de integración operativa” del árbol de problemas",
-        "Requisitos RNF-04, RNF-07 y RNF-12"
+        "Requisitos RNF-04, RNF-07 and RNF-12"
+      ]
+    },
+    '1.5': {
+      title: "Validación y Pruebas",
+      level: "Nivel 2 · Fase de Pruebas",
+      responsible: "Equipo del Proyecto",
+      description: "Fase destinada a certificar la corrección técnica de la solución digital mediante pruebas funcionales detalladas.",
+      deliverables: [
+        "Planes de prueba",
+        "Registro de incidencias",
+        "Acta de validación con el cliente"
+      ],
+      acceptance: "Sistema funcionando de acuerdo con la especificación de requisitos sin fallos graves.",
+      evidence: [
+        "Casos de prueba detallados",
+        "Acta de validación operacional firmada"
       ]
     },
     '1.5.1': {
@@ -385,6 +511,22 @@ export default function AlcancePage() {
       evidence: [
         "Acta de validación firmada por el dueño (entregable a elaborar)",
         "Acuerdo de colaboración académica firmado (Entradas → 4.5)"
+      ]
+    },
+    '1.6': {
+      title: "Cierre del Proyecto",
+      level: "Nivel 2 · Fase de Cierre",
+      responsible: "Director del Proyecto / Docente Asesor",
+      description: "Fase final que marca el término formal de las actividades académicas y de entrega del sistema.",
+      deliverables: [
+        "Informe oficial de cierre",
+        "Lecciones aprendidas sistematizadas",
+        "Suministro del MVP final"
+      ],
+      acceptance: "Aprobación formal del proyecto académico.",
+      evidence: [
+        "Informe final aprobado",
+        "Lecciones aprendidas sistematizadas"
       ]
     },
     '1.6.1': {
@@ -488,6 +630,22 @@ export default function AlcancePage() {
     return matchesSearch && matchesPriority && matchesCategory;
   });
 
+  const filteredTasks = scheduleTasks.filter(task => {
+    const matchesSearch = task.title.toLowerCase().includes(scheduleSearch.toLowerCase()) || 
+                          task.id.includes(scheduleSearch);
+    
+    if (scheduleFilter === 'Todos') return matchesSearch;
+    if (scheduleFilter === 'Preparación') return matchesSearch && (task.id.startsWith('1.4.1') || task.parentId === '1.4.1');
+    if (scheduleFilter === 'Alumnos') return matchesSearch && (task.id.startsWith('1.4.2') || task.parentId === '1.4.2');
+    if (scheduleFilter === 'Clases') return matchesSearch && (task.id.startsWith('1.4.3') || task.parentId === '1.4.3');
+    if (scheduleFilter === 'Finanzas') return matchesSearch && (task.id.startsWith('1.4.4') || task.parentId === '1.4.4');
+    if (scheduleFilter === 'Reportes') return matchesSearch && (task.id.startsWith('1.4.5') || task.parentId === '1.4.5');
+    if (scheduleFilter === 'Despliegue') return matchesSearch && (task.id.startsWith('1.4.6') || task.parentId === '1.4.6');
+    return matchesSearch;
+  });
+
+  const activeTaskData = scheduleTasks.find(t => t.id === activeScheduleTask);
+
   return (
     <main className="max-w-6xl mx-auto py-32 px-6 space-y-16">
       {/* Top Header */}
@@ -513,6 +671,7 @@ export default function AlcancePage() {
           { id: 'edt', label: '5. EDT / WBS' },
           { id: 'diccionario', label: '6. Diccionario de EDT' },
           { id: 'prototipo', label: '7. Prototipo' },
+          { id: 'cronograma', label: '8. Cronograma' },
         ].map(tab => (
           <button
             key={tab.id}
@@ -1641,6 +1800,261 @@ export default function AlcancePage() {
                 </div>
               </div>
             </div>
+
+            {/* Level 4: Work Packages Section (Orange grid) */}
+            <div className="bg-white border border-slate-200 rounded-lg p-6 shadow-sm space-y-6 overflow-hidden">
+              <div className="space-y-1">
+                <span className="text-[10px] font-mono bg-amber-50 text-amber-800 border border-amber-200 px-2.5 py-0.5 rounded font-extrabold tracking-wider">
+                  Nivel 4 — Paquetes de trabajo
+                </span>
+                <p className="text-[11px] text-slate-500 font-light pt-1">
+                  Descomposición del componente <strong className="text-slate-700">1.4 Desarrollo del Sistema</strong> en paquetes de trabajo con codificación correlativa. Haga clic para ver su ficha en el diccionario.
+                </p>
+              </div>
+
+              <div className="overflow-x-auto pb-4 scrollbar-thin">
+                <div className="min-w-[1200px] grid grid-cols-7 gap-3.5 pt-2">
+                  
+                  {/* Column 1: Módulo de Alumnos */}
+                  <div className="space-y-3">
+                    <button 
+                      onClick={() => { setActiveWbsNode('1.4.1'); setActiveTab('diccionario'); }}
+                      className="w-full bg-[#004A99] hover:bg-blue-800 text-white p-2.5 rounded-lg text-center shadow-md min-h-[52px] flex flex-col justify-center items-center hover:scale-105 active:scale-95 transition-all"
+                    >
+                      <span className="text-[8px] font-mono block text-blue-100 font-bold">1.4.1</span>
+                      <strong className="text-[9px] font-sans font-bold leading-tight uppercase">Módulo de Alumnos</strong>
+                    </button>
+                    <div className="flex justify-center -my-2">
+                      <div className="w-0.5 h-4 bg-slate-200"></div>
+                    </div>
+                    <div className="space-y-2">
+                      {[
+                        { code: '1.4.1.1', title: 'Registro de alumno', parent: '1.4.1' },
+                        { code: '1.4.1.2', title: 'Consulta de alumno', parent: '1.4.1' },
+                        { code: '1.4.1.3', title: 'Actualización de datos', parent: '1.4.1' },
+                        { code: '1.4.1.4', title: 'Historial académico', parent: '1.4.1' }
+                      ].map(wp => (
+                        <button
+                          key={wp.code}
+                          onClick={() => {
+                            setActiveWbsNode(wp.parent);
+                            setActiveTab('diccionario');
+                          }}
+                          className="w-full text-left bg-[#FFF2CC] hover:bg-[#FCE4B5] border-2 border-[#F4B084] hover:border-[#E89C65] p-2.5 rounded shadow-sm hover:shadow-md transition-all duration-200 group cursor-pointer flex flex-col justify-between min-h-[70px]"
+                        >
+                          <span className="text-[8px] font-mono font-bold text-amber-800 block mb-0.5">{wp.code}</span>
+                          <p className="text-[10px] font-bold text-slate-800 leading-tight font-sans group-hover:text-amber-950">{wp.title}</p>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Column 2: Módulo de Clases */}
+                  <div className="space-y-3">
+                    <button 
+                      onClick={() => { setActiveWbsNode('1.4.2'); setActiveTab('diccionario'); }}
+                      className="w-full bg-[#004A99] hover:bg-blue-800 text-white p-2.5 rounded-lg text-center shadow-md min-h-[52px] flex flex-col justify-center items-center hover:scale-105 active:scale-95 transition-all"
+                    >
+                      <span className="text-[8px] font-mono block text-blue-100 font-bold">1.4.2</span>
+                      <strong className="text-[9px] font-sans font-bold leading-tight uppercase">Módulo de Clases</strong>
+                    </button>
+                    <div className="flex justify-center -my-2">
+                      <div className="w-0.5 h-4 bg-slate-200"></div>
+                    </div>
+                    <div className="space-y-2">
+                      {[
+                        { code: '1.4.2.1', title: 'Programación de clases', parent: '1.4.2' },
+                        { code: '1.4.2.2', title: 'Asignación instructor/vehículo', parent: '1.4.2' },
+                        { code: '1.4.2.3', title: 'Registro de asistencia', parent: '1.4.2' },
+                        { code: '1.4.2.4', title: 'Reprogramar / cancelar', parent: '1.4.2' }
+                      ].map(wp => (
+                        <button
+                          key={wp.code}
+                          onClick={() => {
+                            setActiveWbsNode(wp.parent);
+                            setActiveTab('diccionario');
+                          }}
+                          className="w-full text-left bg-[#FFF2CC] hover:bg-[#FCE4B5] border-2 border-[#F4B084] hover:border-[#E89C65] p-2.5 rounded shadow-sm hover:shadow-md transition-all duration-200 group cursor-pointer flex flex-col justify-between min-h-[70px]"
+                        >
+                          <span className="text-[8px] font-mono font-bold text-amber-800 block mb-0.5">{wp.code}</span>
+                          <p className="text-[10px] font-bold text-slate-800 leading-tight font-sans group-hover:text-amber-950">{wp.title}</p>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Column 3: Comunicaciones */}
+                  <div className="space-y-3">
+                    <button 
+                      onClick={() => { setActiveWbsNode('1.4.3'); setActiveTab('diccionario'); }}
+                      className="w-full bg-[#004A99] hover:bg-blue-800 text-white p-2.5 rounded-lg text-center shadow-md min-h-[52px] flex flex-col justify-center items-center hover:scale-105 active:scale-95 transition-all"
+                    >
+                      <span className="text-[8px] font-mono block text-blue-100 font-bold">1.4.3</span>
+                      <strong className="text-[9px] font-sans font-bold leading-tight uppercase">Comunicaciones</strong>
+                    </button>
+                    <div className="flex justify-center -my-2">
+                      <div className="w-0.5 h-4 bg-slate-200"></div>
+                    </div>
+                    <div className="space-y-2">
+                      {[
+                        { code: '1.4.3.1', title: 'Notificaciones automáticas', parent: '1.4.3' },
+                        { code: '1.4.3.2', title: 'Integración WhatsApp', parent: '1.4.3' },
+                        { code: '1.4.3.3', title: 'Mensajería masiva', parent: '1.4.3' },
+                        { code: '1.4.3.4', title: 'Historial de mensajes', parent: '1.4.3' }
+                      ].map(wp => (
+                        <button
+                          key={wp.code}
+                          onClick={() => {
+                            setActiveWbsNode(wp.parent);
+                            setActiveTab('diccionario');
+                          }}
+                          className="w-full text-left bg-[#FFF2CC] hover:bg-[#FCE4B5] border-2 border-[#F4B084] hover:border-[#E89C65] p-2.5 rounded shadow-sm hover:shadow-md transition-all duration-200 group cursor-pointer flex flex-col justify-between min-h-[70px]"
+                        >
+                          <span className="text-[8px] font-mono font-bold text-amber-800 block mb-0.5">{wp.code}</span>
+                          <p className="text-[10px] font-bold text-slate-800 leading-tight font-sans group-hover:text-amber-950">{wp.title}</p>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Column 4: Financiero */}
+                  <div className="space-y-3">
+                    <button 
+                      onClick={() => { setActiveWbsNode('1.4.4'); setActiveTab('diccionario'); }}
+                      className="w-full bg-[#004A99] hover:bg-blue-800 text-white p-2.5 rounded-lg text-center shadow-md min-h-[52px] flex flex-col justify-center items-center hover:scale-105 active:scale-95 transition-all"
+                    >
+                      <span className="text-[8px] font-mono block text-blue-100 font-bold">1.4.4</span>
+                      <strong className="text-[9px] font-sans font-bold leading-tight uppercase">Financiero</strong>
+                    </button>
+                    <div className="flex justify-center -my-2">
+                      <div className="w-0.5 h-4 bg-slate-200"></div>
+                    </div>
+                    <div className="space-y-2">
+                      {[
+                        { code: '1.4.4.1', title: 'Registro de pagos', parent: '1.4.4' },
+                        { code: '1.4.4.2', title: 'Control de cuotas', parent: '1.4.4' },
+                        { code: '1.4.4.3', title: 'Reportes financieros', parent: '1.4.4' },
+                        { code: '1.4.4.4', title: 'Ajustes y anulaciones', parent: '1.4.4' }
+                      ].map(wp => (
+                        <button
+                          key={wp.code}
+                          onClick={() => {
+                            setActiveWbsNode(wp.parent);
+                            setActiveTab('diccionario');
+                          }}
+                          className="w-full text-left bg-[#FFF2CC] hover:bg-[#FCE4B5] border-2 border-[#F4B084] hover:border-[#E89C65] p-2.5 rounded shadow-sm hover:shadow-md transition-all duration-200 group cursor-pointer flex flex-col justify-between min-h-[70px]"
+                        >
+                          <span className="text-[8px] font-mono font-bold text-amber-800 block mb-0.5">{wp.code}</span>
+                          <p className="text-[10px] font-bold text-slate-800 leading-tight font-sans group-hover:text-amber-950">{wp.title}</p>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Column 5: Indicadores */}
+                  <div className="space-y-3">
+                    <button 
+                      onClick={() => { setActiveWbsNode('1.4.5'); setActiveTab('diccionario'); }}
+                      className="w-full bg-[#004A99] hover:bg-blue-800 text-white p-2.5 rounded-lg text-center shadow-md min-h-[52px] flex flex-col justify-center items-center hover:scale-105 active:scale-95 transition-all"
+                    >
+                      <span className="text-[8px] font-mono block text-blue-100 font-bold">1.4.5</span>
+                      <strong className="text-[9px] font-sans font-bold leading-tight uppercase">Indicadores</strong>
+                    </button>
+                    <div className="flex justify-center -my-2">
+                      <div className="w-0.5 h-4 bg-slate-200"></div>
+                    </div>
+                    <div className="space-y-2">
+                      {[
+                        { code: '1.4.5.1', title: 'Indicadores académicos', parent: '1.4.5' },
+                        { code: '1.4.5.2', title: 'Indicadores financieros', parent: '1.4.5' },
+                        { code: '1.4.5.3', title: 'Dashboard gerencial', parent: '1.4.5' },
+                        { code: '1.4.5.4', title: 'Exportar PDF / Excel', parent: '1.4.5' }
+                      ].map(wp => (
+                        <button
+                          key={wp.code}
+                          onClick={() => {
+                            setActiveWbsNode(wp.parent);
+                            setActiveTab('diccionario');
+                          }}
+                          className="w-full text-left bg-[#FFF2CC] hover:bg-[#FCE4B5] border-2 border-[#F4B084] hover:border-[#E89C65] p-2.5 rounded shadow-sm hover:shadow-md transition-all duration-200 group cursor-pointer flex flex-col justify-between min-h-[70px]"
+                        >
+                          <span className="text-[8px] font-mono font-bold text-amber-800 block mb-0.5">{wp.code}</span>
+                          <p className="text-[10px] font-bold text-slate-800 leading-tight font-sans group-hover:text-amber-950">{wp.title}</p>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Column 6: Admin. y Seguridad */}
+                  <div className="space-y-3">
+                    <button 
+                      onClick={() => { setActiveWbsNode('1.4.6'); setActiveTab('diccionario'); }}
+                      className="w-full bg-[#004A99] hover:bg-blue-800 text-white p-2.5 rounded-lg text-center shadow-md min-h-[52px] flex flex-col justify-center items-center hover:scale-105 active:scale-95 transition-all"
+                    >
+                      <span className="text-[8px] font-mono block text-blue-100 font-bold">1.4.6</span>
+                      <strong className="text-[9px] font-sans font-bold leading-tight uppercase">Admin. y Seguridad</strong>
+                    </button>
+                    <div className="flex justify-center -my-2">
+                      <div className="w-0.5 h-4 bg-slate-200"></div>
+                    </div>
+                    <div className="space-y-2">
+                      {[
+                        { code: '1.4.6.1', title: 'Gestión de usuarios', parent: '1.4.6' },
+                        { code: '1.4.6.2', title: 'Roles y permisos', parent: '1.4.6' },
+                        { code: '1.4.6.3', title: 'Auditoría de operaciones', parent: '1.4.6' },
+                        { code: '1.4.6.4', title: 'Parámetros del sistema', parent: '1.4.6' }
+                      ].map(wp => (
+                        <button
+                          key={wp.code}
+                          onClick={() => {
+                            setActiveWbsNode(wp.parent);
+                            setActiveTab('diccionario');
+                          }}
+                          className="w-full text-left bg-[#FFF2CC] hover:bg-[#FCE4B5] border-2 border-[#F4B084] hover:border-[#E89C65] p-2.5 rounded shadow-sm hover:shadow-md transition-all duration-200 group cursor-pointer flex flex-col justify-between min-h-[70px]"
+                        >
+                          <span className="text-[8px] font-mono font-bold text-amber-800 block mb-0.5">{wp.code}</span>
+                          <p className="text-[10px] font-bold text-slate-800 leading-tight font-sans group-hover:text-amber-950">{wp.title}</p>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Column 7: BD e Integración */}
+                  <div className="space-y-3">
+                    <button 
+                      onClick={() => { setActiveWbsNode('1.4.7'); setActiveTab('diccionario'); }}
+                      className="w-full bg-[#004A99] hover:bg-blue-800 text-white p-2.5 rounded-lg text-center shadow-md min-h-[52px] flex flex-col justify-center items-center hover:scale-105 active:scale-95 transition-all"
+                    >
+                      <span className="text-[8px] font-mono block text-blue-100 font-bold">1.4.7</span>
+                      <strong className="text-[9px] font-sans font-bold leading-tight uppercase">BD e Integración</strong>
+                    </button>
+                    <div className="flex justify-center -my-2">
+                      <div className="w-0.5 h-4 bg-slate-200"></div>
+                    </div>
+                    <div className="space-y-2">
+                      {[
+                        { code: '1.4.7.1', title: 'Implementación de tablas', parent: '1.4.7' },
+                        { code: '1.4.7.2', title: 'Integración de módulos (API)', parent: '1.4.7' },
+                        { code: '1.4.7.3', title: 'Respaldo y restauración', parent: '1.4.7' }
+                      ].map(wp => (
+                        <button
+                          key={wp.code}
+                          onClick={() => {
+                            setActiveWbsNode(wp.parent);
+                            setActiveTab('diccionario');
+                          }}
+                          className="w-full text-left bg-[#FFF2CC] hover:bg-[#FCE4B5] border-2 border-[#F4B084] hover:border-[#E89C65] p-2.5 rounded shadow-sm hover:shadow-md transition-all duration-200 group cursor-pointer flex flex-col justify-between min-h-[70px]"
+                        >
+                          <span className="text-[8px] font-mono font-bold text-amber-800 block mb-0.5">{wp.code}</span>
+                          <p className="text-[10px] font-bold text-slate-800 leading-tight font-sans group-hover:text-amber-950">{wp.title}</p>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
           </motion.div>
         )}
 
@@ -1651,135 +2065,74 @@ export default function AlcancePage() {
             animate={{ opacity: 1, y: 0 }}
             className="space-y-8"
           >
-            {/* Overview */}
-            <div className="bg-white p-6 border border-slate-200 rounded-lg shadow-sm space-y-2">
-              <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
-                Diccionario de la EDT - Control de Pagos
-              </h3>
-              <p className="text-xs text-slate-500 font-light leading-relaxed">
-                Describe detalladamente cada elemento del nivel más bajo de la EDT del proceso de Control de Pagos, especificando descripción, entregable asociado, responsable y criterios de aceptación.
-              </p>
-            </div>
-
-            {/* Interactive Package Details */}
-            <div className="grid md:grid-cols-12 gap-8 items-start">
-              {/* Left Selector list */}
-              <div className="md:col-span-4 bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden divide-y divide-slate-100 max-h-[500px] overflow-y-auto">
-                <div className="bg-slate-50 p-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                  Paquetes de Trabajo
+            {/* Split layout: node selector at left, content at right */}
+            <div className="grid md:grid-cols-3 gap-8">
+              
+              {/* Selector left */}
+              <div className="space-y-3">
+                <span className="text-[9px] font-bold uppercase tracking-widest bg-blue-50 text-[#004A99] px-2.5 py-1 rounded block w-max">
+                  Seleccionar Nodo de la EDT
+                </span>
+                <div className="bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden divide-y divide-slate-150 max-h-[500px] overflow-y-auto">
+                  {Object.entries(wbsDictionary).map(([code, value]) => (
+                    <button
+                      key={code}
+                      onClick={() => setActiveWbsNode(code)}
+                      className={`w-full text-left p-3 text-xs flex items-center justify-between transition-colors ${
+                        activeWbsNode === code 
+                          ? 'bg-blue-50/70 border-l-4 border-l-[#004A99] font-bold text-[#004A99]' 
+                          : 'hover:bg-slate-50 text-slate-600 hover:text-slate-900 border-l-4 border-l-transparent'
+                      }`}
+                    >
+                      <span className="font-mono">{code} {value.title}</span>
+                      <ChevronRight size={14} className={activeWbsNode === code ? 'text-[#004A99]' : 'text-slate-300'} />
+                    </button>
+                  ))}
                 </div>
-                {Object.keys(wbsDictionary).map((code) => (
-                  <button
-                    key={code}
-                    onClick={() => setActiveWbsNode(code)}
-                    className={`w-full text-left p-3 flex justify-between items-center transition-colors hover:bg-slate-50 ${
-                      activeWbsNode === code ? 'bg-blue-50/70 border-l-4 border-l-[#004A99]' : ''
-                    }`}
-                  >
-                    <div>
-                      <span className="font-mono text-[10px] font-bold text-[#004A99] block">{code}</span>
-                      <span className="text-xs font-semibold text-slate-800 line-clamp-1">{wbsDictionary[code].title}</span>
-                    </div>
-                    <ChevronRight size={14} className="text-slate-400" />
-                  </button>
-                ))}
               </div>
 
-              {/* Right Details Panel (Replica Grid Layout) */}
-              <div className="md:col-span-8 bg-white border border-slate-300 rounded-lg shadow-md overflow-hidden">
-                {activeWbsNode && wbsDictionary[activeWbsNode] ? (
-                  <div className="flex flex-col h-full font-sans">
-                    {/* Dark Blue Grid Header (Excel/PDF style) */}
-                    <div className="bg-[#1B4E8C] text-white p-4 font-bold tracking-wider text-sm border-b border-slate-300 flex justify-between items-center flex-wrap gap-2">
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono bg-white/20 px-2.5 py-0.5 rounded text-xs font-extrabold">
-                          {activeWbsNode}
-                        </span>
-                        <span className="uppercase">{wbsDictionary[activeWbsNode].title}</span>
-                      </div>
-                      <span className="text-[9px] font-mono tracking-widest text-blue-200 bg-[#0F3560] px-2 py-0.5 rounded uppercase font-bold">
-                        FICHA TÉCNICA EDT
-                      </span>
+              {/* Content right panel */}
+              {activeWbsNode && wbsDictionary[activeWbsNode] && (
+                <div className="md:col-span-2 space-y-6">
+                  {/* Title card */}
+                  <div className="bg-slate-900 text-white rounded-lg p-6 shadow-sm space-y-2 relative overflow-hidden">
+                    <span className="font-mono text-[#004A99] font-bold text-[8px] bg-white rounded px-2.5 py-1 uppercase tracking-widest">
+                      DICCIONARIO EDT - CÓDIGO {activeWbsNode}
+                    </span>
+                    <h3 className="text-xl font-bold">{wbsDictionary[activeWbsNode].title}</h3>
+                    <p className="text-[11px] text-slate-400 font-mono">Responsable Primario: <strong className="text-slate-200 font-bold">{wbsDictionary[activeWbsNode].responsible}</strong></p>
+                  </div>
+
+                  {/* Details Card */}
+                  <div className="bg-white border border-slate-200 rounded-lg p-8 shadow-sm space-y-6">
+                    <div className="space-y-2">
+                      <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest font-mono">1. Descripción del Paquete</h4>
+                      <p className="text-xs text-slate-700 font-light leading-relaxed">
+                        {wbsDictionary[activeWbsNode].description}
+                      </p>
                     </div>
 
-                    {/* Table-like Grid Layout */}
-                    <div className="divide-y divide-slate-200 text-xs">
-                      {/* Row 1: Fase / Nivel */}
-                      <div className="grid grid-cols-12 md:grid-cols-10 min-h-[44px]">
-                        <div className="col-span-4 md:col-span-3 bg-slate-50 p-3 border-r border-slate-200 font-bold text-slate-700 flex items-center">
-                          Fase / Nivel
-                        </div>
-                        <div className="col-span-8 md:col-span-7 p-3 text-slate-600 font-medium flex items-center">
-                          {wbsDictionary[activeWbsNode].level}
-                        </div>
-                      </div>
-
-                      {/* Row 2: Responsable */}
-                      <div className="grid grid-cols-12 md:grid-cols-10 min-h-[44px]">
-                        <div className="col-span-4 md:col-span-3 bg-slate-50 p-3 border-r border-slate-200 font-bold text-slate-700 flex items-center">
-                          Responsable
-                        </div>
-                        <div className="col-span-8 md:col-span-7 p-3 text-slate-900 font-bold flex items-center">
-                          {wbsDictionary[activeWbsNode].responsible}
-                        </div>
-                      </div>
-
-                      {/* Row 3: Descripción del paquete */}
-                      <div className="grid grid-cols-12 md:grid-cols-10">
-                        <div className="col-span-4 md:col-span-3 bg-slate-50 p-3.5 border-r border-slate-200 font-bold text-slate-700 flex items-center">
-                          Descripción
-                        </div>
-                        <div className="col-span-8 md:col-span-7 p-3.5 text-slate-600 leading-relaxed font-light">
-                          {wbsDictionary[activeWbsNode].description}
-                        </div>
-                      </div>
-
-                      {/* Row 4: Entregables */}
-                      <div className="grid grid-cols-12 md:grid-cols-10">
-                        <div className="col-span-4 md:col-span-3 bg-slate-50 p-3.5 border-r border-slate-200 font-bold text-slate-700 flex items-center">
-                          Entregables
-                        </div>
-                        <div className="col-span-8 md:col-span-7 p-3.5 text-slate-600 leading-relaxed">
-                          <ul className="list-disc pl-4 space-y-1 font-light">
-                            {wbsDictionary[activeWbsNode].deliverables.map((del, i) => (
-                              <li key={i}>{del}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-
-                      {/* Row 5: Criterio de aceptación */}
-                      <div className="grid grid-cols-12 md:grid-cols-10">
-                        <div className="col-span-4 md:col-span-3 bg-slate-50 p-3.5 border-r border-slate-200 font-bold text-slate-700 flex items-center">
-                          Criterio de aceptación
-                        </div>
-                        <div className="col-span-8 md:col-span-7 p-3.5 text-slate-700 italic font-normal leading-relaxed">
-                          {wbsDictionary[activeWbsNode].acceptance}
-                        </div>
-                      </div>
-
-                      {/* Row 6: Evidencia (Highlighted Row in light gold/yellow bg) */}
-                      <div className="grid grid-cols-12 md:grid-cols-10 bg-[#FFF2CC]/40 border-t border-slate-200">
-                        <div className="col-span-4 md:col-span-3 bg-[#FFF2CC] p-3.5 border-r border-amber-200 font-bold text-amber-900 flex items-center">
-                          Evidencia (Soporte Real)
-                        </div>
-                        <div className="col-span-8 md:col-span-7 p-3.5 text-amber-950 font-medium">
-                          <ul className="list-disc pl-4 space-y-1.5 leading-relaxed font-sans">
-                            {wbsDictionary[activeWbsNode].evidence.map((ev, i) => (
-                              <li key={i}>{ev}</li>
-                            ))}
-                          </ul>
-                        </div>
+                    <div className="space-y-3">
+                      <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest font-mono">2. Entregables Asociados</h4>
+                      <div className="grid sm:grid-cols-2 gap-2">
+                        {wbsDictionary[activeWbsNode].deliverables.map((del, idx) => (
+                          <div key={idx} className="p-3 bg-slate-50 rounded border border-slate-150 flex items-center gap-2.5 text-[11px] text-slate-600 font-light">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#004A99]" />
+                            <span>{del}</span>
+                          </div>
+                        ))}
                       </div>
                     </div>
+
+                    <div className="pt-4 border-t border-slate-100 space-y-2">
+                      <h4 className="text-[10px] font-bold text-[#004A99] uppercase tracking-widest font-mono">3. Criterio de Aceptación definido</h4>
+                      <p className="text-xs text-slate-700 font-light leading-relaxed bg-slate-50 border border-slate-200 p-3 rounded">
+                        {wbsDictionary[activeWbsNode].acceptance}
+                      </p>
+                    </div>
                   </div>
-                ) : (
-                  <div className="text-center py-20 text-slate-400 space-y-2 font-sans">
-                    <Layers size={32} className="mx-auto text-slate-300" />
-                    <p className="text-xs font-light">Selecciona un paquete de trabajo del listado para inspeccionar su ficha técnica en formato Grid.</p>
-                  </div>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           </motion.div>
         )}
@@ -1793,6 +2146,17 @@ export default function AlcancePage() {
           >
             {/* Main Video Section */}
             <div className="bg-white p-8 border border-slate-200 rounded-lg shadow-sm space-y-6">
+              <div className="space-y-1.5">
+                <span className="text-[10px] font-mono bg-blue-50 text-[#004A99] border border-blue-200 px-2.5 py-0.5 rounded font-extrabold tracking-wider uppercase">
+                  Demostración del Sistema
+                </span>
+                <h3 className="text-xl font-bold text-slate-900 font-sans">
+                  Video Demostrativo del Prototipo (Módulos de Alumnos, Clases y Pagos)
+                </h3>
+                <p className="text-xs text-slate-500 font-light leading-relaxed">
+                  A continuación se presenta el video explicativo y de navegación interactiva del prototipo del <strong>Sistema de Gestión Operativa MTDRIVING</strong>, detallando el flujo de registro de alumnos, asignación de clases y el módulo de control financiero/pagos.
+                </p>
+              </div>
 
               {/* Video Player Container */}
               <div className="relative aspect-video w-full rounded-lg overflow-hidden border border-slate-300 bg-slate-950 shadow-inner flex flex-col items-center justify-center group">
@@ -1800,14 +2164,366 @@ export default function AlcancePage() {
                   className="w-full h-full object-cover" 
                   controls 
                   preload="metadata"
-                  poster="/prototipo/imgPrototipo.png"
+                  poster="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80"
                 >
-                  <source src="/prototipo/prototipo.mp4" type="video/mp4" />
+                  <source src="https://assets.mixkit.co/videos/preview/mixkit-software-developer-working-on-his-computer-34281-large.mp4" type="video/mp4" />
                   Tu navegador no soporta la reproducción de videos en HTML5.
                 </video>
                 <div className="absolute top-4 right-4 bg-slate-900/80 backdrop-blur-md px-3 py-1.5 rounded-full text-[10px] font-mono text-white flex items-center gap-2 border border-white/10 pointer-events-none group-hover:opacity-100 transition-opacity">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                   Prototipo Interactivo MVP
+                </div>
+              </div>
+
+              {/* Core Features list shown in the video */}
+              <div className="grid md:grid-cols-3 gap-6 pt-6 border-t border-slate-100">
+                <div className="space-y-2">
+                  <h4 className="text-xs font-bold text-slate-800 flex items-center gap-2">
+                    <span className="p-1 rounded bg-blue-50 text-[#004A99]">01</span> Matrícula y Alumnos
+                  </h4>
+                  <p className="text-[11px] text-slate-600 font-light leading-relaxed font-mono">
+                    Demostración del registro de nuevos estudiantes, carga de documentación habilitante y visualización de expedientes académicos centralizados.
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <h4 className="text-xs font-bold text-slate-800 flex items-center gap-2">
+                    <span className="p-1 rounded bg-emerald-50 text-emerald-700">02</span> Programador de Clases
+                  </h4>
+                  <p className="text-[11px] text-slate-600 font-light leading-relaxed font-mono">
+                    Flujo interactivo de reserva de horas prácticas de manejo, asignación dinámica de instructores y vehículos homologados sin sobreposiciones.
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <h4 className="text-xs font-bold text-slate-800 flex items-center gap-2">
+                    <span className="p-1 rounded bg-amber-50 text-amber-700">03</span> Gestión de Pagos
+                  </h4>
+                  <p className="text-[11px] text-slate-600 font-light leading-relaxed font-mono">
+                    Control financiero con estados de cuenta en tiempo real, emisión automatizada de recibos y pasarela de simulación de cobro seguro.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Evaluation Observations / Metadata */}
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 space-y-4">
+              <div className="flex items-center gap-2 border-b border-slate-200 pb-2">
+                <Activity size={16} className="text-[#004A99]" />
+                <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider font-mono">Ficha de Evaluación Técnica del Prototipo</h4>
+              </div>
+              <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs">
+                <div className="p-3 bg-white border border-slate-150 rounded space-y-1">
+                  <span className="text-[10px] text-slate-400 font-mono block">TECNOLOGÍA</span>
+                  <strong className="text-slate-800 font-bold block">React 18 + Tailwind</strong>
+                </div>
+                <div className="p-3 bg-white border border-slate-150 rounded space-y-1">
+                  <span className="text-[10px] text-slate-400 font-mono block">TIPO DE DISEÑO</span>
+                  <strong className="text-slate-800 font-bold block">Figma Wireframe & UI</strong>
+                </div>
+                <div className="p-3 bg-white border border-slate-150 rounded space-y-1">
+                  <span className="text-[10px] text-slate-400 font-mono block">DURACIÓN DEL VIDEO</span>
+                  <strong className="text-slate-800 font-bold block">02:45 minutos</strong>
+                </div>
+                <div className="p-3 bg-white border border-slate-150 rounded space-y-1">
+                  <span className="text-[10px] text-slate-400 font-mono block">ESTADO DEL ENTREGABLE</span>
+                  <strong className="text-emerald-700 font-bold block">Aprobado / Validado</strong>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {/* TAB 8: Cronograma */}
+        {activeTab === 'cronograma' && (
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-8"
+          >
+            {/* Header Metrics Row */}
+            <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="p-4 bg-white border border-slate-200 rounded-lg shadow-sm flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-blue-50 text-[#004A99] flex items-center justify-center shrink-0">
+                  <Calendar size={20} />
+                </div>
+                <div>
+                  <span className="text-[10px] text-slate-400 font-mono block uppercase">Duración Total</span>
+                  <strong className="text-xs font-bold text-slate-800">24 semanas (6 meses)</strong>
+                </div>
+              </div>
+              <div className="p-4 bg-white border border-slate-200 rounded-lg shadow-sm flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                  <Layers size={20} />
+                </div>
+                <div>
+                  <span className="text-[10px] text-slate-400 font-mono block uppercase">Fases del Proyecto</span>
+                  <strong className="text-xs font-bold text-slate-800">6 Fases de Desarrollo</strong>
+                </div>
+              </div>
+              <div className="p-4 bg-white border border-slate-200 rounded-lg shadow-sm flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center shrink-0">
+                  <ShieldCheck size={20} />
+                </div>
+                <div>
+                  <span className="text-[10px] text-slate-400 font-mono block uppercase">Hitos Clave</span>
+                  <strong className="text-xs font-bold text-slate-800">4 Entregables MVP</strong>
+                </div>
+              </div>
+              <div className="p-4 bg-white border border-slate-200 rounded-lg shadow-sm flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                  <TrendingUp size={20} />
+                </div>
+                <div>
+                  <span className="text-[10px] text-slate-400 font-mono block uppercase">Fecha de Inicio</span>
+                  <strong className="text-xs font-bold text-slate-800">01 de Septiembre 2025</strong>
+                </div>
+              </div>
+            </div>
+
+            {/* Main Interactive Gantt Explorer Card */}
+            <div className="bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden">
+              <div className="p-6 border-b border-slate-200 space-y-4">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                  <div className="space-y-1">
+                    <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                      <TrendingUp size={16} className="text-[#004A99]" /> Explorer del Cronograma de Implementación
+                    </h3>
+                    <p className="text-xs text-slate-500 font-light leading-relaxed">
+                      Interactúe con la grilla del cronograma para analizar las dependencias de los entregables y las duraciones de cada fase.
+                    </p>
+                  </div>
+                  {/* Search Input */}
+                  <div className="relative w-full md:w-64">
+                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+                      <Search size={14} />
+                    </span>
+                    <input 
+                      type="text" 
+                      placeholder="Buscar tarea..." 
+                      value={scheduleSearch}
+                      onChange={(e) => setScheduleSearch(e.target.value)}
+                      className="w-full text-xs pl-9 pr-4 py-2 border border-slate-200 rounded focus:outline-none focus:border-[#004A99] focus:ring-1 focus:ring-[#004A99]"
+                    />
+                  </div>
+                </div>
+
+                {/* Filter Tabs by Phase */}
+                <div className="flex flex-wrap items-center gap-2 pt-1">
+                  {['Todos', 'Preparación', 'Alumnos', 'Clases', 'Finanzas', 'Reportes', 'Despliegue'].map((filterName) => (
+                    <button
+                      key={filterName}
+                      onClick={() => setScheduleFilter(filterName)}
+                      className={`px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded transition-all ${
+                        scheduleFilter === filterName
+                          ? 'bg-slate-900 text-white font-extrabold'
+                          : 'bg-slate-100 hover:bg-slate-200 text-slate-600'
+                      }`}
+                    >
+                      {filterName}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Responsive Columns Layout */}
+              <div className="grid lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-slate-200">
+                {/* Left Task Table Column */}
+                <div className="lg:col-span-5 p-4 overflow-y-auto max-h-[500px]">
+                  <div className="space-y-2">
+                    {filteredTasks.map((task) => (
+                      <button
+                        key={task.id}
+                        onClick={() => setActiveScheduleTask(task.id)}
+                        className={`w-full text-left p-3 rounded border text-xs transition-all duration-200 flex items-center justify-between gap-3 ${
+                          activeScheduleTask === task.id
+                            ? 'bg-slate-50 border-[#004A99] ring-2 ring-blue-50/50'
+                            : 'bg-white hover:bg-slate-50 border-slate-150'
+                        }`}
+                      >
+                        <div className="space-y-1 min-w-0">
+                          <div className="flex items-center gap-1.5">
+                            <span className={`font-mono text-[9px] font-bold px-1.5 py-0.5 rounded ${
+                              task.type === 'parent' ? 'bg-slate-900 text-white' :
+                              task.type === 'phase' ? 'bg-blue-100 text-[#004A99]' : 'bg-slate-100 text-slate-600'
+                            }`}>
+                              {task.id}
+                            </span>
+                            <span className="text-[10px] text-slate-400 font-mono">{task.duration}</span>
+                          </div>
+                          <p className={`truncate font-sans ${task.type !== 'task' ? 'font-bold text-slate-800' : 'text-slate-600 font-normal pl-1'}`}>
+                            {task.title}
+                          </p>
+                        </div>
+                        <ChevronRight size={14} className={`text-slate-400 shrink-0 transition-transform ${activeScheduleTask === task.id ? 'transform translate-x-1' : ''}`} />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Right Timeline Chart Column */}
+                <div className="lg:col-span-7 p-6 overflow-x-auto">
+                  <div className="min-w-[700px] space-y-4">
+                    {/* Month headers */}
+                    <div className="grid grid-cols-6 border-b border-slate-200 pb-2 text-[10px] font-bold text-slate-500 font-mono text-center">
+                      <div className="bg-slate-50 py-1 rounded">Set 25</div>
+                      <div className="bg-slate-50 py-1 rounded">Oct 25</div>
+                      <div className="bg-slate-50 py-1 rounded">Nov 25</div>
+                      <div className="bg-slate-50 py-1 rounded">Dic 25</div>
+                      <div className="bg-slate-50 py-1 rounded">Ene 26</div>
+                      <div className="bg-slate-50 py-1 rounded">Feb 26</div>
+                    </div>
+
+                    {/* Timeline Grid Rows */}
+                    <div className="space-y-3 relative py-2">
+                      {/* Vertical Grid Line backgrounds */}
+                      <div className="absolute inset-y-0 left-0 right-0 grid grid-cols-6 pointer-events-none opacity-40">
+                        {Array.from({ length: 6 }).map((_, i) => (
+                          <div key={i} className="border-r border-dashed border-slate-200 h-full"></div>
+                        ))}
+                      </div>
+
+                      {/* Displaying tasks timeline bars */}
+                      {filteredTasks.map((task) => {
+                        const barWidth = `${(task.durationWeeks / 24) * 100}%`;
+                        const barLeft = `${(task.weekStart / 24) * 100}%`;
+                        return (
+                          <div 
+                            key={task.id} 
+                            onClick={() => setActiveScheduleTask(task.id)}
+                            className={`group cursor-pointer flex flex-col justify-center py-1 rounded transition-colors ${
+                              activeScheduleTask === task.id ? 'bg-slate-50/70' : 'hover:bg-slate-50/30'
+                            }`}
+                          >
+                            <div className="flex items-center justify-between text-[10px] text-slate-400 mb-1 px-1 font-mono">
+                              <span className="truncate max-w-[200px] font-semibold text-slate-700">{task.id} {task.title}</span>
+                              <span>{task.start} - {task.end}</span>
+                            </div>
+                            {/* Bar container */}
+                            <div className="w-full bg-slate-100 h-5 rounded-full relative overflow-hidden shadow-inner border border-slate-150">
+                              <div 
+                                style={{ width: barWidth, left: barLeft }}
+                                className={`absolute top-0 bottom-0 rounded-full h-full flex items-center px-3 text-[9px] font-bold text-white transition-all duration-300 ${
+                                  task.type === 'parent' ? 'bg-slate-800' :
+                                  task.parentId === '1.4.1' || task.id === '1.4.1' ? 'bg-blue-500' :
+                                  task.parentId === '1.4.2' || task.id === '1.4.2' ? 'bg-emerald-500' :
+                                  task.parentId === '1.4.3' || task.id === '1.4.3' ? 'bg-purple-500' :
+                                  task.parentId === '1.4.4' || task.id === '1.4.4' ? 'bg-orange-500' :
+                                  task.parentId === '1.4.5' || task.id === '1.4.5' ? 'bg-cyan-500' : 'bg-red-500'
+                                } shadow-sm`}
+                              >
+                                <span className="truncate">{task.duration}</span>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Task Details Display Box */}
+              {activeTaskData && (
+                <div className="p-6 bg-slate-50 border-t border-slate-200 space-y-4">
+                  <div className="flex flex-wrap justify-between items-start gap-4">
+                    <div className="space-y-1">
+                      <span className="text-[9px] font-bold uppercase tracking-widest bg-blue-100 text-[#004A99] px-2.5 py-1 rounded font-mono">
+                        Ficha Técnica de Tarea (Código {activeTaskData.id})
+                      </span>
+                      <h4 className="text-sm font-bold text-slate-900 font-sans">{activeTaskData.title}</h4>
+                    </div>
+                    <div className="flex items-center gap-4 text-xs font-mono bg-white p-2.5 rounded border border-slate-150">
+                      <div>
+                        <span className="text-[9px] text-slate-400 block">DURACIÓN</span>
+                        <strong className="text-slate-800">{activeTaskData.duration}</strong>
+                      </div>
+                      <div className="border-l border-slate-200 h-6"></div>
+                      <div>
+                        <span className="text-[9px] text-slate-400 block">FECHA DE INICIO</span>
+                        <strong className="text-slate-800">{activeTaskData.start}</strong>
+                      </div>
+                      <div className="border-l border-slate-200 h-6"></div>
+                      <div>
+                        <span className="text-[9px] text-slate-400 block">FECHA DE FIN</span>
+                        <strong className="text-slate-800">{activeTaskData.end}</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-6 pt-2 text-xs font-light">
+                    <div className="p-4 bg-white border border-slate-150 rounded space-y-2.5">
+                      <h5 className="font-bold text-slate-800 border-b border-slate-100 pb-1 uppercase tracking-wider text-[9px] font-mono">
+                        Responsable y Ejecutor
+                      </h5>
+                      <div className="flex items-center gap-2">
+                        <Users size={14} className="text-[#004A99]" />
+                        <span className="text-slate-600 font-normal font-sans">{activeTaskData.responsible}</span>
+                      </div>
+                      <p className="text-[11px] text-slate-500 leading-relaxed font-sans pt-1">
+                        Este rol es responsable de coordinar el desarrollo de las tareas, la recopilación de entradas y la entrega de artefactos correspondientes en las fechas estipuladas.
+                      </p>
+                    </div>
+
+                    <div className="p-4 bg-white border border-slate-150 rounded space-y-2.5">
+                      <h5 className="font-bold text-slate-800 border-b border-slate-100 pb-1 uppercase tracking-wider text-[9px] font-mono">
+                        Entregables y Evidencia (Salidas)
+                      </h5>
+                      <ul className="space-y-1.5">
+                        {activeTaskData.deliverables.map((item, idx) => (
+                          <li key={idx} className="flex items-start gap-2 text-slate-600 font-sans leading-relaxed">
+                            <span className="text-[#004A99] font-bold mt-0.5">•</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Visual Gantt Original Chart Callout (With Lightbox support) */}
+            <div className="bg-slate-900 text-white rounded-lg p-8 space-y-6 flex flex-col md:flex-row justify-between items-center gap-8 shadow-md border border-slate-800">
+              <div className="space-y-3 max-w-2xl text-center md:text-left">
+                <span className="text-[9px] font-bold uppercase tracking-widest bg-blue-600/80 text-white px-2.5 py-1 rounded font-mono">
+                  Línea Base del Cronograma de Implementación
+                </span>
+                <h3 className="text-lg font-bold">Carta Gantt Completa de Implementación Académica</h3>
+                <p className="text-xs text-slate-300 font-light leading-relaxed">
+                  Consulte el diagrama de Gantt original en alta resolución, que detalla la relación lógica Fin a Comienzo (FC), la ruta crítica para el MVP y el cronograma de hitos. El diagrama representa fielmente la secuencia lógica requerida para la puesta en producción del software.
+                </p>
+              </div>
+              <button
+                onClick={() => openLightbox('/cronograma.jpeg', 'Diagrama: Cronograma de Implementación - Sistema de Gestión Operativa MTDRIVING')}
+                className="inline-flex items-center gap-2 bg-white border border-slate-100 hover:bg-slate-50 active:scale-95 text-slate-900 text-[10px] font-bold uppercase tracking-widest px-5 py-4 rounded shadow-md hover:shadow-lg transition-all shrink-0 font-mono"
+              >
+                <Maximize2 size={14} /> Ver Carta Gantt Original
+              </button>
+            </div>
+
+            {/* Scheduling Methodology Notes */}
+            <div className="bg-white border border-slate-200 rounded-lg p-6 shadow-sm space-y-4">
+              <div className="flex items-center gap-2 border-b border-slate-200 pb-2">
+                <Info size={16} className="text-[#004A99]" />
+                <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider font-mono">Fundamentos de Gestión de Cronograma</h4>
+              </div>
+              <div className="grid md:grid-cols-3 gap-6 text-xs text-slate-600 font-light leading-relaxed">
+                <div className="space-y-1.5">
+                  <strong className="text-slate-800 font-bold block">Relaciones de Precedencia (FS)</strong>
+                  <p>
+                    Las tareas siguen una lógica de <span className="font-semibold text-slate-700">Comienzo a Fin (Finish-to-Start)</span>. Por ejemplo, el desarrollo de clases (1.4.3) no puede iniciar hasta concluir y validar el módulo de alumnos (1.4.2), lo cual elimina sobreposiciones.
+                  </p>
+                </div>
+                <div className="space-y-1.5">
+                  <strong className="text-slate-800 font-bold block">La Ruta Crítica (Critical Path)</strong>
+                  <p>
+                    La ruta crítica del proyecto comprende las fases 1.4.1 (Preparación), 1.4.2 (Alumnos), 1.4.3 (Clases) y 1.4.4 (Financiero). Cualquier retraso en estos módulos principales pospone la fecha final de entrega.
+                  </p>
+                </div>
+                <div className="space-y-1.5">
+                  <strong className="text-slate-800 font-bold block">Estrategia de Mitigación de Holgura</strong>
+                  <p>
+                    Se han programado holguras lógicas de 2 a 3 días entre fases para resolver observaciones recopiladas de los usuarios de prueba, evitando desbordes de recursos y sobretiempos durante las sprints.
+                  </p>
                 </div>
               </div>
             </div>
