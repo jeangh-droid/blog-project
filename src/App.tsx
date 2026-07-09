@@ -39,7 +39,6 @@ import {
 import { PROJECT_DATA } from './constants';
 import { DESIGN_THINKING_DATA } from './designThinking';
 import AlcancePage from './components/AlcancePage';
-import Sprint1PagosPage from './components/Spring1PagosPage';
 import type { IdentifiedStakeholder } from './types';
 
 export const LightboxContext = createContext<{
