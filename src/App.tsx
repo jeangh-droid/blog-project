@@ -80,7 +80,6 @@ function Layout({ children }: { children: ReactNode }) {
             <NavLink to="/recopilacion" active={location.pathname === "/recopilacion"}>Recopilación</NavLink>
             <NavLink to="/design-thinking" active={location.pathname === "/design-thinking"}>Design Thinking</NavLink>
             <NavLink to="/alcance" active={location.pathname === "/alcance"}>Alcance</NavLink>
-            <NavLink to="/control-pagos" active={location.pathname === "/control-pagos"}>Control de Pagos</NavLink>
           </div>
         </div>
       </nav>
@@ -1798,7 +1797,6 @@ export default function App() {
             <Route path="/salidas" element={<StakeholdersPage />} />
             <Route path="/design-thinking" element={<DesignThinkingPage />} />
             <Route path="/alcance" element={<AlcancePage />} />
-            <Route path="/control-pagos" element={<Sprint1PagosPage />} />
           </Routes>
         </Layout>
       </BrowserRouter>

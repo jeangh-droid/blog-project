@@ -2,15 +2,15 @@ import { useState } from 'react';
 import { motion } from 'motion/react';
 import { 
   Layers, Search, CheckCircle2, ChevronRight,
-  Folder, UserCheck, Settings, Maximize2, 
-  ExternalLink, Lock, ListTodo, Award, CheckCircle,
-  ShieldCheck, Eye, AlertCircle, ArrowUpRight
+  Info, Folder, UserCheck, 
+  Settings, ExternalLink, Lock, ListTodo, 
+  Award, CheckCircle, ShieldCheck, Eye, AlertCircle, ArrowUpRight
 } from 'lucide-react';
 import { useLightbox } from '../App';
 
 export default function AlcancePage() {
   const { openLightbox } = useLightbox();
-  const [activeTab, setActiveTab ] = useState<'plan' | 'requisitos' | 'matriz' | 'declaracion' | 'edt' | 'diccionario'>('plan');
+  const [activeTab, setActiveTab ] = useState<'plan' | 'requisitos' | 'matriz' | 'declaracion' | 'edt' | 'diccionario' | 'prototipo'>('plan');
 
   // Interactive states
   const [reqSearch, setReqSearch] = useState('');
@@ -20,208 +20,414 @@ export default function AlcancePage() {
   const [activeWbsNode, setActiveWbsNode] = useState<string>('1.0');
 
   // WBS Dictionary data
+  // WBS Dictionary data
   const wbsDictionary: Record<string, {
     title: string;
-    description: string;
+    level: string;
     responsible: string;
+    description: string;
     deliverables: string[];
     acceptance: string;
+    evidence: string[];
   }> = {
     '1.0': {
       title: "Sistema de Gestión Operativa MTDRIVING",
-      description: "Solución digital destinada a optimizar la gestión académica y operativa de la escuela de manejo mediante la centralización de información y automatización de procesos.",
+      level: "Nivel 1 · Proyecto (raíz)",
       responsible: "Equipo del Proyecto",
-      deliverables: ["Prototipos Navegables", "Código Fuente (MVP)", "Base de Datos NoSQL/Relacional", "Documento de Arquitectura"],
-      acceptance: "Solución validada por el propietario de MTDRIVING y alineada con los requisitos aprobados."
-    },
-    '1.1': {
-      title: "Gestión del Proyecto",
-      description: "Habilita la correcta dirección del proyecto, asegurando que se cumplan las metas de cronograma, costo, alcance y calidad.",
-      responsible: "Director del Proyecto / Gestor PMO",
-      deliverables: ["Actas de reunión", "Plan de gestión inicial", "Monitoreo del avance"],
-      acceptance: "Hitos cumplidos y reportes aprobados por patrocinadores."
+      description: "Solución digital para optimizar la gestión académica y operativa de la escuela de manejo mediante la centralización de información y la automatización de procesos.",
+      deliverables: [
+        "Prototipos navegables",
+        "Código fuente (MVP)",
+        "Base de datos",
+        "Documento de arquitectura",
+        "Informe final"
+      ],
+      acceptance: "Solución validada por el propietario del negocio y alineada con los requisitos aprobados.",
+      evidence: [
+        "EDT/WBS corregida (edt_mejorado.png)",
+        "Blog de diagnóstico y propuesta — UNTELS, Ingeniería de Sistemas"
+      ]
     },
     '1.1.1': {
       title: "Planificación",
-      description: "Definición de alcance, cronograma, riesgos, comunicaciones y estrategias del proyecto.",
-      responsible: "Equipo del Proyecto",
-      deliverables: ["Acta de planificación", "Plan de Gestión del Alcance", "Plan de Gestión de Riesgos"],
-      acceptance: "Documentos aprobados por el docente asesor."
+      level: "Nivel 3 · Componente de 1.1",
+      responsible: "Líder de Proyecto / Analista de Sistemas — Jesús López",
+      description: "Definición del acta de constitución, alcance, cronograma, presupuesto, comunicaciones y estrategia general del proyecto académico.",
+      deliverables: [
+        "Acta de constitución del proyecto",
+        "Plan de gestión del alcance",
+        "Cronograma preliminar de hitos"
+      ],
+      acceptance: "Documentos de planificación revisados y aprobados por el docente asesor.",
+      evidence: [
+        "Sección “Entradas → 4.1 Acta de constitución” del blog (patrocinador: dueño; plazo: 4 meses)",
+        "Documentos de negocio y caso de negocio registrados en el sitio"
+      ]
     },
     '1.1.2': {
       title: "Seguimiento y Control",
-      description: "Monitoreo del avance, control de cambios y seguimiento de hitos clave del proyecto.",
-      responsible: "Equipo del Proyecto",
-      deliverables: ["Informes de avance", "Registro de incidencias"],
-      acceptance: "Evidencia de seguimiento documentado."
+      level: "Nivel 3 · Componente de 1.1",
+      responsible: "Líder de Proyecto / Analista de Sistemas — Jesús López",
+      description: "Monitoreo del avance, control de cambios y registro de incidencias durante el ciclo de vida del proyecto.",
+      deliverables: [
+        "Informes de avance",
+        "Registro de cambios",
+        "Registro de incidencias"
+      ],
+      acceptance: "Evidencia de seguimiento documentada y trazable.",
+      evidence: [
+        "Registro de cambios: “Cambiado a digital en Fase 1” (Entradas → 4.4)",
+        "Registro de incidentes: “Cruces de horarios frecuentes” (Entradas → 4.4)"
+      ]
     },
     '1.1.3': {
       title: "Gestión de Riesgos",
-      description: "Identificación, análisis cualitativo y cuantitativo, y formulación de planes de respuesta a riesgos operativos.",
-      responsible: "Equipo del Proyecto",
-      deliverables: ["Matriz de riesgos", "Plan de respuesta"],
-      acceptance: "Riesgos evaluados y priorizados formalmente."
-    },
-    '1.2': {
-      title: "Análisis y Definición",
-      description: "Fase orientada a entender en profundidad la problemática del negocio y a definir formalmente los requisitos operacionales.",
-      responsible: "Analista de Sistemas / Consultor UX",
-      deliverables: ["Documento de requerimientos", "Mapa de empatía", "Definición del onboarding"],
-      acceptance: "Requerimientos firmados por el cliente."
+      level: "Nivel 3 · Componente de 1.1",
+      responsible: "Líder de Proyecto / Analista de Sistemas — Jesús López",
+      description: "Identificación, análisis y planes de respuesta a los riesgos operativos y del proyecto.",
+      deliverables: [
+        "Matriz de riesgos (probabilidad × impacto)",
+        "Plan de respuesta a riesgos"
+      ],
+      acceptance: "Riesgos priorizados formalmente con estrategia de respuesta asignada.",
+      evidence: [
+        "Riesgos identificados en el diagnóstico: alta dependencia del dueño, conflicto con el entorno físico (circuito Touring de Conchán) y resistencia al cambio del personal",
+        "Hallazgos clave de la entrevista (Herramientas)"
+      ]
     },
     '1.2.1': {
       title: "Levantamiento de Requisitos",
-      description: "Recopilación de necesidades operativas, financieras y académicas mediante entrevistas semiestructuradas, benchmarking de competidores y observación directa del negocio.",
-      responsible: "Equipo del Proyecto",
-      deliverables: ["Documento de requisitos", "Registro de interesados"],
-      acceptance: "Requisitos validados al 100% por el cliente."
+      level: "Nivel 3 · Componente de 1.2",
+      responsible: "Líder de Proyecto / Analista de Sistemas — Jesús López",
+      description: "Recopilación de necesidades operativas, financieras y académicas mediante entrevista semiestructurada, observación directa, análisis documental y benchmarking.",
+      deliverables: [
+        "Documento de requisitos",
+        "Registro de interesados",
+        "Guion de entrevista"
+      ],
+      acceptance: "Requisitos validados por el cliente y respaldados con evidencia primaria.",
+      evidence: [
+        "Entrevista semiestructurada de 33 min vía Google Meet con el dueño (21 preguntas: operativas, financieras, técnicas y externas)",
+        "Capturas de WhatsApp en /recoleccion (contacto inicial, consultas, seguimiento, horarios)",
+        "Presencia digital: TikTok @mtdrivingschool (22.8K seguidores)"
+      ]
     },
     '1.2.2': {
       title: "Design Thinking",
-      description: "Aplicación secuencial de herramientas de innovación centradas en el usuario final del sistema.",
-      responsible: "Equipo del Proyecto",
-      deliverables: ["Mapa de empatía", "Buyer Persona", "Diagrama de afinidad", "Técnica SCAMPER", "Storyboard de la solución"],
-      acceptance: "Herramientas de empatía y definición completadas y documentadas adecuadamente."
+      level: "Nivel 3 · Componente de 1.2",
+      responsible: "Diseñador UX/UI / Arquitecto — Leonardo Ávila",
+      description: "Aplicación secuencial de las cinco etapas de Design Thinking (empatizar, definir, idear, prototipar, evaluar) centradas en el usuario final.",
+      deliverables: [
+        "Mapa de empatía",
+        "Buyer Persona",
+        "Diagrama de afinidad",
+        "Técnica SCAMPER",
+        "Storyboard de la solución"
+      ],
+      acceptance: "Herramientas de empatía y definición completadas y documentadas.",
+      evidence: [
+        "Evidencias gráficas de las 5 fases en /public/dtk (fase1 a fase5)",
+        "Sección “Design Thinking” del blog con técnicas y herramientas por etapa"
+      ]
     },
     '1.2.3': {
-      title: "Alcance del Proyecto",
-      description: "Definición formal del alcance de la solución, determinando qué elementos y módulos están incluidos y cuáles quedan expresamente excluidos.",
-      responsible: "Equipo del Proyecto",
-      deliverables: ["Declaración del alcance", "Estructura de Desglose del Trabajo (EDT)"],
-      acceptance: "Declaración del alcance aprobada formalmente por todas las partes interesadas."
+      title: "Declaración del Alcance",
+      level: "Nivel 3 · Componente de 1.2",
+      responsible: "Líder de Proyecto / Analista de Sistemas — Jesús López",
+      description: "Definición formal de lo que la solución incluye y excluye expresamente, con supuestos y restricciones.",
+      deliverables: [
+        "Declaración del alcance",
+        "Lista de inclusiones y exclusiones"
+      ],
+      acceptance: "Declaración del alcance aprobada por las partes interesadas.",
+      evidence: [
+        "Sección “Alcance → Declaración de Alcance” del blog",
+        "Alternativa seleccionada en el análisis BPM (Solución Híbrida Modular)"
+      ]
     },
     '1.2.4': {
-      title: "Requisitos del Sistema",
-      description: "Especificación técnica detallada de los requisitos funcionales, de interfaz, seguridad, y rendimiento acordados para la solución.",
-      responsible: "Equipo del Proyecto",
-      deliverables: ["Documento de requisitos del sistema", "Matriz de trazabilidad"],
-      acceptance: "Requisitos trazables con valor comercial y consistentes metodológicamente."
-    },
-    '1.3': {
-      title: "Diseño de la Solución",
-      description: "Fase de especificación de la arquitectura técnica, modelo de datos y mockups del sistema interactivo.",
-      responsible: "Arquitecto de Software / Diseñador UX/UI",
-      deliverables: ["Esquemas de UI", "Diagramas de arquitectura", "Modelo entidad-relación de datos"],
-      acceptance: "Línea base técnica revisada por equipo TI."
+      title: "Especificación de Requisitos",
+      level: "Nivel 3 · Componente de 1.2",
+      responsible: "Líder de Proyecto / Analista de Sistemas — Jesús López",
+      description: "Especificación detallada de los requisitos funcionales y no funcionales, con su matriz de trazabilidad hacia objetivos e interesados.",
+      deliverables: [
+        "Documento de requisitos del sistema (32 RF + 12 RNF)",
+        "Matriz de trazabilidad de requisitos"
+      ],
+      acceptance: "Requisitos trazables, consistentes y con valor de negocio.",
+      evidence: [
+        "Infografía recopilacion_requisitos.png",
+        "Matriz de trazabilidad interactiva del blog (RF-01…RF-32 / RNF-01…RNF-12)"
+      ]
     },
     '1.3.1': {
       title: "Arquitectura",
-      description: "Diseño de la estructura general de la solución digital, determinando las capas de presentación, lógica de negocio y persistencia de datos.",
-      responsible: "Equipo del Proyecto",
-      deliverables: ["Diagrama de arquitectura", "Definición de tecnologías"],
-      acceptance: "Arquitectura validada por el equipo de ingeniería."
+      level: "Nivel 3 · Componente de 1.3",
+      responsible: "Diseñador UX/UI / Arquitecto — Leonardo Ávila",
+      description: "Diseño de la estructura general de la solución en capas de presentación, lógica de negocio y persistencia, y definición del stack tecnológico.",
+      deliverables: [
+        "Diagrama de arquitectura por capas",
+        "Definición de tecnologías"
+      ],
+      acceptance: "Arquitectura validada por el equipo de ingeniería y coherente con los RNF de modularidad.",
+      evidence: [
+        "Requisito RNF-11 (arquitectura modular) de la matriz de trazabilidad",
+        "Diagrama de arquitectura del sistema (entregable a elaborar)"
+      ]
     },
     '1.3.2': {
-      title: "Base de Datos",
-      description: "Diseño lógico y conceptual de la base de datos que soportará el registro de alumnos, coordinaciones de clases, pagos y auditoría.",
-      responsible: "Equipo del Proyecto",
-      deliverables: ["Modelo entidad-relación", "Diccionario de datos"],
-      acceptance: "Modelo de datos normalizado, íntegro y validado con los casos de negocio."
+      title: "Diseño de Base de Datos",
+      level: "Nivel 3 · Componente de 1.3",
+      responsible: "Desarrollador Backend / BD — Carlos Curo",
+      description: "Diseño lógico y conceptual de la base de datos que soporta alumnos, clases, pagos, comunicaciones y auditoría.",
+      deliverables: [
+        "Modelo entidad-relación (MER)",
+        "Diccionario de datos"
+      ],
+      acceptance: "Modelo normalizado, íntegro y validado con los casos de negocio.",
+      evidence: [
+        "Modelo entidad-relación (entregable a elaborar)",
+        "Necesidades de datos derivadas de la entrevista (alumnos, pagos por Yape, horarios)"
+      ]
     },
     '1.3.3': {
       title: "Casos de Uso",
-      description: "Definición del flujo de interacciones entre los diferentes actores (administrador, instructor, alumno) y el sistema propuesto.",
-      responsible: "Equipo del Proyecto",
-      deliverables: ["Diagramas de casos de uso", "Especificaciones narrativas de casos de uso"],
-      acceptance: "Casos de uso completos, trazables y consistentes."
+      level: "Nivel 3 · Componente de 1.3",
+      responsible: "Líder de Proyecto / Analista de Sistemas — Jesús López",
+      description: "Definición del flujo de interacciones entre los actores (administrador, instructor, alumno) y el sistema.",
+      deliverables: [
+        "Diagramas UML de casos de uso",
+        "Especificaciones narrativas de casos de uso"
+      ],
+      acceptance: "Casos de uso completos, trazables y consistentas con los RF.",
+      evidence: [
+        "Flujos de interacción registrados en /recoleccion (flujo_interaccion.png)",
+        "Diagramas de casos de uso (entregable a elaborar)"
+      ]
     },
     '1.3.4': {
-      title: "Mockups",
-      description: "Diseño visual de alta fidelidad de las pantallas y flujos de navegación clave para la aprobación final del usuario.",
-      responsible: "Equipo del Proyecto",
-      deliverables: ["Mockups estáticos", "Prototipo interactivo navegable"],
-      acceptance: "Interfaces de usuario revisadas y aprobadas por el cliente."
-    },
-    '1.4': {
-      title: "Desarrollo del Sistema",
-      description: "Fase de construcción y codificación de los módulos de software acordados y la base de datos física.",
-      responsible: "Líder de Desarrollo / Fullstack Devs",
-      deliverables: ["Código funcional", "Esquema de BD implementado", "Filtros de auditoría"],
-      acceptance: "Compilación sin errores y verificación funcional."
+      title: "Prototipo (Mockups)",
+      level: "Nivel 3 · Componente de 1.3",
+      responsible: "Diseñador UX/UI / Arquitecto — Leonardo Ávila",
+      description: "Diseño visual de alta fidelidad de las pantallas y flujos de navegación clave para su aprobación por el usuario.",
+      deliverables: [
+        "Mockups estáticos",
+        "Prototipo interactivo navegable"
+      ],
+      acceptance: "Interfaces revisadas y aprobadas por el cliente.",
+      evidence: [
+        "Prototipo funcional “Control de Pagos” (Sprint 1) publicado en el blog",
+        "Requisitos de usabilidad RNF-08 a RNF-10"
+      ]
     },
     '1.4.1': {
-      title: "Módulo Alumnos",
-      description: "Gestión unificada de matrículas de estudiantes, expedientes académicos e información de contacto.",
-      responsible: "Equipo del Proyecto",
-      deliverables: ["Registro de alumnos", "Consulta de alumnos", "Actualización de datos (CRUD)"],
-      acceptance: "Operaciones CRUD sobre alumnos funcionando con validaciones correctas."
+      title: "Módulo de Alumnos",
+      level: "Nivel 3 · Componente de 1.4",
+      responsible: "Desarrollador Backend / BD — Carlos Curo",
+      description: "Gestión unificada de matrículas, expedientes académicos e información de contacto de los estudiantes (CRUD).",
+      deliverables: [
+        "1.4.1.1 Registro de alumno",
+        "1.4.1.2 Consulta de alumno",
+        "1.4.1.3 Actualización de datos",
+        "1.4.1.4 Historial académico"
+      ],
+      acceptance: "Operaciones CRUD sobre alumnos funcionando con validaciones correctas.",
+      evidence: [
+        "Requisitos RF-01 a RF-03 de la matriz de trazabilidad",
+        "Evidencia del problema: “Gestión manual de alumnos” con registros aislados (árbol de problemas)"
+      ]
     },
     '1.4.2': {
-      title: "Módulo Clases",
-      description: "Gestión académica, asignación de instructores, vehículos y control de programación/reprogramación de clases prácticas.",
-      responsible: "Equipo del Proyecto",
-      deliverables: ["Agenda de clases en tiempo real", "Módulo de programación", "Historial de clases"],
-      acceptance: "Gestión de clases operativa, previniendo sobreposiciones de horarios."
+      title: "Módulo de Clases",
+      level: "Nivel 3 · Componente de 1.4",
+      responsible: "Desarrollador Frontend / Integración — Jean Piers Quispe",
+      description: "Gestión académica: asignación de instructores y vehículos, programación y control de asistencia de clases prácticas.",
+      deliverables: [
+        "1.4.2.1 Programación de clases",
+        "1.4.2.2 Asignación instructor/vehículo",
+        "1.4.2.3 Registro de asistencia",
+        "1.4.2.4 Reprogramar / cancelar"
+      ],
+      acceptance: "Gestión de clases operativa que previene sobreposiciones de horario.",
+      evidence: [
+        "Requisitos RF-04 a RF-10",
+        "Incidencia registrada: “Cruces de horarios frecuentes” (Entradas → 4.4)",
+        "Capturas consulta_horarios.png"
+      ]
     },
     '1.4.3': {
-      title: "Base de Datos Implementada",
-      description: "Construcción física y despliegue del modelo de base de datos relacional y de auditoría.",
-      responsible: "Equipo del Proyecto",
-      deliverables: ["Scripts SQL de creación", "Tablas y vistas", "Relaciones y restricciones"],
-      acceptance: "Persistencia correcta con integridad referencial activa."
+      title: "Módulo de Comunicaciones",
+      level: "Nivel 3 · Componente de 1.4",
+      responsible: "Desarrollador Frontend / Integración — Jean Piers Quispe",
+      description: "Automatización de la comunicación con el estudiante: notificaciones, integración con WhatsApp Business API y mensajería masiva.",
+      deliverables: [
+        "1.4.3.1 Notificaciones automáticas",
+        "1.4.3.2 Integración WhatsApp",
+        "1.4.3.3 Mensajería masiva",
+        "1.4.3.4 Historial de mensajes"
+      ],
+      acceptance: "Envío automatizado y trazable de comunicaciones a los estudiantes.",
+      evidence: [
+        "Requisitos RF-11 a RF-16",
+        "Causa directa “Comunicación dispersa” del árbol de problemas",
+        "Capturas de WhatsApp en /recoleccion (conversaciones_clientes, atencion_clientes)"
+      ]
     },
     '1.4.4': {
-      title: "Integración de Módulos",
-      description: "Fase de integración que asegura que el flujo de información entre alumnos, cobros, asistencia y coordinaciones funcione como un único sistema unificado.",
-      responsible: "Equipo del Proyecto",
-      deliverables: ["Sistema integrado", "APIs de comunicación interna"],
-      acceptance: "Flujo correcto de información extremo a extremo probado."
+      title: "Módulo Financiero",
+      level: "Nivel 3 · Componente de 1.4",
+      responsible: "Desarrollador Backend / BD — Carlos Curo",
+      description: "Registro y control de pagos, cuotas, reportes financieros y ajustes, reemplazando el cobro informal por Yape.",
+      deliverables: [
+        "1.4.4.1 Registro de pagos",
+        "1.4.4.2 Control de cuotas",
+        "1.4.4.3 Reportes financieros",
+        "1.4.4.4 Ajustes y anulaciones"
+      ],
+      acceptance: "Registro financiero con trazabilidad completa e integridad de caja.",
+      evidence: [
+        "Prototipo funcional “Control de Pagos” (Sprint 1) — evidencia directa del módulo",
+        "Requisitos RF-17 a RF-22",
+        "Capturas de pagos por Yape y transferencias en /recoleccion (confirmacion_pago, transferencia_pago_circuito)"
+      ]
     },
-    '1.5': {
-      title: "Validación y Pruebas",
-      description: "Fase destinada a certificar la corrección técnica del software, identificando defectos antes de la entrega final.",
-      responsible: "Analista de Aseguramiento de Calidad (QA)",
-      deliverables: ["Planes de prueba", "Reporte de vulnerabilidades", "Matriz de resultados de QA"],
-      acceptance: "Sin bugs de prioridad crítica o alta."
+    '1.4.5': {
+      title: "Módulo de Indicadores",
+      level: "Nivel 3 · Componente de 1.4",
+      responsible: "Desarrollador Frontend / Integración — Jean Piers Quispe",
+      description: "Tablero de indicadores de gestión (KPIs) académicos y financieros, con exportación de reportes.",
+      deliverables: [
+        "1.4.5.1 Indicadores académicos",
+        "1.4.5.2 Indicadores financieros",
+        "1.4.5.3 Dashboard gerencial",
+        "1.4.5.4 Exportar PDF / Excel"
+      ],
+      acceptance: "Dashboard con KPIs en tiempo real y exportación funcional.",
+      evidence: [
+        "Requisitos RF-23 a RF-28",
+        "Causa directa “Ausencia de indicadores” del árbol de problemas",
+        "Fin operativo “Disponibilidad de KPIs” del árbol de objetivos"
+      ]
+    },
+    '1.4.6': {
+      title: "Administración y Seguridad",
+      level: "Nivel 3 · Componente de 1.4",
+      responsible: "Desarrollador Backend / BD — Carlos Curo",
+      description: "Gestión de usuarios, roles y permisos, auditoría de operaciones y parámetros generales del sistema.",
+      deliverables: [
+        "1.4.6.1 Gestión de usuarios",
+        "1.4.6.2 Roles y permisos",
+        "1.4.6.3 Auditoría de operaciones",
+        "1.4.6.4 Parámetros del sistema"
+      ],
+      acceptance: "Acceso restringido por rol y toda operación crítica registrada en auditoría.",
+      evidence: [
+        "Requisitos RF-29 a RF-32 y RNF-01 a RNF-03 (seguridad)",
+        "Riesgo de gobernanza: delegación de administración al hermano (entrevista)"
+      ]
+    },
+    '1.4.7': {
+      title: "Base de Datos e Integración",
+      level: "Nivel 3 · Componente de 1.4",
+      responsible: "Desarrollador Backend / BD — Carlos Curo / Desarrollador Frontend / Integración — Jean Piers Quispe",
+      description: "Construcción física de la base de datos e integración de todos los módulos como un único sistema unificado (APIs internas) con respaldo.",
+      deliverables: [
+        "1.4.7.1 Implementación de tablas",
+        "1.4.7.2 Integración de módulos (API)",
+        "1.4.7.3 Respaldo y restauración"
+      ],
+      acceptance: "Persistencia con integridad referencial y flujo de información extremo a extremo probado.",
+      evidence: [
+        "Causa directa “Falta de integración operativa” del árbol de problemas",
+        "Requisitos RNF-04, RNF-07 y RNF-12"
+      ]
     },
     '1.5.1': {
       title: "Pruebas Funcionales",
-      description: "Ejecución de actividades de testing orientadas a constatar que cada requisito funcional se comporta según la declaración de alcance.",
+      level: "Nivel 3 · Componente de 1.5",
       responsible: "Equipo del Proyecto",
-      deliverables: ["Casos de prueba redactados", "Resultados de pruebas documentados"],
-      acceptance: "Cumplimiento del 100% de los requisitos definidos en el alcance."
+      description: "Ejecución de pruebas para constatar que cada requisito funcional se comporta según la declaración de alcance.",
+      deliverables: [
+        "Casos de prueba redactados",
+        "Resultados de pruebas documentados"
+      ],
+      acceptance: "Cumplimiento del 100% de los requisitos definidos en el alcance.",
+      evidence: [
+        "Matriz de casos de prueba vinculada a los RF (entregable a elaborar)",
+        "Reporte de resultados de pruebas"
+      ]
     },
     '1.5.2': {
       title: "Corrección de Errores",
-      description: "Diagnóstico y resolución de bugs y defectos críticos descubiertos en el periodo de aseguramiento de calidad.",
+      level: "Nivel 3 · Componente de 1.5",
       responsible: "Equipo del Proyecto",
-      deliverables: ["Parches aplicados", "Registro de incidencias resueltas"],
-      acceptance: "Errores críticos y de alto bloqueo completamente reparados."
+      description: "Diagnóstico y resolución de defectos críticos descubiertos durante el aseguramiento de calidad.",
+      deliverables: [
+        "Parches aplicados",
+        "Registro de incidencias resueltas"
+      ],
+      acceptance: "Errores críticos y de alto bloqueo completamente reparados.",
+      evidence: [
+        "Registro de bugs / incidencias (bug tracker)",
+        "Historial de correcciones"
+      ]
     },
     '1.5.3': {
       title: "Validación con el Cliente",
-      description: "Presentación formal y demo guiada del sistema con el dueño del negocio para obtener la firma de aceptación operacional.",
-      responsible: "Equipo del Proyecto",
-      deliverables: ["Acta de validación firmada", "Feedback del cliente"],
-      acceptance: "Conformidad firmada del propietario de MTDRIVING."
-    },
-    '1.6': {
-      title: "Cierre del Proyecto",
-      description: "Fase final que marca el término formal de las actividades académicas y contractuales acordadas.",
-      responsible: "Director del Proyecto / Docente Asesor",
-      deliverables: ["Informe de cierre", "Repositorio de código empaquetado", "Soporte documentado"],
-      acceptance: "Entrega académica formalizada con nota aprobatoria."
+      level: "Nivel 3 · Componente de 1.5",
+      responsible: "Líder de Proyecto / Analista de Sistemas — Jesús López",
+      description: "Demostración guiada del sistema con el dueño del negocio para obtener la firma de aceptación operacional.",
+      deliverables: [
+        "Acta de validación firmada",
+        "Registro de feedback del cliente"
+      ],
+      acceptance: "Conformidad firmada del propietario del negocio.",
+      evidence: [
+        "Acta de validación firmada por el dueño (entregable a elaborar)",
+        "Acuerdo de colaboración académica firmado (Entradas → 4.5)"
+      ]
     },
     '1.6.1': {
       title: "Entrega del MVP",
-      description: "Suministro del Mínimo Producto Viable funcional (Front-end e interfaces de simulación) y entrega de accesos.",
+      level: "Nivel 3 · Componente de 1.6",
       responsible: "Equipo del Proyecto",
-      deliverables: ["MVP funcional en la nube", "Manuales de uso rápido"],
-      acceptance: "MVP operativo, presentado y transferido eficientemente."
+      description: "Suministro del Producto Mínimo Viable funcional y entrega de accesos al cliente.",
+      deliverables: [
+        "MVP funcional desplegado en la nube",
+        "Manuales de uso rápido"
+      ],
+      acceptance: "MVP operativo, presentado y transferido.",
+      evidence: [
+        "Prototipo “Control de Pagos” como primer incremento del MVP",
+        "Blog de diagnóstico y propuesta publicado"
+      ]
     },
     '1.6.2': {
       title: "Informe Final",
-      description: "Consolidación de todo el análisis, diagnóstico y planificación del proyecto en un informe técnico de fin de carrera.",
-      responsible: "Equipo del Proyecto",
-      deliverables: ["Documento oficial de informe final"],
-      acceptance: "Documento revisado y aprobado satisfactoriamente por el docente asesor."
+      level: "Nivel 3 · Componente de 1.6",
+      responsible: "Líder de Proyecto / Analista de Sistemas — Jesús López",
+      description: "Consolidación del análisis, diagnóstico y planificación en un informe técnico de fin de curso.",
+      deliverables: [
+        "Documento oficial de informe final"
+      ],
+      acceptance: "Documento de informe final revisado y aprobado por el docente asesor.",
+      evidence: [
+        "Informe técnico consolidado (entregable a elaborar)",
+        "Todos los artefactos del blog como anexos"
+      ]
     },
     '1.6.3': {
       title: "Lecciones Aprendidas",
-      description: "Reunión retrospectiva con el equipo para registrar los éxitos, errores de planificación y mejoras para futuros proyectos de TI.",
+      level: "Nivel 3 · Componente de 1.6",
       responsible: "Equipo del Proyecto",
-      deliverables: ["Documento de lecciones aprendidas sistematizadas"],
-      acceptance: "Documento archivado en los activos de procesos del equipo."
+      description: "Retrospectiva del equipo para registrar éxitos, errores de planificación y mejoras para futuros proyectos.",
+      deliverables: [
+        "Documento de lecciones aprendidas"
+      ],
+      acceptance: "Documento archivado en los activos de procesos del equipo.",
+      evidence: [
+        "Acta de reunión retrospectiva (entregable a elaborar)"
+      ]
     }
   };
 
@@ -306,6 +512,7 @@ export default function AlcancePage() {
           { id: 'declaracion', label: '4. Declaración de Alcance' },
           { id: 'edt', label: '5. EDT / WBS' },
           { id: 'diccionario', label: '6. Diccionario de EDT' },
+          { id: 'prototipo', label: '7. Prototipo' },
         ].map(tab => (
           <button
             key={tab.id}
@@ -564,14 +771,14 @@ export default function AlcancePage() {
             <div className="grid md:grid-cols-12 gap-8 items-start">
               <div className="md:col-span-4 bg-white p-6 border border-slate-200 rounded-lg shadow-sm space-y-4 h-full">
                 <span className="text-[9px] font-bold uppercase tracking-widest bg-blue-50 text-[#004A99] px-2.5 py-1 rounded">
-                  Objetivo del Proceso
+                  4.1 Objetivo del Proceso
                 </span>
                 <p className="text-xs text-slate-600 font-light leading-relaxed">
                   Determinar, documentar y gestionar a nivel macro las necesidades de los interesados de la Escuela de Manejo para definir los requisitos específicos del sistema propuesto. El fin primario es asegurar que la solución tecnológica implementada contribuya activamente a mejorar la eficiencia operativa del negocio, el control administrativo, y la calidad percibida del servicio educativo brindado.
                 </p>
 
                 <div className="pt-4 border-t border-slate-100 space-y-3">
-                  <h4 className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Técnicas Utilizadas (PMBOK)</h4>
+                  <h4 className="text-[10px] font-bold uppercase tracking-wider text-slate-800">4.2 Técnicas Utilizadas (PMBOK)</h4>
                   <ul className="space-y-2 text-[11px] text-slate-600 font-light">
                     <li className="flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#004A99]" /> <strong>Entrevistas</strong> (Gerente, Admin, Instructores, Alumnos)
@@ -661,7 +868,7 @@ export default function AlcancePage() {
 
             {/* Stakeholders Identity Check (INT-01 to INT-06) */}
             <div className="space-y-4">
-              <h3 className="text-xs font-extrabold text-[#004A99] uppercase tracking-[0.2em]">Identificación de Interesados clave</h3>
+              <h3 className="text-xs font-extrabold text-[#004A99] uppercase tracking-[0.2em]">4.3 Identificación de Interesados clave</h3>
               <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
                 {[
                   { code: 'INT-01', name: 'Gerente General', role: 'Toma de decisiones estratégica', desc: 'Giovanni Steven / Martín' },
@@ -1101,110 +1308,337 @@ export default function AlcancePage() {
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="space-y-8"
+            className="space-y-10"
           >
-            {/* Top overview row with visual zoom */}
-            <div className="bg-white p-6 border border-slate-200 rounded-lg shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-              <div className="space-y-1">
-                <span className="text-[9px] font-bold uppercase tracking-widest bg-blue-50 text-[#004A99] px-2.5 py-1 rounded">
-                  Estructura de Desglose del Trabajo (EDT)
-                </span>
-                <p className="text-xs text-slate-500 font-light leading-relaxed">
-                  Interactúe haciendo clic en cualquier nodo para ver instantáneamente su Diccionario EDT correspondiente.
-                </p>
+            {/* Header / Intro */}
+            <div className="bg-white p-6 border border-slate-200 rounded-lg shadow-sm space-y-3">
+              <div className="flex items-center gap-2">
+                <Layers className="text-[#004A99] shrink-0" size={20} />
+                <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
+                  Estructura de Desglose del Trabajo (EDT) Interactiva
+                </h3>
               </div>
-
-              {/* Zoom Trigger Button */}
-              <button
-                onClick={() => openLightbox('edt.png', 'Diagrama: Estructura de Desglose del Trabajo (EDT/WBS) completo')}
-                className="inline-flex items-center gap-2 bg-white border border-slate-300 hover:border-[#004A99] active:scale-95 text-[#004A99] text-[10px] font-bold uppercase tracking-widest px-4 py-3 rounded shadow-sm hover:shadow transition-all"
-              >
-                <Maximize2 size={12} /> Ver EDT Original en Pantalla Completa
-              </button>
+              <p className="text-xs text-slate-500 font-light leading-relaxed">
+                A continuación se muestra la representación jerárquica de la EDT del proyecto <strong>Sistema de Gestión Operativa MTDRIVING</strong>. El esquema refleja la descomposición completa del proyecto en 6 fases principales y sus componentes de alcance asociados (Nivel 3). En la parte inferior, se desglosa el componente de desarrollo (1.4) en sus correspondientes paquetes de trabajo (Nivel 4).
+              </p>
+              <div className="p-3 bg-blue-50 border-l-4 border-[#004A99] text-[#004A99] rounded-r text-[11px] font-medium flex gap-2 items-center">
+                <Info size={14} className="shrink-0" />
+                <span><strong>Interacción Técnica:</strong> Haga clic en cualquier componente de Nivel 3 o paquete de Nivel 4 para consultar su ficha técnica detallada directamente en el <strong>Diccionario de la EDT</strong>.</span>
+              </div>
             </div>
 
-            {/* Visual legend representation */}
-            <div className="p-3 bg-slate-50 border border-slate-200 rounded flex flex-wrap justify-center gap-6 text-[9px] font-semibold tracking-wider uppercase font-mono shadow-xs">
-              <span className="flex items-center gap-1"><span className="w-3 h-3 bg-slate-900 border border-slate-950 block rounded-xs" /> Nivel 1: Proyecto</span>
-              <span className="flex items-center gap-1"><span className="w-3 h-3 bg-blue-500 border border-blue-600 block rounded-xs" /> Nivel 2: Fases de Dirección</span>
-              <span className="flex items-center gap-1"><span className="w-3 h-3 bg-emerald-500 border border-emerald-600 block rounded-xs" /> Nivel 3: Paquetes de Componentes</span>
-              <span className="flex items-center gap-1"><span className="w-3 h-3 bg-amber-400 border border-amber-500 block rounded-xs" /> Nivel 4: Módulos Técnicos</span>
+            {/* Legend Component */}
+            <div className="bg-white border border-slate-200 rounded-lg p-3.5 px-6 shadow-sm flex flex-wrap items-center justify-between text-xs gap-4 font-sans">
+              <span className="font-mono font-bold uppercase text-[#004A99] bg-blue-50 border border-blue-200 px-2.5 py-0.5 rounded text-[9px] tracking-wider">
+                LEYENDA
+              </span>
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+                <div className="flex items-center gap-2">
+                  <span className="w-4 h-4 bg-slate-950 rounded shadow-sm"></span>
+                  <span className="text-slate-600 font-medium">Nivel 1 · Proyecto</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-4 h-4 bg-blue-600 rounded shadow-sm"></span>
+                  <span className="text-slate-600 font-medium">Nivel 2 · Fases</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-4 h-4 bg-[#E2F0D9] border-2 border-[#A8D08D] rounded shadow-sm animate-pulse"></span>
+                  <span className="text-slate-600 font-medium">Nivel 3 · Componentes del alcance</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-4 h-4 bg-[#FFF2CC] border-2 border-[#F4B084] rounded shadow-sm"></span>
+                  <span className="text-slate-600 font-medium">Nivel 4 · Paquetes de trabajo</span>
+                </div>
+              </div>
             </div>
 
-            {/* Tree Org-Chart Layout */}
-            <div className="space-y-6">
-              
-              {/* LEVEL 1: ROOT */}
-              <div className="flex justify-center">
-                <button
-                  onClick={() => { setActiveWbsNode('1.0'); setActiveTab('diccionario'); }} 
-                  className={`p-4 text-center cursor-pointer transition-all duration-200 group border text-white rounded-lg shadow-md max-w-sm w-full ${
-                    activeWbsNode === '1.0' ? 'bg-slate-950 ring-4 ring-[#004A99]' : 'bg-slate-900 hover:bg-slate-950'
-                  }`}
-                >
-                  <span className="font-mono text-[9px] font-bold text-slate-400 block bg-white/5 p-1 rounded-sm border border-white/5 mb-1">1.0 PROYECTO PRINCIPAL</span>
-                  <h3 className="text-xs font-bold leading-tight">SISTEMA DE GESTIÓN OPERATIVA MTDRIVING</h3>
-                  <p className="text-[8px] text-slate-300 italic font-light pt-1 group-hover:underline">Haga clic para ver definición</p>
-                </button>
-              </div>
-
-              {/* Tree Connection Arrow */}
-              <div className="flex justify-center text-slate-300 font-mono text-lg leading-none -my-2">↓</div>
-
-              {/* LEVEL 2: SIX COLUMNS */}
-              <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
-                {[
-                  { code: '1.1', title: 'GESTIÓN DEL PROYECTO', bg: 'bg-blue-600 hover:bg-blue-700', children: ['1.1.1', '1.1.2', '1.1.3'] },
-                  { code: '1.2', title: 'ANÁLISIS Y DEFINICIÓN', bg: 'bg-blue-600 hover:bg-blue-700', children: ['1.2.1', '1.2.2', '1.2.3', '1.2.4'] },
-                  { code: '1.3', title: 'DISEÑO DE LA SOLUCIÓN', bg: 'bg-blue-600 hover:bg-blue-700', children: ['1.3.1', '1.3.2', '1.3.3', '1.3.4'] },
-                  { code: '1.4', title: 'DESARROLLO DEL SISTEMA', bg: 'bg-blue-600 hover:bg-blue-700', children: ['1.4.1', '1.4.2', '1.4.3', '1.4.4'] },
-                  { code: '1.5', title: 'VALIDACIÓN Y PRUEBAS', bg: 'bg-blue-600 hover:bg-blue-700', children: ['1.5.1', '1.5.2', '1.5.3'] },
-                  { code: '1.6', title: 'CIERRE DEL PROYECTO', bg: 'bg-blue-600 hover:bg-blue-700', children: ['1.6.1', '1.6.2', '1.6.3'] },
-                ].map(node => (
-                  <div key={node.code} className="space-y-4">
-                    {/* Node level 2 */}
+            {/* Tree Section: Nivel 1, 2 & 3 */}
+            <div className="bg-white border border-slate-200 rounded-lg p-6 shadow-sm overflow-hidden">
+              <div className="overflow-x-auto pb-4 scrollbar-thin">
+                <div className="min-w-[1100px] space-y-6 relative py-4">
+                  
+                  {/* Nivel 1: Proyecto (Raíz) */}
+                  <div className="flex justify-center">
                     <button
-                      onClick={() => { setActiveWbsNode(node.code); setActiveTab('diccionario'); }}
-                      className="p-3 text-center cursor-pointer transition-all border text-white rounded-lg shadow-sm w-full block group min-h-[90px] bg-blue-600 hover:bg-blue-700"
+                      onClick={() => { setActiveWbsNode('1.0'); setActiveTab('diccionario'); }}
+                      className="bg-slate-950 text-white p-4 rounded-lg shadow-md text-center w-[400px] border border-slate-800 relative hover:scale-105 active:scale-95 transition-all"
                     >
-                      <span className="font-mono text-[8px] font-bold block text-blue-200 tracking-widest uppercase mb-1">Nivel 2 (Fase)</span>
-                      <strong className="text-[10px] tracking-tight block border-t border-white/10 pt-1 leading-tight">{node.code} {node.title}</strong>
-                      <p className="text-[7px] text-blue-200 font-mono italic pt-2 opacity-80 group-hover:underline">Ver detalles</p>
+                      <span className="text-[10px] font-mono block text-blue-200 font-bold uppercase tracking-widest mb-1">
+                        1.0 · PROYECTO
+                      </span>
+                      <strong className="text-xs font-bold font-sans tracking-wide">
+                        Sistema de Gestión Operativa MTDRIVING
+                      </strong>
                     </button>
-
-                    {/* Node connection arrow */}
-                    <div className="text-center text-slate-300 font-mono text-sm leading-none -my-2">↓</div>
-
-                    {/* Node level 3 Children */}
-                    <div className="space-y-2">
-                      {node.children.map(childCode => {
-                        const childData = wbsDictionary[childCode];
-                        return (
-                          <button
-                            key={childCode}
-                            onClick={() => { setActiveWbsNode(childCode); setActiveTab('diccionario'); }}
-                            className="p-2 border border-emerald-200 hover:border-emerald-400 bg-white hover:bg-emerald-50/50 cursor-pointer text-slate-800 rounded shadow-xs w-full text-left font-sans block group"
-                          >
-                            <span className="font-mono text-[8px] font-extrabold text-emerald-700 bg-emerald-50 px-1 py-0.5 rounded uppercase block w-max leading-none mb-1">{childCode} COMPONENTE</span>
-                            <strong className="text-[10px] text-slate-900 leading-snug block font-semibold">{childData ? childData.title : 'Cargando...'}</strong>
-                            <p className="text-[7px] text-slate-400 font-light italic leading-none pt-1">Ver diccionario</p>
-                          </button>
-                        );
-                      })}
-                    </div>
                   </div>
-                ))}
-              </div>
-            </div>
 
-            {/* Note about work packages of level 4 */}
-            <div className="bg-amber-50 border border-amber-200 rounded-lg p-5 space-y-2 flex gap-4">
-              <AlertCircle size={24} className="text-amber-500 shrink-0 self-center" />
-              <div className="space-y-1">
-                <span className="text-[9px] font-bold uppercase tracking-widest text-amber-800 block">Detalle de Paquetes de Trabajo de Nivel 4 (EDT/WBS)</span>
-                <p className="text-xs text-slate-600 font-light leading-relaxed">
-                  Bajo los componentes sustantivos, se desglosan sub-paquetes o paquetes de trabajo detallados de nivel 4 tales como: <strong className="text-slate-800">1.4.1.1 Registro de Alumnos</strong>, <strong className="text-slate-800">1.4.1.2 Consultas de Alumnos Académicos</strong>, <strong className="text-slate-800">1.4.3.1 Diseño de Datos</strong>, <strong className="text-slate-800">1.4.3.2 Creación de Tablas</strong>, <strong className="text-slate-800">1.5.1.1 Integración de Módulos (Tests)</strong>. Todos ellos están estructurados y se pueden contrastar en detalle en la vista original.
-                </p>
+                  {/* Vertical branch line from level 1 */}
+                  <div className="flex justify-center -my-2">
+                    <div className="w-0.5 h-8 bg-slate-300"></div>
+                  </div>
+
+                  {/* Horizontal Connector line across 6 columns */}
+                  <div className="relative">
+                    <div className="absolute top-0 left-[8.33%] right-[8.33%] h-0.5 bg-slate-300"></div>
+                  </div>
+
+                  {/* 6 Columns Grid for level 2 and 3 */}
+                  <div className="grid grid-cols-6 gap-3.5 pt-4">
+                    
+                    {/* Fase 1.1 */}
+                    <div className="space-y-4 relative">
+                      {/* Vertical link connector */}
+                      <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-0.5 h-4 bg-slate-300"></div>
+                      
+                      {/* Level 2 Card */}
+                      <button 
+                        onClick={() => { setActiveWbsNode('1.1'); setActiveTab('diccionario'); }}
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-lg shadow-md text-center min-h-[58px] flex flex-col justify-center items-center hover:scale-105 active:scale-95 transition-all"
+                      >
+                        <span className="text-[8px] font-mono block text-blue-100 font-bold uppercase">1.1 FASE</span>
+                        <strong className="text-[9px] font-sans font-bold uppercase leading-tight">Gestión del Proyecto</strong>
+                      </button>
+
+                      {/* Line down to level 3 */}
+                      <div className="flex justify-center -my-2">
+                        <div className="w-0.5 h-4 bg-slate-200"></div>
+                      </div>
+
+                      {/* Level 3 items */}
+                      <div className="space-y-2">
+                        {[
+                          { code: '1.1.1', title: 'Planificación' },
+                          { code: '1.1.2', title: 'Seguimiento y Control' },
+                          { code: '1.1.3', title: 'Gestión de Riesgos' }
+                        ].map(item => (
+                          <button
+                            key={item.code}
+                            onClick={() => {
+                              setActiveWbsNode(item.code);
+                              setActiveTab('diccionario');
+                            }}
+                            className="w-full text-left bg-[#E2F0D9] hover:bg-[#D4E8C9] border-2 border-[#A8D08D] hover:border-[#8EBF72] p-2.5 rounded shadow-sm hover:shadow-md transition-all duration-200 group cursor-pointer flex flex-col justify-between min-h-[70px]"
+                          >
+                            <span className="text-[8px] font-mono font-bold text-emerald-800 block mb-0.5">{item.code}</span>
+                            <p className="text-[10px] font-bold text-slate-800 leading-tight font-sans group-hover:text-emerald-950">{item.title}</p>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Fase 1.2 */}
+                    <div className="space-y-4 relative">
+                      {/* Vertical link connector */}
+                      <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-0.5 h-4 bg-slate-300"></div>
+                      
+                      {/* Level 2 Card */}
+                      <button 
+                        onClick={() => { setActiveWbsNode('1.2'); setActiveTab('diccionario'); }}
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-lg shadow-md text-center min-h-[58px] flex flex-col justify-center items-center hover:scale-105 active:scale-95 transition-all"
+                      >
+                        <span className="text-[8px] font-mono block text-blue-100 font-bold uppercase">1.2 FASE</span>
+                        <strong className="text-[9px] font-sans font-bold uppercase leading-tight">Análisis y Definición</strong>
+                      </button>
+
+                      {/* Line down to level 3 */}
+                      <div className="flex justify-center -my-2">
+                        <div className="w-0.5 h-4 bg-slate-200"></div>
+                      </div>
+
+                      {/* Level 3 items */}
+                      <div className="space-y-2">
+                        {[
+                          { code: '1.2.1', title: 'Levantamiento de Requisitos' },
+                          { code: '1.2.2', title: 'Design Thinking' },
+                          { code: '1.2.3', title: 'Declaración del Alcance' },
+                          { code: '1.2.4', title: 'Especificación de Requisitos' }
+                        ].map(item => (
+                          <button
+                            key={item.code}
+                            onClick={() => {
+                              setActiveWbsNode(item.code);
+                              setActiveTab('diccionario');
+                            }}
+                            className="w-full text-left bg-[#E2F0D9] hover:bg-[#D4E8C9] border-2 border-[#A8D08D] hover:border-[#8EBF72] p-2.5 rounded shadow-sm hover:shadow-md transition-all duration-200 group cursor-pointer flex flex-col justify-between min-h-[70px]"
+                          >
+                            <span className="text-[8px] font-mono font-bold text-emerald-800 block mb-0.5">{item.code}</span>
+                            <p className="text-[10px] font-bold text-slate-800 leading-tight font-sans group-hover:text-emerald-950">{item.title}</p>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Fase 1.3 */}
+                    <div className="space-y-4 relative">
+                      {/* Vertical link connector */}
+                      <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-0.5 h-4 bg-slate-300"></div>
+                      
+                      {/* Level 2 Card */}
+                      <button 
+                        onClick={() => { setActiveWbsNode('1.3'); setActiveTab('diccionario'); }}
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-lg shadow-md text-center min-h-[58px] flex flex-col justify-center items-center hover:scale-105 active:scale-95 transition-all"
+                      >
+                        <span className="text-[8px] font-mono block text-blue-100 font-bold uppercase">1.3 FASE</span>
+                        <strong className="text-[9px] font-sans font-bold uppercase leading-tight">Diseño de la Solución</strong>
+                      </button>
+
+                      {/* Line down to level 3 */}
+                      <div className="flex justify-center -my-2">
+                        <div className="w-0.5 h-4 bg-slate-200"></div>
+                      </div>
+
+                      {/* Level 3 items */}
+                      <div className="space-y-2">
+                        {[
+                          { code: '1.3.1', title: 'Arquitectura' },
+                          { code: '1.3.2', title: 'Diseño de Base de Datos' },
+                          { code: '1.3.3', title: 'Casos de Uso' },
+                          { code: '1.3.4', title: 'Prototipo (Mockups)' }
+                        ].map(item => (
+                          <button
+                            key={item.code}
+                            onClick={() => {
+                              setActiveWbsNode(item.code);
+                              setActiveTab('diccionario');
+                            }}
+                            className="w-full text-left bg-[#E2F0D9] hover:bg-[#D4E8C9] border-2 border-[#A8D08D] hover:border-[#8EBF72] p-2.5 rounded shadow-sm hover:shadow-md transition-all duration-200 group cursor-pointer flex flex-col justify-between min-h-[70px]"
+                          >
+                            <span className="text-[8px] font-mono font-bold text-emerald-800 block mb-0.5">{item.code}</span>
+                            <p className="text-[10px] font-bold text-slate-800 leading-tight font-sans group-hover:text-emerald-950">{item.title}</p>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Fase 1.4 */}
+                    <div className="space-y-4 relative">
+                      {/* Vertical link connector */}
+                      <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-0.5 h-4 bg-slate-300"></div>
+                      
+                      {/* Level 2 Card */}
+                      <button 
+                        onClick={() => { setActiveWbsNode('1.4'); setActiveTab('diccionario'); }}
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-lg shadow-md text-center min-h-[58px] flex flex-col justify-center items-center hover:scale-105 active:scale-95 transition-all"
+                      >
+                        <span className="text-[8px] font-mono block text-blue-100 font-bold uppercase">1.4 FASE</span>
+                        <strong className="text-[9px] font-sans font-bold uppercase leading-tight">Desarrollo del Sistema</strong>
+                      </button>
+
+                      {/* Line down to level 3 */}
+                      <div className="flex justify-center -my-2">
+                        <div className="w-0.5 h-4 bg-slate-200"></div>
+                      </div>
+
+                      {/* Level 3 items */}
+                      <div className="space-y-2">
+                        {[
+                          { code: '1.4.1', title: 'Módulo de Alumnos' },
+                          { code: '1.4.2', title: 'Módulo de Clases' },
+                          { code: '1.4.3', title: 'Módulo de Comunicaciones' },
+                          { code: '1.4.4', title: 'Módulo Financiero' },
+                          { code: '1.4.5', title: 'Módulo de Indicadores' },
+                          { code: '1.4.6', title: 'Administración y Seguridad' },
+                          { code: '1.4.7', title: 'Base de Datos e Integración' }
+                        ].map(item => (
+                          <button
+                            key={item.code}
+                            onClick={() => {
+                              setActiveWbsNode(item.code);
+                              setActiveTab('diccionario');
+                            }}
+                            className="w-full text-left bg-[#E2F0D9] hover:bg-[#D4E8C9] border-2 border-[#A8D08D] hover:border-[#8EBF72] p-2.5 rounded shadow-sm hover:shadow-md transition-all duration-200 group cursor-pointer flex flex-col justify-between min-h-[70px]"
+                          >
+                            <span className="text-[8px] font-mono font-bold text-emerald-800 block mb-0.5">{item.code}</span>
+                            <p className="text-[10px] font-bold text-slate-800 leading-tight font-sans group-hover:text-emerald-950">{item.title}</p>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Fase 1.5 */}
+                    <div className="space-y-4 relative">
+                      {/* Vertical link connector */}
+                      <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-0.5 h-4 bg-slate-300"></div>
+                      
+                      {/* Level 2 Card */}
+                      <button 
+                        onClick={() => { setActiveWbsNode('1.5'); setActiveTab('diccionario'); }}
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-lg shadow-md text-center min-h-[58px] flex flex-col justify-center items-center hover:scale-105 active:scale-95 transition-all"
+                      >
+                        <span className="text-[8px] font-mono block text-blue-100 font-bold uppercase">1.5 FASE</span>
+                        <strong className="text-[9px] font-sans font-bold uppercase leading-tight">Validación y Pruebas</strong>
+                      </button>
+
+                      {/* Line down to level 3 */}
+                      <div className="flex justify-center -my-2">
+                        <div className="w-0.5 h-4 bg-slate-200"></div>
+                      </div>
+
+                      {/* Level 3 items */}
+                      <div className="space-y-2">
+                        {[
+                          { code: '1.5.1', title: 'Pruebas Funcionales' },
+                          { code: '1.5.2', title: 'Corrección de Errores' },
+                          { code: '1.5.3', title: 'Validación con el Cliente' }
+                        ].map(item => (
+                          <button
+                            key={item.code}
+                            onClick={() => {
+                              setActiveWbsNode(item.code);
+                              setActiveTab('diccionario');
+                            }}
+                            className="w-full text-left bg-[#E2F0D9] hover:bg-[#D4E8C9] border-2 border-[#A8D08D] hover:border-[#8EBF72] p-2.5 rounded shadow-sm hover:shadow-md transition-all duration-200 group cursor-pointer flex flex-col justify-between min-h-[70px]"
+                          >
+                            <span className="text-[8px] font-mono font-bold text-emerald-800 block mb-0.5">{item.code}</span>
+                            <p className="text-[10px] font-bold text-slate-800 leading-tight font-sans group-hover:text-emerald-950">{item.title}</p>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Fase 1.6 */}
+                    <div className="space-y-4 relative">
+                      {/* Vertical link connector */}
+                      <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-0.5 h-4 bg-slate-300"></div>
+                      
+                      {/* Level 2 Card */}
+                      <button 
+                        onClick={() => { setActiveWbsNode('1.6'); setActiveTab('diccionario'); }}
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-lg shadow-md text-center min-h-[58px] flex flex-col justify-center items-center hover:scale-105 active:scale-95 transition-all"
+                      >
+                        <span className="text-[8px] font-mono block text-blue-100 font-bold uppercase">1.6 FASE</span>
+                        <strong className="text-[9px] font-sans font-bold uppercase leading-tight">Cierre del Proyecto</strong>
+                      </button>
+
+                      {/* Line down to level 3 */}
+                      <div className="flex justify-center -my-2">
+                        <div className="w-0.5 h-4 bg-slate-200"></div>
+                      </div>
+
+                      {/* Level 3 items */}
+                      <div className="space-y-2">
+                        {[
+                          { code: '1.6.1', title: 'Entrega del MVP' },
+                          { code: '1.6.2', title: 'Informe Final' },
+                          { code: '1.6.3', title: 'Lecciones Aprendidas' }
+                        ].map(item => (
+                          <button
+                            key={item.code}
+                            onClick={() => {
+                              setActiveWbsNode(item.code);
+                              setActiveTab('diccionario');
+                            }}
+                            className="w-full text-left bg-[#E2F0D9] hover:bg-[#D4E8C9] border-2 border-[#A8D08D] hover:border-[#8EBF72] p-2.5 rounded shadow-sm hover:shadow-md transition-all duration-200 group cursor-pointer flex flex-col justify-between min-h-[70px]"
+                          >
+                            <span className="text-[8px] font-mono font-bold text-emerald-800 block mb-0.5">{item.code}</span>
+                            <p className="text-[10px] font-bold text-slate-800 leading-tight font-sans group-hover:text-emerald-950">{item.title}</p>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>
@@ -1217,74 +1651,165 @@ export default function AlcancePage() {
             animate={{ opacity: 1, y: 0 }}
             className="space-y-8"
           >
-            {/* Split layout: node selector at left, content at right */}
-            <div className="grid md:grid-cols-3 gap-8">
-              
-              {/* Selector left */}
-              <div className="space-y-3">
-                <span className="text-[9px] font-bold uppercase tracking-widest bg-blue-50 text-[#004A99] px-2.5 py-1 rounded block w-max">
-                  Seleccionar Nodo de la EDT
-                </span>
-                <div className="bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden divide-y divide-slate-150 max-h-[500px] overflow-y-auto">
-                  {Object.entries(wbsDictionary).map(([code, value]) => (
-                    <button
-                      key={code}
-                      onClick={() => setActiveWbsNode(code)}
-                      className={`w-full text-left p-3 text-xs flex items-center justify-between transition-colors ${
-                        activeWbsNode === code 
-                          ? 'bg-blue-50/70 border-l-4 border-l-[#004A99] font-bold text-[#004A99]' 
-                          : 'hover:bg-slate-50 text-slate-600 hover:text-slate-900 border-l-4 border-l-transparent'
-                      }`}
-                    >
-                      <span className="font-mono">{code} {value.title}</span>
-                      <ChevronRight size={14} className={activeWbsNode === code ? 'text-[#004A99]' : 'text-slate-300'} />
-                    </button>
-                  ))}
+            {/* Overview */}
+            <div className="bg-white p-6 border border-slate-200 rounded-lg shadow-sm space-y-2">
+              <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
+                Diccionario de la EDT - Control de Pagos
+              </h3>
+              <p className="text-xs text-slate-500 font-light leading-relaxed">
+                Describe detalladamente cada elemento del nivel más bajo de la EDT del proceso de Control de Pagos, especificando descripción, entregable asociado, responsable y criterios de aceptación.
+              </p>
+            </div>
+
+            {/* Interactive Package Details */}
+            <div className="grid md:grid-cols-12 gap-8 items-start">
+              {/* Left Selector list */}
+              <div className="md:col-span-4 bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden divide-y divide-slate-100 max-h-[500px] overflow-y-auto">
+                <div className="bg-slate-50 p-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                  Paquetes de Trabajo
                 </div>
+                {Object.keys(wbsDictionary).map((code) => (
+                  <button
+                    key={code}
+                    onClick={() => setActiveWbsNode(code)}
+                    className={`w-full text-left p-3 flex justify-between items-center transition-colors hover:bg-slate-50 ${
+                      activeWbsNode === code ? 'bg-blue-50/70 border-l-4 border-l-[#004A99]' : ''
+                    }`}
+                  >
+                    <div>
+                      <span className="font-mono text-[10px] font-bold text-[#004A99] block">{code}</span>
+                      <span className="text-xs font-semibold text-slate-800 line-clamp-1">{wbsDictionary[code].title}</span>
+                    </div>
+                    <ChevronRight size={14} className="text-slate-400" />
+                  </button>
+                ))}
               </div>
 
-              {/* Content right panel */}
-              {activeWbsNode && wbsDictionary[activeWbsNode] && (
-                <div className="md:col-span-2 space-y-6">
-                  {/* Title card */}
-                  <div className="bg-slate-900 text-white rounded-lg p-6 shadow-sm space-y-2 relative overflow-hidden">
-                    <span className="font-mono text-[#004A99] font-bold text-[8px] bg-white rounded px-2.5 py-1 uppercase tracking-widest">
-                      DICCIONARIO EDT - CÓDIGO {activeWbsNode}
-                    </span>
-                    <h3 className="text-xl font-bold">{wbsDictionary[activeWbsNode].title}</h3>
-                    <p className="text-[11px] text-slate-400 font-mono">Responsable Primario: <strong className="text-slate-200 font-bold">{wbsDictionary[activeWbsNode].responsible}</strong></p>
-                  </div>
-
-                  {/* Details Card */}
-                  <div className="bg-white border border-slate-200 rounded-lg p-8 shadow-sm space-y-6">
-                    <div className="space-y-2">
-                      <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest font-mono">1. Descripción del Paquete</h4>
-                      <p className="text-xs text-slate-700 font-light leading-relaxed">
-                        {wbsDictionary[activeWbsNode].description}
-                      </p>
+              {/* Right Details Panel (Replica Grid Layout) */}
+              <div className="md:col-span-8 bg-white border border-slate-300 rounded-lg shadow-md overflow-hidden">
+                {activeWbsNode && wbsDictionary[activeWbsNode] ? (
+                  <div className="flex flex-col h-full font-sans">
+                    {/* Dark Blue Grid Header (Excel/PDF style) */}
+                    <div className="bg-[#1B4E8C] text-white p-4 font-bold tracking-wider text-sm border-b border-slate-300 flex justify-between items-center flex-wrap gap-2">
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono bg-white/20 px-2.5 py-0.5 rounded text-xs font-extrabold">
+                          {activeWbsNode}
+                        </span>
+                        <span className="uppercase">{wbsDictionary[activeWbsNode].title}</span>
+                      </div>
+                      <span className="text-[9px] font-mono tracking-widest text-blue-200 bg-[#0F3560] px-2 py-0.5 rounded uppercase font-bold">
+                        FICHA TÉCNICA EDT
+                      </span>
                     </div>
 
-                    <div className="space-y-3">
-                      <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest font-mono">2. Entregables Asociados</h4>
-                      <div className="grid sm:grid-cols-2 gap-2">
-                        {wbsDictionary[activeWbsNode].deliverables.map((del, idx) => (
-                          <div key={idx} className="p-3 bg-slate-50 rounded border border-slate-150 flex items-center gap-2.5 text-[11px] text-slate-600 font-light">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#004A99]" />
-                            <span>{del}</span>
-                          </div>
-                        ))}
+                    {/* Table-like Grid Layout */}
+                    <div className="divide-y divide-slate-200 text-xs">
+                      {/* Row 1: Fase / Nivel */}
+                      <div className="grid grid-cols-12 md:grid-cols-10 min-h-[44px]">
+                        <div className="col-span-4 md:col-span-3 bg-slate-50 p-3 border-r border-slate-200 font-bold text-slate-700 flex items-center">
+                          Fase / Nivel
+                        </div>
+                        <div className="col-span-8 md:col-span-7 p-3 text-slate-600 font-medium flex items-center">
+                          {wbsDictionary[activeWbsNode].level}
+                        </div>
+                      </div>
+
+                      {/* Row 2: Responsable */}
+                      <div className="grid grid-cols-12 md:grid-cols-10 min-h-[44px]">
+                        <div className="col-span-4 md:col-span-3 bg-slate-50 p-3 border-r border-slate-200 font-bold text-slate-700 flex items-center">
+                          Responsable
+                        </div>
+                        <div className="col-span-8 md:col-span-7 p-3 text-slate-900 font-bold flex items-center">
+                          {wbsDictionary[activeWbsNode].responsible}
+                        </div>
+                      </div>
+
+                      {/* Row 3: Descripción del paquete */}
+                      <div className="grid grid-cols-12 md:grid-cols-10">
+                        <div className="col-span-4 md:col-span-3 bg-slate-50 p-3.5 border-r border-slate-200 font-bold text-slate-700 flex items-center">
+                          Descripción
+                        </div>
+                        <div className="col-span-8 md:col-span-7 p-3.5 text-slate-600 leading-relaxed font-light">
+                          {wbsDictionary[activeWbsNode].description}
+                        </div>
+                      </div>
+
+                      {/* Row 4: Entregables */}
+                      <div className="grid grid-cols-12 md:grid-cols-10">
+                        <div className="col-span-4 md:col-span-3 bg-slate-50 p-3.5 border-r border-slate-200 font-bold text-slate-700 flex items-center">
+                          Entregables
+                        </div>
+                        <div className="col-span-8 md:col-span-7 p-3.5 text-slate-600 leading-relaxed">
+                          <ul className="list-disc pl-4 space-y-1 font-light">
+                            {wbsDictionary[activeWbsNode].deliverables.map((del, i) => (
+                              <li key={i}>{del}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+
+                      {/* Row 5: Criterio de aceptación */}
+                      <div className="grid grid-cols-12 md:grid-cols-10">
+                        <div className="col-span-4 md:col-span-3 bg-slate-50 p-3.5 border-r border-slate-200 font-bold text-slate-700 flex items-center">
+                          Criterio de aceptación
+                        </div>
+                        <div className="col-span-8 md:col-span-7 p-3.5 text-slate-700 italic font-normal leading-relaxed">
+                          {wbsDictionary[activeWbsNode].acceptance}
+                        </div>
+                      </div>
+
+                      {/* Row 6: Evidencia (Highlighted Row in light gold/yellow bg) */}
+                      <div className="grid grid-cols-12 md:grid-cols-10 bg-[#FFF2CC]/40 border-t border-slate-200">
+                        <div className="col-span-4 md:col-span-3 bg-[#FFF2CC] p-3.5 border-r border-amber-200 font-bold text-amber-900 flex items-center">
+                          Evidencia (Soporte Real)
+                        </div>
+                        <div className="col-span-8 md:col-span-7 p-3.5 text-amber-950 font-medium">
+                          <ul className="list-disc pl-4 space-y-1.5 leading-relaxed font-sans">
+                            {wbsDictionary[activeWbsNode].evidence.map((ev, i) => (
+                              <li key={i}>{ev}</li>
+                            ))}
+                          </ul>
+                        </div>
                       </div>
                     </div>
-
-                    <div className="pt-4 border-t border-slate-100 space-y-2">
-                      <h4 className="text-[10px] font-bold text-[#004A99] uppercase tracking-widest font-mono">3. Criterio de Aceptación definido</h4>
-                      <p className="text-xs text-slate-700 font-light leading-relaxed bg-slate-50 border border-slate-200 p-3 rounded">
-                        {wbsDictionary[activeWbsNode].acceptance}
-                      </p>
-                    </div>
                   </div>
+                ) : (
+                  <div className="text-center py-20 text-slate-400 space-y-2 font-sans">
+                    <Layers size={32} className="mx-auto text-slate-300" />
+                    <p className="text-xs font-light">Selecciona un paquete de trabajo del listado para inspeccionar su ficha técnica en formato Grid.</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {/* TAB 7: Prototipo */}
+        {activeTab === 'prototipo' && (
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-8"
+          >
+            {/* Main Video Section */}
+            <div className="bg-white p-8 border border-slate-200 rounded-lg shadow-sm space-y-6">
+
+              {/* Video Player Container */}
+              <div className="relative aspect-video w-full rounded-lg overflow-hidden border border-slate-300 bg-slate-950 shadow-inner flex flex-col items-center justify-center group">
+                <video 
+                  className="w-full h-full object-cover" 
+                  controls 
+                  preload="metadata"
+                  poster="/prototipo/imgPrototipo.png"
+                >
+                  <source src="/prototipo/prototipo.mp4" type="video/mp4" />
+                  Tu navegador no soporta la reproducción de videos en HTML5.
+                </video>
+                <div className="absolute top-4 right-4 bg-slate-900/80 backdrop-blur-md px-3 py-1.5 rounded-full text-[10px] font-mono text-white flex items-center gap-2 border border-white/10 pointer-events-none group-hover:opacity-100 transition-opacity">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  Prototipo Interactivo MVP
                 </div>
-              )}
+              </div>
             </div>
           </motion.div>
         )}
