@@ -3,45 +3,27 @@ import { motion } from 'motion/react';
 import { 
   Layers, Search, CheckCircle2, ChevronRight,
   Info, Folder, Calendar, UserCheck, 
-  Users, Settings, TrendingUp, Maximize2, 
+  Settings, TrendingUp, 
   ExternalLink, Lock, ListTodo, Award, CheckCircle,
-   ShieldCheck, Eye, AlertCircle, ArrowUpRight
+  ShieldCheck, Eye, AlertCircle, ArrowUpRight
 } from 'lucide-react';
 import { useLightbox } from '../App';
 
+// Actualizado a partir del documento PDF
 const scheduleTasks = [
-  { id: '1.4', title: 'IMPLEMENTACIÓN DEL SISTEMA', duration: '24 sem', start: '01/09/25', end: '13/02/26', type: 'parent', weekStart: 0, durationWeeks: 24, responsible: 'Jesús López / Todo el Equipo', progress: 100, deliverables: ['Código fuente de los módulos integrados', 'Base de datos productiva', 'Manuales técnicos y de usuario'] },
-  { id: '1.4.1', title: 'Preparación para la Implementación', duration: '3 sem', start: '01/09/25', end: '19/09/25', type: 'phase', weekStart: 0, durationWeeks: 3, responsible: 'Carlos Curo / Jesús López', progress: 100, deliverables: ['Servidores configurados', 'Base de datos vacía', 'Repositorio Git inicializado'] },
-  { id: '1.4.1.1', title: 'Reunión de inicio de implementación', duration: '2 días', start: '01/09/25', end: '02/09/25', type: 'task', parentId: '1.4.1', weekStart: 0, durationWeeks: 0.4, responsible: 'Todo el Equipo', progress: 100, deliverables: ['Acta de reunión de inicio de fase de desarrollo'] },
-  { id: '1.4.1.2', title: 'Definición del plan de trabajo detallado', duration: '3 días', start: '03/09/25', end: '05/09/25', type: 'task', parentId: '1.4.1', weekStart: 0.4, durationWeeks: 0.6, responsible: 'Jesús López', progress: 100, deliverables: ['Cronograma de desarrollo detallado por horas'] },
-  { id: '1.4.1.3', title: 'Configuración de servidores y entorno', duration: '5 días', start: '08/09/25', end: '12/09/25', type: 'task', parentId: '1.4.1', weekStart: 1, durationWeeks: 1, responsible: 'Carlos Curo', progress: 100, deliverables: ['Servidores de desarrollo y pre-producción levantados'] },
-  { id: '1.4.1.4', title: 'Configuración de base de datos', duration: '3 días', start: '15/09/25', end: '17/09/25', type: 'task', parentId: '1.4.1', weekStart: 2, durationWeeks: 0.6, responsible: 'Carlos Curo', progress: 100, deliverables: ['Esquemas de base de datos creados en motor PostgreSQL'] },
-  { id: '1.4.1.5', title: 'Configuración de repositorios y control de versiones', duration: '2 días', start: '18/09/25', end: '19/09/25', type: 'task', parentId: '1.4.1', weekStart: 2.6, durationWeeks: 0.4, responsible: 'Jean Piers Quispe', progress: 100, deliverables: ['Repositorio GitHub configurado con ramas protegidas'] },
-  { id: '1.4.1.6', title: 'Validación del entorno con el cliente', duration: '2 días', start: '18/09/25', end: '19/09/25', type: 'task', parentId: '1.4.1', weekStart: 2.6, durationWeeks: 0.4, responsible: 'Jesús López', progress: 100, deliverables: ['Acta de conformidad de entorno de desarrollo'] },
-  
-  { id: '1.4.2', title: 'Implementación del Módulo de Alumnos', duration: '4 sem', start: '22/09/25', end: '17/10/25', type: 'phase', weekStart: 3, durationWeeks: 4, responsible: 'Jean Piers Quispe', progress: 100, deliverables: ['Módulo de Alumnos (Registro, Búsqueda, Expedientes)'] },
-  { id: '1.4.2.1', title: 'Reunión de levantamiento funcional del módulo', duration: '2 días', start: '22/09/25', end: '23/09/25', type: 'task', parentId: '1.4.2', weekStart: 3, durationWeeks: 0.4, responsible: 'Jesús López', progress: 100, deliverables: ['Especificaciones funcionales de pantallas de Alumnos'] },
-  { id: '1.4.2.2', title: 'Ajustes a requerimientos específicos', duration: '3 días', start: '24/09/25', end: '26/09/25', type: 'task', parentId: '1.4.2', weekStart: 3.4, durationWeeks: 0.6, responsible: 'Leonardo Ávila', progress: 100, deliverables: ['Wireframes finales actualizados'] },
-  { id: '1.4.2.3', title: 'Desarrollo del módulo', duration: '10 días', start: '29/09/25', end: '10/10/25', type: 'task', parentId: '1.4.2', weekStart: 4, durationWeeks: 2, responsible: 'Jean Piers Quispe', progress: 100, deliverables: ['Vistas y controladores del expediente de alumno listos'] },
-  { id: '1.4.2.4', title: 'Integración con la base de datos', duration: '4 días', start: '13/10/25', end: '16/10/25', type: 'task', parentId: '1.4.2', weekStart: 6, durationWeeks: 0.8, responsible: 'Carlos Curo', progress: 100, deliverables: ['Conexiones API para consulta de estudiantes'] },
-  { id: '1.4.2.5', title: 'Pruebas internas', duration: '4 días', start: '13/10/25', end: '16/10/25', type: 'task', parentId: '1.4.2', weekStart: 6, durationWeeks: 0.8, responsible: 'Jesús López', progress: 100, deliverables: ['Plan de pruebas de Alumnos completado sin errores críticos'] },
-  { id: '1.4.2.6', title: 'Capacitación al personal administrativo', duration: '3 días', start: '15/10/25', end: '17/10/25', type: 'task', parentId: '1.4.2', weekStart: 6.6, durationWeeks: 0.6, responsible: 'Jesús López / Leonardo Ávila', progress: 100, deliverables: ['Manual de usuario de Alumnos entregado'] },
-  { id: '1.4.2.7', title: 'Recepcion de observaciones del cliente', duration: '2 días', start: '15/10/25', end: '16/10/25', type: 'task', parentId: '1.4.2', weekStart: 6.6, durationWeeks: 0.4, responsible: 'Jesús López', progress: 100, deliverables: ['Ficha de observaciones firmada por el dueño de la escuela'] },
-  
-  { id: '1.4.3', title: 'Implementación del Módulo de Clases', duration: '4 sem', start: '20/10/25', end: '14/11/25', type: 'phase', weekStart: 7, durationWeeks: 4, responsible: 'Jean Piers Quispe', progress: 100, deliverables: ['Módulo de Clases (Programador, Horarios, Asistencia)'] },
-  { id: '1.4.3.2', title: 'Desarrollo de programación de clases', duration: '8 días', start: '22/10/25', end: '31/10/25', type: 'task', parentId: '1.4.3', weekStart: 7.4, durationWeeks: 1.6, responsible: 'Jean Piers Quispe', progress: 100, deliverables: ['Algoritmo de asignación de horas sin traslapes desarrollado'] },
-  { id: '1.4.3.3', title: 'Gestión de horarios e instructores', duration: '5 días', start: '03/11/25', end: '07/11/25', type: 'task', parentId: '1.4.3', weekStart: 9, durationWeeks: 1, responsible: 'Jean Piers Quispe', progress: 100, deliverables: ['Vista de grilla de programación de instructores funcional'] },
-  
-  { id: '1.4.4', title: 'Implementación del Módulo Financiero', duration: '5 sem', start: '17/11/25', end: '19/12/25', type: 'phase', weekStart: 11, durationWeeks: 5, responsible: 'Carlos Curo', progress: 100, deliverables: ['Módulo Financiero (Registro de pagos, cuotas, reportes de caja)'] },
-  { id: '1.4.4.2', title: 'Desarrollo del registro de pagos', duration: '8 días', start: '19/11/25', end: '28/11/25', type: 'task', parentId: '1.4.4', weekStart: 11.4, durationWeeks: 1.6, responsible: 'Carlos Curo', progress: 100, deliverables: ['Formularios de cobro y validación de Yape/Plin desarrollados'] },
-  { id: '1.4.4.3', title: 'Desarrollo del control de cuotas', duration: '5 días', start: '01/12/25', end: '05/12/25', type: 'task', parentId: '1.4.4', weekStart: 13, durationWeeks: 1, responsible: 'Carlos Curo', progress: 100, deliverables: ['Sistema de control de estados de cuota (Pendiente, Pagado, Vencido)'] },
-  
-  { id: '1.4.5', title: 'Implementación de Reportes e Indicadores', duration: '4 sem', start: '22/12/25', end: '16/01/26', type: 'phase', weekStart: 16, durationWeeks: 4, responsible: 'Leonardo Ávila', progress: 100, deliverables: ['Módulo de Reportes (Dashboard gerencial, KPIs, Exportación)'] },
-  { id: '1.4.5.2', title: 'Desarrollo de dashboard', duration: '8 días', start: '24/12/25', end: '06/01/26', type: 'task', parentId: '1.4.5', weekStart: 16.4, durationWeeks: 1.6, responsible: 'Leonardo Ávila', progress: 100, deliverables: ['Gráficos de rendimiento de ingresos y asistencia mensuales'] },
-  
-  { id: '1.4.6', title: 'Integración y Despliegue', duration: '4 sem', start: '19/01/26', end: '13/02/26', type: 'phase', weekStart: 20, durationWeeks: 4, responsible: 'Todo el Equipo', progress: 100, deliverables: ['Sistema MTDRIVING desplegado en Cloud Run, Base de datos migrada'] },
-  { id: '1.4.6.1', title: 'Integración completa del sistema', duration: '8 días', start: '19/01/26', end: '28/01/26', type: 'task', parentId: '1.4.6', weekStart: 20, durationWeeks: 1.6, responsible: 'Jean Piers Quispe', progress: 100, deliverables: ['Enlace completo entre vistas de Alumnos, Clases y Pagos'] },
-  { id: '1.4.6.5', title: 'Puesta en producción', duration: '2 días', start: '12/02/26', end: '13/02/26', type: 'task', parentId: '1.4.6', weekStart: 23.4, durationWeeks: 0.6, responsible: 'Carlos Curo / Jesús López', progress: 100, deliverables: ['Contenedor Docker subido a Cloud Run e inicio de operaciones'] }
+  { id: '1.0', title: 'PROYECTO: Implementación', duration: '189 días', start: '15/09/26', end: '04/06/27', type: 'parent', weekStart: 0, durationWeeks: 38, responsible: 'PM / Equipo', progress: 100, deliverables: ['Sistema Integrado MTDRIVING', 'Despliegue', 'Documentación final'] },
+  { id: 'S1', title: 'SPRINT 1 - Preparación', duration: '14 días', start: '15/09/26', end: '02/10/26', type: 'phase', weekStart: 0, durationWeeks: 2.5, responsible: 'PM / Desarrollador', progress: 100, deliverables: ['Entorno configurado', 'Hito 1: Inicio de Implementación'] },
+  { id: 'S2', title: 'SPRINT 2 - Módulo de Alumnos', duration: '15 días', start: '05/10/26', end: '23/10/26', type: 'phase', weekStart: 2.5, durationWeeks: 3, responsible: 'Desarrollador / QA', progress: 100, deliverables: ['Registro y actualización de alumnos', 'Hito 2: Módulo Alumnos'] },
+  { id: 'S3', title: 'SPRINT 3 - Módulo de Clases', duration: '16 días', start: '26/10/26', end: '16/11/26', type: 'phase', weekStart: 5.5, durationWeeks: 3.5, responsible: 'Desarrollador / QA', progress: 100, deliverables: ['Programación de clases y asistencia', 'Hito 3: Gestión de Clases'] },
+  { id: 'S4', title: 'SPRINT 4 - Comunicaciones', duration: '16 días', start: '17/11/26', end: '08/12/26', type: 'phase', weekStart: 9, durationWeeks: 3.5, responsible: 'Desarrollador / QA', progress: 100, deliverables: ['Notificaciones y WhatsApp', 'Hito 4: Comunicaciones'] },
+  { id: 'S5', title: 'SPRINT 5 - Módulo Financiero', duration: '16 días', start: '09/12/26', end: '30/12/26', type: 'phase', weekStart: 12.5, durationWeeks: 3.5, responsible: 'Desarrollador / QA', progress: 100, deliverables: ['Registro de pagos y reportes financieros', 'Hito 5: Finanzas Operativas'] },
+  { id: 'S6', title: 'SPRINT 6 - Indicadores', duration: '16 días', start: '31/12/26', end: '21/01/27', type: 'phase', weekStart: 16, durationWeeks: 3.5, responsible: 'Desarrollador / QA', progress: 100, deliverables: ['Dashboard y exportación', 'Hito 6: Dashboard Implementado'] },
+  { id: 'S7', title: 'SPRINT 7 - Administración', duration: '16 días', start: '22/01/27', end: '12/02/27', type: 'phase', weekStart: 19.5, durationWeeks: 3.5, responsible: 'Desarrollador / QA', progress: 100, deliverables: ['Usuarios, roles y auditoría', 'Hito 7: Seguridad Implementada'] },
+  { id: 'S8', title: 'SPRINT 8 - Base de Datos e Integración', duration: '17 días', start: '15/02/27', end: '09/03/27', type: 'phase', weekStart: 23, durationWeeks: 3.5, responsible: 'Desarrollador / QA', progress: 100, deliverables: ['Optimización e integración APIs', 'Hito 8: Sistema Integrado'] },
+  { id: 'S9', title: 'SPRINT 9 - Implementación Piloto', duration: '16 días', start: '10/03/27', end: '31/03/27', type: 'phase', weekStart: 26.5, durationWeeks: 3.5, responsible: 'Desarrollador / PM', progress: 100, deliverables: ['Migración de datos y piloto', 'Hito 9: Piloto Ejecutado'] },
+  { id: 'S10', title: 'SPRINT 10 - Validación Operativa', duration: '16 días', start: '01/04/27', end: '22/04/27', type: 'phase', weekStart: 30, durationWeeks: 3.5, responsible: 'QA / PM', progress: 100, deliverables: ['Pruebas de rendimiento y validación', 'Hito 10: Sistema Validado'] },
+  { id: 'S11', title: 'SPRINT 11 - Despliegue', duration: '16 días', start: '23/04/27', end: '14/05/27', type: 'phase', weekStart: 33.5, durationWeeks: 3.5, responsible: 'Desarrollador / PM', progress: 100, deliverables: ['Despliegue a producción', 'Hito 11: Sistema en Producción'] },
+  { id: 'S12', title: 'SPRINT 12 - Cierre del Proyecto', duration: '14 días', start: '17/05/27', end: '03/06/27', type: 'phase', weekStart: 37, durationWeeks: 2.5, responsible: 'PM / Equipo', progress: 100, deliverables: ['Acta de aceptación y Lecciones', 'Hito 12: Proyecto Cerrado'] }
 ];
 
 export default function AlcancePage() {
@@ -55,11 +37,10 @@ export default function AlcancePage() {
   
   const [activeWbsNode, setActiveWbsNode] = useState<string>('1.0');
 
-  const [activeScheduleTask, setActiveScheduleTask] = useState<string>('1.4');
+  const [activeScheduleTask, setActiveScheduleTask] = useState<string>('1.0');
   const [scheduleSearch, setScheduleSearch] = useState<string>('');
   const [scheduleFilter, setScheduleFilter] = useState<string>('Todos');
 
-  // WBS Dictionary data
   // WBS Dictionary data
   const wbsDictionary: Record<string, {
     title: string;
@@ -632,15 +613,13 @@ export default function AlcancePage() {
 
   const filteredTasks = scheduleTasks.filter(task => {
     const matchesSearch = task.title.toLowerCase().includes(scheduleSearch.toLowerCase()) || 
-                          task.id.includes(scheduleSearch);
+                          task.id.toLowerCase().includes(scheduleSearch.toLowerCase());
     
     if (scheduleFilter === 'Todos') return matchesSearch;
-    if (scheduleFilter === 'Preparación') return matchesSearch && (task.id.startsWith('1.4.1') || task.parentId === '1.4.1');
-    if (scheduleFilter === 'Alumnos') return matchesSearch && (task.id.startsWith('1.4.2') || task.parentId === '1.4.2');
-    if (scheduleFilter === 'Clases') return matchesSearch && (task.id.startsWith('1.4.3') || task.parentId === '1.4.3');
-    if (scheduleFilter === 'Finanzas') return matchesSearch && (task.id.startsWith('1.4.4') || task.parentId === '1.4.4');
-    if (scheduleFilter === 'Reportes') return matchesSearch && (task.id.startsWith('1.4.5') || task.parentId === '1.4.5');
-    if (scheduleFilter === 'Despliegue') return matchesSearch && (task.id.startsWith('1.4.6') || task.parentId === '1.4.6');
+    if (scheduleFilter === 'Sprints 1-3') return matchesSearch && (task.id === '1.0' || task.id === 'S1' || task.id === 'S2' || task.id === 'S3');
+    if (scheduleFilter === 'Sprints 4-6') return matchesSearch && (task.id === '1.0' || task.id === 'S4' || task.id === 'S5' || task.id === 'S6');
+    if (scheduleFilter === 'Sprints 7-9') return matchesSearch && (task.id === '1.0' || task.id === 'S7' || task.id === 'S8' || task.id === 'S9');
+    if (scheduleFilter === 'Sprints 10-12') return matchesSearch && (task.id === '1.0' || task.id === 'S10' || task.id === 'S11' || task.id === 'S12');
     return matchesSearch;
   });
 
@@ -2157,11 +2136,16 @@ export default function AlcancePage() {
                   <source src="/prototipo/prototipo.mp4" type="video/mp4" />
                   Tu navegador no soporta la reproducción de videos en HTML5.
                 </video>
+                <div className="absolute top-4 right-4 bg-slate-900/80 backdrop-blur-md px-3 py-1.5 rounded-full text-[10px] font-mono text-white flex items-center gap-2 border border-white/10 pointer-events-none group-hover:opacity-100 transition-opacity">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  Prototipo Interactivo MVP
+                </div>
               </div>
             </div>
           </motion.div>
         )}
 
+        {/* TAB 8: Cronograma */}
         {/* TAB 8: Cronograma */}
         {activeTab === 'cronograma' && (
           <motion.div 
@@ -2177,7 +2161,7 @@ export default function AlcancePage() {
                 </div>
                 <div>
                   <span className="text-[10px] text-slate-400 font-mono block uppercase">Duración Total</span>
-                  <strong className="text-xs font-bold text-slate-800">24 semanas (6 meses)</strong>
+                  <strong className="text-xs font-bold text-slate-800">189 días laborables</strong>
                 </div>
               </div>
               <div className="p-4 bg-white border border-slate-200 rounded-lg shadow-sm flex items-center gap-3">
@@ -2186,7 +2170,7 @@ export default function AlcancePage() {
                 </div>
                 <div>
                   <span className="text-[10px] text-slate-400 font-mono block uppercase">Fases del Proyecto</span>
-                  <strong className="text-xs font-bold text-slate-800">6 Fases de Desarrollo</strong>
+                  <strong className="text-xs font-bold text-slate-800">12 Sprints</strong>
                 </div>
               </div>
               <div className="p-4 bg-white border border-slate-200 rounded-lg shadow-sm flex items-center gap-3">
@@ -2195,7 +2179,7 @@ export default function AlcancePage() {
                 </div>
                 <div>
                   <span className="text-[10px] text-slate-400 font-mono block uppercase">Hitos Clave</span>
-                  <strong className="text-xs font-bold text-slate-800">4 Entregables MVP</strong>
+                  <strong className="text-xs font-bold text-slate-800">12 Hitos (H1 - H12)</strong>
                 </div>
               </div>
               <div className="p-4 bg-white border border-slate-200 rounded-lg shadow-sm flex items-center gap-3">
@@ -2204,230 +2188,46 @@ export default function AlcancePage() {
                 </div>
                 <div>
                   <span className="text-[10px] text-slate-400 font-mono block uppercase">Fecha de Inicio</span>
-                  <strong className="text-xs font-bold text-slate-800">01 de Septiembre 2025</strong>
+                  <strong className="text-xs font-bold text-slate-800">15 de Septiembre 2026</strong>
                 </div>
               </div>
             </div>
 
-            {/* Main Interactive Gantt Explorer Card */}
-            <div className="bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden">
-              <div className="p-6 border-b border-slate-200 space-y-4">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                  <div className="space-y-1">
-                    <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-                      <TrendingUp size={16} className="text-[#004A99]" /> Explorer del Cronograma de Implementación
-                    </h3>
-                    <p className="text-xs text-slate-500 font-light leading-relaxed">
-                      Interactúe con la grilla del cronograma para analizar las dependencias de los entregables y las duraciones de cada fase.
-                    </p>
-                  </div>
-                  {/* Search Input */}
-                  <div className="relative w-full md:w-64">
-                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
-                      <Search size={14} />
-                    </span>
-                    <input 
-                      type="text" 
-                      placeholder="Buscar tarea..." 
-                      value={scheduleSearch}
-                      onChange={(e) => setScheduleSearch(e.target.value)}
-                      className="w-full text-xs pl-9 pr-4 py-2 border border-slate-200 rounded focus:outline-none focus:border-[#004A99] focus:ring-1 focus:ring-[#004A99]"
-                    />
-                  </div>
-                </div>
-
-                {/* Filter Tabs by Phase */}
-                <div className="flex flex-wrap items-center gap-2 pt-1">
-                  {['Todos', 'Preparación', 'Alumnos', 'Clases', 'Finanzas', 'Reportes', 'Despliegue'].map((filterName) => (
-                    <button
-                      key={filterName}
-                      onClick={() => setScheduleFilter(filterName)}
-                      className={`px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded transition-all ${
-                        scheduleFilter === filterName
-                          ? 'bg-slate-900 text-white font-extrabold'
-                          : 'bg-slate-100 hover:bg-slate-200 text-slate-600'
-                      }`}
-                    >
-                      {filterName}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Responsive Columns Layout */}
-              <div className="grid lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-slate-200">
-                {/* Left Task Table Column */}
-                <div className="lg:col-span-5 p-4 overflow-y-auto max-h-[500px]">
-                  <div className="space-y-2">
-                    {filteredTasks.map((task) => (
-                      <button
-                        key={task.id}
-                        onClick={() => setActiveScheduleTask(task.id)}
-                        className={`w-full text-left p-3 rounded border text-xs transition-all duration-200 flex items-center justify-between gap-3 ${
-                          activeScheduleTask === task.id
-                            ? 'bg-slate-50 border-[#004A99] ring-2 ring-blue-50/50'
-                            : 'bg-white hover:bg-slate-50 border-slate-150'
-                        }`}
-                      >
-                        <div className="space-y-1 min-w-0">
-                          <div className="flex items-center gap-1.5">
-                            <span className={`font-mono text-[9px] font-bold px-1.5 py-0.5 rounded ${
-                              task.type === 'parent' ? 'bg-slate-900 text-white' :
-                              task.type === 'phase' ? 'bg-blue-100 text-[#004A99]' : 'bg-slate-100 text-slate-600'
-                            }`}>
-                              {task.id}
-                            </span>
-                            <span className="text-[10px] text-slate-400 font-mono">{task.duration}</span>
-                          </div>
-                          <p className={`truncate font-sans ${task.type !== 'task' ? 'font-bold text-slate-800' : 'text-slate-600 font-normal pl-1'}`}>
-                            {task.title}
-                          </p>
-                        </div>
-                        <ChevronRight size={14} className={`text-slate-400 shrink-0 transition-transform ${activeScheduleTask === task.id ? 'transform translate-x-1' : ''}`} />
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Right Timeline Chart Column */}
-                <div className="lg:col-span-7 p-6 overflow-x-auto">
-                  <div className="min-w-[700px] space-y-4">
-                    {/* Month headers */}
-                    <div className="grid grid-cols-6 border-b border-slate-200 pb-2 text-[10px] font-bold text-slate-500 font-mono text-center">
-                      <div className="bg-slate-50 py-1 rounded">Set 25</div>
-                      <div className="bg-slate-50 py-1 rounded">Oct 25</div>
-                      <div className="bg-slate-50 py-1 rounded">Nov 25</div>
-                      <div className="bg-slate-50 py-1 rounded">Dic 25</div>
-                      <div className="bg-slate-50 py-1 rounded">Ene 26</div>
-                      <div className="bg-slate-50 py-1 rounded">Feb 26</div>
-                    </div>
-
-                    {/* Timeline Grid Rows */}
-                    <div className="space-y-3 relative py-2">
-                      {/* Vertical Grid Line backgrounds */}
-                      <div className="absolute inset-y-0 left-0 right-0 grid grid-cols-6 pointer-events-none opacity-40">
-                        {Array.from({ length: 6 }).map((_, i) => (
-                          <div key={i} className="border-r border-dashed border-slate-200 h-full"></div>
-                        ))}
-                      </div>
-
-                      {/* Displaying tasks timeline bars */}
-                      {filteredTasks.map((task) => {
-                        const barWidth = `${(task.durationWeeks / 24) * 100}%`;
-                        const barLeft = `${(task.weekStart / 24) * 100}%`;
-                        return (
-                          <div 
-                            key={task.id} 
-                            onClick={() => setActiveScheduleTask(task.id)}
-                            className={`group cursor-pointer flex flex-col justify-center py-1 rounded transition-colors ${
-                              activeScheduleTask === task.id ? 'bg-slate-50/70' : 'hover:bg-slate-50/30'
-                            }`}
-                          >
-                            <div className="flex items-center justify-between text-[10px] text-slate-400 mb-1 px-1 font-mono">
-                              <span className="truncate max-w-[200px] font-semibold text-slate-700">{task.id} {task.title}</span>
-                              <span>{task.start} - {task.end}</span>
-                            </div>
-                            {/* Bar container */}
-                            <div className="w-full bg-slate-100 h-5 rounded-full relative overflow-hidden shadow-inner border border-slate-150">
-                              <div 
-                                style={{ width: barWidth, left: barLeft }}
-                                className={`absolute top-0 bottom-0 rounded-full h-full flex items-center px-3 text-[9px] font-bold text-white transition-all duration-300 ${
-                                  task.type === 'parent' ? 'bg-slate-800' :
-                                  task.parentId === '1.4.1' || task.id === '1.4.1' ? 'bg-blue-500' :
-                                  task.parentId === '1.4.2' || task.id === '1.4.2' ? 'bg-emerald-500' :
-                                  task.parentId === '1.4.3' || task.id === '1.4.3' ? 'bg-purple-500' :
-                                  task.parentId === '1.4.4' || task.id === '1.4.4' ? 'bg-orange-500' :
-                                  task.parentId === '1.4.5' || task.id === '1.4.5' ? 'bg-cyan-500' : 'bg-red-500'
-                                } shadow-sm`}
-                              >
-                                <span className="truncate">{task.duration}</span>
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Task Details Display Box */}
-              {activeTaskData && (
-                <div className="p-6 bg-slate-50 border-t border-slate-200 space-y-4">
-                  <div className="flex flex-wrap justify-between items-start gap-4">
-                    <div className="space-y-1">
-                      <span className="text-[9px] font-bold uppercase tracking-widest bg-blue-100 text-[#004A99] px-2.5 py-1 rounded font-mono">
-                        Ficha Técnica de Tarea (Código {activeTaskData.id})
-                      </span>
-                      <h4 className="text-sm font-bold text-slate-900 font-sans">{activeTaskData.title}</h4>
-                    </div>
-                    <div className="flex items-center gap-4 text-xs font-mono bg-white p-2.5 rounded border border-slate-150">
-                      <div>
-                        <span className="text-[9px] text-slate-400 block">DURACIÓN</span>
-                        <strong className="text-slate-800">{activeTaskData.duration}</strong>
-                      </div>
-                      <div className="border-l border-slate-200 h-6"></div>
-                      <div>
-                        <span className="text-[9px] text-slate-400 block">FECHA DE INICIO</span>
-                        <strong className="text-slate-800">{activeTaskData.start}</strong>
-                      </div>
-                      <div className="border-l border-slate-200 h-6"></div>
-                      <div>
-                        <span className="text-[9px] text-slate-400 block">FECHA DE FIN</span>
-                        <strong className="text-slate-800">{activeTaskData.end}</strong>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-6 pt-2 text-xs font-light">
-                    <div className="p-4 bg-white border border-slate-150 rounded space-y-2.5">
-                      <h5 className="font-bold text-slate-800 border-b border-slate-100 pb-1 uppercase tracking-wider text-[9px] font-mono">
-                        Responsable y Ejecutor
-                      </h5>
-                      <div className="flex items-center gap-2">
-                        <Users size={14} className="text-[#004A99]" />
-                        <span className="text-slate-600 font-normal font-sans">{activeTaskData.responsible}</span>
-                      </div>
-                      <p className="text-[11px] text-slate-500 leading-relaxed font-sans pt-1">
-                        Este rol es responsable de coordinar el desarrollo de las tareas, la recopilación de entradas y la entrega de artefactos correspondientes en las fechas estipuladas.
-                      </p>
-                    </div>
-
-                    <div className="p-4 bg-white border border-slate-150 rounded space-y-2.5">
-                      <h5 className="font-bold text-slate-800 border-b border-slate-100 pb-1 uppercase tracking-wider text-[9px] font-mono">
-                        Entregables y Evidencia (Salidas)
-                      </h5>
-                      <ul className="space-y-1.5">
-                        {activeTaskData.deliverables.map((item, idx) => (
-                          <li key={idx} className="flex items-start gap-2 text-slate-600 font-sans leading-relaxed">
-                            <span className="text-[#004A99] font-bold mt-0.5">•</span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Visual Gantt Original Chart Callout (With Lightbox support) */}
+            {/* Visual Gantt Original Chart Callout (With Download Link) */}
             <div className="bg-slate-900 text-white rounded-lg p-8 space-y-6 flex flex-col md:flex-row justify-between items-center gap-8 shadow-md border border-slate-800">
               <div className="space-y-3 max-w-2xl text-center md:text-left">
                 <span className="text-[9px] font-bold uppercase tracking-widest bg-blue-600/80 text-white px-2.5 py-1 rounded font-mono">
                   Línea Base del Cronograma de Implementación
                 </span>
-                <h3 className="text-lg font-bold">Carta Gantt Completa de Implementación Académica</h3>
+                <h3 className="text-lg font-bold">Cronograma PDF Completo de Implementación</h3>
                 <p className="text-xs text-slate-300 font-light leading-relaxed">
-                  Consulte el diagrama de Gantt original en alta resolución, que detalla la relación lógica Fin a Comienzo (FC), la ruta crítica para el MVP y el cronograma de hitos. El diagrama representa fielmente la secuencia lógica requerida para la puesta en producción del software.
+                  Descargue o visualice el diagrama de Gantt original en formato PDF, que detalla la relación lógica, la ruta crítica y el cronograma de los 12 Sprints. El diagrama representa fielmente la secuencia lógica requerida para la puesta en producción del software.
                 </p>
               </div>
-              <button
-                onClick={() => openLightbox('/cronograma.jpeg', 'Diagrama: Cronograma de Implementación - Sistema de Gestión Operativa MTDRIVING')}
-                className="inline-flex items-center gap-2 bg-white border border-slate-100 hover:bg-slate-50 active:scale-95 text-slate-900 text-[10px] font-bold uppercase tracking-widest px-5 py-4 rounded shadow-md hover:shadow-lg transition-all shrink-0 font-mono"
-              >
-                <Maximize2 size={14} /> Ver Carta Gantt Original
-              </button>
+              <div className="flex flex-col gap-3">
+                  <a
+                    href="/Cronograma_!2Sprints.pdf" 
+                    download
+                    className="inline-flex items-center justify-center gap-2 bg-[#004A99] hover:bg-blue-800 active:scale-95 text-white text-[10px] font-bold uppercase tracking-widest px-5 py-4 rounded shadow-md hover:shadow-lg transition-all shrink-0 font-mono"
+                  >
+                    <Folder size={14} /> Descargar PDF
+                  </a>
+              </div>
+            </div>
+
+            {/* Inline PDF Viewer */}
+            <div className="bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden h-[600px] flex flex-col">
+               <div className="p-4 border-b border-slate-200 bg-slate-50 flex items-center gap-2">
+                 <Eye size={16} className="text-[#004A99]" />
+                 <h3 className="text-xs font-bold text-slate-800 uppercase tracking-widest">Visualizador del Cronograma</h3>
+               </div>
+               <div className="flex-1 w-full bg-slate-100/50">
+                 <iframe 
+                   src="/Cronograma_!2Sprints.pdf#toolbar=0" 
+                   title="Cronograma de Implementación"
+                   className="w-full h-full border-none"
+                 />
+               </div>
             </div>
 
             {/* Scheduling Methodology Notes */}
@@ -2440,19 +2240,19 @@ export default function AlcancePage() {
                 <div className="space-y-1.5">
                   <strong className="text-slate-800 font-bold block">Relaciones de Precedencia (FS)</strong>
                   <p>
-                    Las tareas siguen una lógica de <span className="font-semibold text-slate-700">Comienzo a Fin (Finish-to-Start)</span>. Por ejemplo, el desarrollo de clases (1.4.3) no puede iniciar hasta concluir y validar el módulo de alumnos (1.4.2), lo cual elimina sobreposiciones.
+                    Las tareas siguen una lógica de <span className="font-semibold text-slate-700">Comienzo a Fin (Finish-to-Start)</span>. La estructura en los 12 Sprints garantiza entregas funcionales incrementales sin cruces operativos.
                   </p>
                 </div>
                 <div className="space-y-1.5">
                   <strong className="text-slate-800 font-bold block">La Ruta Crítica (Critical Path)</strong>
                   <p>
-                    La ruta crítica del proyecto comprende las fases 1.4.1 (Preparación), 1.4.2 (Alumnos), 1.4.3 (Clases) y 1.4.4 (Financiero). Cualquier retraso en estos módulos principales pospone la fecha final de entrega.
+                    La ruta crítica del proyecto comprende todas las fases continuas desde el Sprint 1 hasta el Sprint 12. Cualquier retraso en estos módulos principales pospone la fecha final de entrega el 04/06/27.
                   </p>
                 </div>
                 <div className="space-y-1.5">
                   <strong className="text-slate-800 font-bold block">Estrategia de Mitigación de Holgura</strong>
                   <p>
-                    Se han programado holguras lógicas de 2 a 3 días entre fases para resolver observaciones recopiladas de los usuarios de prueba, evitando desbordes de recursos y sobretiempos durante las sprints.
+                    Se han programado holguras lógicas dentro de las ventanas de los Sprints (de entre 14 a 17 días por fase) para resolver observaciones recopiladas de los usuarios de prueba, evitando desbordes de recursos.
                   </p>
                 </div>
               </div>
