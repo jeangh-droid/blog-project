@@ -9,22 +9,6 @@ import {
 } from 'lucide-react';
 import { useLightbox } from '../App';
 
-// Actualizado a partir del documento PDF
-const scheduleTasks = [
-  { id: '1.0', title: 'PROYECTO: Implementación', duration: '189 días', start: '15/09/26', end: '04/06/27', type: 'parent', weekStart: 0, durationWeeks: 38, responsible: 'PM / Equipo', progress: 100, deliverables: ['Sistema Integrado MTDRIVING', 'Despliegue', 'Documentación final'] },
-  { id: 'S1', title: 'SPRINT 1 - Preparación', duration: '14 días', start: '15/09/26', end: '02/10/26', type: 'phase', weekStart: 0, durationWeeks: 2.5, responsible: 'PM / Desarrollador', progress: 100, deliverables: ['Entorno configurado', 'Hito 1: Inicio de Implementación'] },
-  { id: 'S2', title: 'SPRINT 2 - Módulo de Alumnos', duration: '15 días', start: '05/10/26', end: '23/10/26', type: 'phase', weekStart: 2.5, durationWeeks: 3, responsible: 'Desarrollador / QA', progress: 100, deliverables: ['Registro y actualización de alumnos', 'Hito 2: Módulo Alumnos'] },
-  { id: 'S3', title: 'SPRINT 3 - Módulo de Clases', duration: '16 días', start: '26/10/26', end: '16/11/26', type: 'phase', weekStart: 5.5, durationWeeks: 3.5, responsible: 'Desarrollador / QA', progress: 100, deliverables: ['Programación de clases y asistencia', 'Hito 3: Gestión de Clases'] },
-  { id: 'S4', title: 'SPRINT 4 - Comunicaciones', duration: '16 días', start: '17/11/26', end: '08/12/26', type: 'phase', weekStart: 9, durationWeeks: 3.5, responsible: 'Desarrollador / QA', progress: 100, deliverables: ['Notificaciones y WhatsApp', 'Hito 4: Comunicaciones'] },
-  { id: 'S5', title: 'SPRINT 5 - Módulo Financiero', duration: '16 días', start: '09/12/26', end: '30/12/26', type: 'phase', weekStart: 12.5, durationWeeks: 3.5, responsible: 'Desarrollador / QA', progress: 100, deliverables: ['Registro de pagos y reportes financieros', 'Hito 5: Finanzas Operativas'] },
-  { id: 'S6', title: 'SPRINT 6 - Indicadores', duration: '16 días', start: '31/12/26', end: '21/01/27', type: 'phase', weekStart: 16, durationWeeks: 3.5, responsible: 'Desarrollador / QA', progress: 100, deliverables: ['Dashboard y exportación', 'Hito 6: Dashboard Implementado'] },
-  { id: 'S7', title: 'SPRINT 7 - Administración', duration: '16 días', start: '22/01/27', end: '12/02/27', type: 'phase', weekStart: 19.5, durationWeeks: 3.5, responsible: 'Desarrollador / QA', progress: 100, deliverables: ['Usuarios, roles y auditoría', 'Hito 7: Seguridad Implementada'] },
-  { id: 'S8', title: 'SPRINT 8 - Base de Datos e Integración', duration: '17 días', start: '15/02/27', end: '09/03/27', type: 'phase', weekStart: 23, durationWeeks: 3.5, responsible: 'Desarrollador / QA', progress: 100, deliverables: ['Optimización e integración APIs', 'Hito 8: Sistema Integrado'] },
-  { id: 'S9', title: 'SPRINT 9 - Implementación Piloto', duration: '16 días', start: '10/03/27', end: '31/03/27', type: 'phase', weekStart: 26.5, durationWeeks: 3.5, responsible: 'Desarrollador / PM', progress: 100, deliverables: ['Migración de datos y piloto', 'Hito 9: Piloto Ejecutado'] },
-  { id: 'S10', title: 'SPRINT 10 - Validación Operativa', duration: '16 días', start: '01/04/27', end: '22/04/27', type: 'phase', weekStart: 30, durationWeeks: 3.5, responsible: 'QA / PM', progress: 100, deliverables: ['Pruebas de rendimiento y validación', 'Hito 10: Sistema Validado'] },
-  { id: 'S11', title: 'SPRINT 11 - Despliegue', duration: '16 días', start: '23/04/27', end: '14/05/27', type: 'phase', weekStart: 33.5, durationWeeks: 3.5, responsible: 'Desarrollador / PM', progress: 100, deliverables: ['Despliegue a producción', 'Hito 11: Sistema en Producción'] },
-  { id: 'S12', title: 'SPRINT 12 - Cierre del Proyecto', duration: '14 días', start: '17/05/27', end: '03/06/27', type: 'phase', weekStart: 37, durationWeeks: 2.5, responsible: 'PM / Equipo', progress: 100, deliverables: ['Acta de aceptación y Lecciones', 'Hito 12: Proyecto Cerrado'] }
-];
 
 export default function AlcancePage() {
   const { openLightbox } = useLightbox();
@@ -36,10 +20,6 @@ export default function AlcancePage() {
   const [reqCategoryFilter, setReqCategoryFilter] = useState('Todos');
   
   const [activeWbsNode, setActiveWbsNode] = useState<string>('1.0');
-
-  const [activeScheduleTask] = useState<string>('1.0');
-  const [scheduleSearch] = useState<string>('');
-  const [scheduleFilter] = useState<string>('Todos');
 
   // WBS Dictionary data
   const wbsDictionary: Record<string, {
