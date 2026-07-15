@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion } from 'motion/react';
 import { 
   Layers, Search, CheckCircle2, ChevronRight,
-  Info, Folder, Calendar, Activity, UserCheck, 
+  Info, Folder, Calendar, UserCheck, 
   Users, Settings, TrendingUp, Maximize2, 
   ExternalLink, Lock, ListTodo, Award, CheckCircle,
    ShieldCheck, Eye, AlertCircle, ArrowUpRight
@@ -2146,87 +2146,17 @@ export default function AlcancePage() {
           >
             {/* Main Video Section */}
             <div className="bg-white p-8 border border-slate-200 rounded-lg shadow-sm space-y-6">
-              <div className="space-y-1.5">
-                <span className="text-[10px] font-mono bg-blue-50 text-[#004A99] border border-blue-200 px-2.5 py-0.5 rounded font-extrabold tracking-wider uppercase">
-                  Demostración del Sistema
-                </span>
-                <h3 className="text-xl font-bold text-slate-900 font-sans">
-                  Video Demostrativo del Prototipo (Módulos de Alumnos, Clases y Pagos)
-                </h3>
-                <p className="text-xs text-slate-500 font-light leading-relaxed">
-                  A continuación se presenta el video explicativo y de navegación interactiva del prototipo del <strong>Sistema de Gestión Operativa MTDRIVING</strong>, detallando el flujo de registro de alumnos, asignación de clases y el módulo de control financiero/pagos.
-                </p>
-              </div>
-
               {/* Video Player Container */}
               <div className="relative aspect-video w-full rounded-lg overflow-hidden border border-slate-300 bg-slate-950 shadow-inner flex flex-col items-center justify-center group">
                 <video 
                   className="w-full h-full object-cover" 
                   controls 
                   preload="metadata"
-                  poster="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80"
+                  poster="/prototipo/imgPrototipo.png"
                 >
-                  <source src="https://assets.mixkit.co/videos/preview/mixkit-software-developer-working-on-his-computer-34281-large.mp4" type="video/mp4" />
+                  <source src="/prototipo/prototipo.mp4" type="video/mp4" />
                   Tu navegador no soporta la reproducción de videos en HTML5.
                 </video>
-                <div className="absolute top-4 right-4 bg-slate-900/80 backdrop-blur-md px-3 py-1.5 rounded-full text-[10px] font-mono text-white flex items-center gap-2 border border-white/10 pointer-events-none group-hover:opacity-100 transition-opacity">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                  Prototipo Interactivo MVP
-                </div>
-              </div>
-
-              {/* Core Features list shown in the video */}
-              <div className="grid md:grid-cols-3 gap-6 pt-6 border-t border-slate-100">
-                <div className="space-y-2">
-                  <h4 className="text-xs font-bold text-slate-800 flex items-center gap-2">
-                    <span className="p-1 rounded bg-blue-50 text-[#004A99]">01</span> Matrícula y Alumnos
-                  </h4>
-                  <p className="text-[11px] text-slate-600 font-light leading-relaxed font-mono">
-                    Demostración del registro de nuevos estudiantes, carga de documentación habilitante y visualización de expedientes académicos centralizados.
-                  </p>
-                </div>
-                <div className="space-y-2">
-                  <h4 className="text-xs font-bold text-slate-800 flex items-center gap-2">
-                    <span className="p-1 rounded bg-emerald-50 text-emerald-700">02</span> Programador de Clases
-                  </h4>
-                  <p className="text-[11px] text-slate-600 font-light leading-relaxed font-mono">
-                    Flujo interactivo de reserva de horas prácticas de manejo, asignación dinámica de instructores y vehículos homologados sin sobreposiciones.
-                  </p>
-                </div>
-                <div className="space-y-2">
-                  <h4 className="text-xs font-bold text-slate-800 flex items-center gap-2">
-                    <span className="p-1 rounded bg-amber-50 text-amber-700">03</span> Gestión de Pagos
-                  </h4>
-                  <p className="text-[11px] text-slate-600 font-light leading-relaxed font-mono">
-                    Control financiero con estados de cuenta en tiempo real, emisión automatizada de recibos y pasarela de simulación de cobro seguro.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Evaluation Observations / Metadata */}
-            <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 space-y-4">
-              <div className="flex items-center gap-2 border-b border-slate-200 pb-2">
-                <Activity size={16} className="text-[#004A99]" />
-                <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider font-mono">Ficha de Evaluación Técnica del Prototipo</h4>
-              </div>
-              <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs">
-                <div className="p-3 bg-white border border-slate-150 rounded space-y-1">
-                  <span className="text-[10px] text-slate-400 font-mono block">TECNOLOGÍA</span>
-                  <strong className="text-slate-800 font-bold block">React 18 + Tailwind</strong>
-                </div>
-                <div className="p-3 bg-white border border-slate-150 rounded space-y-1">
-                  <span className="text-[10px] text-slate-400 font-mono block">TIPO DE DISEÑO</span>
-                  <strong className="text-slate-800 font-bold block">Figma Wireframe & UI</strong>
-                </div>
-                <div className="p-3 bg-white border border-slate-150 rounded space-y-1">
-                  <span className="text-[10px] text-slate-400 font-mono block">DURACIÓN DEL VIDEO</span>
-                  <strong className="text-slate-800 font-bold block">02:45 minutos</strong>
-                </div>
-                <div className="p-3 bg-white border border-slate-150 rounded space-y-1">
-                  <span className="text-[10px] text-slate-400 font-mono block">ESTADO DEL ENTREGABLE</span>
-                  <strong className="text-emerald-700 font-bold block">Aprobado / Validado</strong>
-                </div>
               </div>
             </div>
           </motion.div>

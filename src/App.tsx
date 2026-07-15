@@ -40,6 +40,7 @@ import { PROJECT_DATA } from './constants';
 import { DESIGN_THINKING_DATA } from './designThinking';
 import AlcancePage from './components/AlcancePage';
 import type { IdentifiedStakeholder } from './types';
+import CostosPage from './components/CostosPage';
 
 export const LightboxContext = createContext<{
   openLightbox: (src: string, alt?: string) => void;
@@ -79,6 +80,7 @@ function Layout({ children }: { children: ReactNode }) {
             <NavLink to="/recopilacion" active={location.pathname === "/recopilacion"}>Recopilación</NavLink>
             <NavLink to="/design-thinking" active={location.pathname === "/design-thinking"}>Design Thinking</NavLink>
             <NavLink to="/alcance" active={location.pathname === "/alcance"}>Alcance</NavLink>
+            <NavLink to="/costos" active={location.pathname === "/costos"}>Costos</NavLink>
           </div>
         </div>
       </nav>
@@ -1796,6 +1798,7 @@ export default function App() {
             <Route path="/salidas" element={<StakeholdersPage />} />
             <Route path="/design-thinking" element={<DesignThinkingPage />} />
             <Route path="/alcance" element={<AlcancePage />} />
+            <Route path="/costos" element={<CostosPage />} />
           </Routes>
         </Layout>
       </BrowserRouter>
