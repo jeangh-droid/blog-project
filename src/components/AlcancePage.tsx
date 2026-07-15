@@ -37,9 +37,9 @@ export default function AlcancePage() {
   
   const [activeWbsNode, setActiveWbsNode] = useState<string>('1.0');
 
-  const [activeScheduleTask, setActiveScheduleTask] = useState<string>('1.0');
-  const [scheduleSearch, setScheduleSearch] = useState<string>('');
-  const [scheduleFilter, setScheduleFilter] = useState<string>('Todos');
+  const [activeScheduleTask] = useState<string>('1.0');
+  const [scheduleSearch] = useState<string>('');
+  const [scheduleFilter] = useState<string>('Todos');
 
   // WBS Dictionary data
   const wbsDictionary: Record<string, {
@@ -610,21 +610,6 @@ export default function AlcancePage() {
     const matchesCategory = reqCategoryFilter === 'Todos' || item.cat === reqCategoryFilter;
     return matchesSearch && matchesPriority && matchesCategory;
   });
-
-  const filteredTasks = scheduleTasks.filter(task => {
-    const matchesSearch = task.title.toLowerCase().includes(scheduleSearch.toLowerCase()) || 
-                          task.id.toLowerCase().includes(scheduleSearch.toLowerCase());
-    
-    if (scheduleFilter === 'Todos') return matchesSearch;
-    if (scheduleFilter === 'Sprints 1-3') return matchesSearch && (task.id === '1.0' || task.id === 'S1' || task.id === 'S2' || task.id === 'S3');
-    if (scheduleFilter === 'Sprints 4-6') return matchesSearch && (task.id === '1.0' || task.id === 'S4' || task.id === 'S5' || task.id === 'S6');
-    if (scheduleFilter === 'Sprints 7-9') return matchesSearch && (task.id === '1.0' || task.id === 'S7' || task.id === 'S8' || task.id === 'S9');
-    if (scheduleFilter === 'Sprints 10-12') return matchesSearch && (task.id === '1.0' || task.id === 'S10' || task.id === 'S11' || task.id === 'S12');
-    return matchesSearch;
-  });
-
-  const activeTaskData = scheduleTasks.find(t => t.id === activeScheduleTask);
-
   return (
     <main className="max-w-6xl mx-auto py-32 px-6 space-y-16">
       {/* Top Header */}
